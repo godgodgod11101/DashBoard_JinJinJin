@@ -1,14 +1,15 @@
 ## 專案目標
 
 - 使用 HTML 建立數據觀測儀表板。
-- HTML、CSS、JavaScript 檔案分開管理。
+- 專案根目錄可包含多個儀表板資料夾，儀表板資料夾須以 `<儀表板名稱>_html` 規則命名。
+- 每個儀表板資料夾視為獨立網站根目錄，需包含自己的 HTML、CSS、JavaScript 與資料來源。
 - 優先使用 Chart.js 繪製前端圖表。
 - 前端讀取 JSON 資料，不把資料寫死在 HTML 中。
 
 ## 前端結構
 
 ```text
-project-root/
+<儀表板名稱>_html/
 ├── index.html
 ├── css/
 │   └── style.css
