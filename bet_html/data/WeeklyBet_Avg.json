@@ -1,0 +1,73 @@
+[
+  {
+    "updateTime": "2026/6/5 11:11:31",
+    "recordCount": 9,
+    "periods": {
+      "CurrentWeek": {
+        "startDate": "2026-05-29",
+        "endDate": "2026-06-04"
+      },
+      "PreviousWeek": {
+        "startDate": "2026-05-22",
+        "endDate": "2026-05-28"
+      },
+      "PreviousMonth": {
+        "startDate": "2026-05-01",
+        "endDate": "2026-05-07"
+      }
+    },
+    "data": {
+      "CurrentWeek": {
+        "Slot": {
+          "UserCount_Avg": 11219,
+          "TotalBet_Avg": 2197762462,
+          "RTP_Avg": 0.9811
+        },
+        "All": {
+          "UserCount_Avg": 17514,
+          "TotalBet_Avg": 7888993946,
+          "RTP_Avg": 0.9844
+        },
+        "Fish": {
+          "UserCount_Avg": 6448,
+          "TotalBet_Avg": 4297209005,
+          "RTP_Avg": 0.9806
+        }
+      },
+      "PreviousWeek": {
+        "All": {
+          "UserCount_Avg": 18028,
+          "TotalBet_Avg": 9228460476,
+          "RTP_Avg": 0.9841
+        },
+        "Fish": {
+          "UserCount_Avg": 6636,
+          "TotalBet_Avg": 5788493712,
+          "RTP_Avg": 0.989
+        },
+        "Slot": {
+          "UserCount_Avg": 11389,
+          "TotalBet_Avg": 2108197484,
+          "RTP_Avg": 0.9662
+        }
+      },
+      "PreviousMonth": {
+        "Slot": {
+          "UserCount_Avg": 11432,
+          "TotalBet_Avg": 2265041230,
+          "RTP_Avg": 0.9625
+        },
+        "All": {
+          "UserCount_Avg": 17671,
+          "TotalBet_Avg": 7775972111,
+          "RTP_Avg": 0.9781
+        },
+        "Fish": {
+          "UserCount_Avg": 5927,
+          "TotalBet_Avg": 4042534298,
+          "RTP_Avg": 0.9831
+        }
+      }
+    }
+  }
+]
