@@ -3,10 +3,9 @@
 <html lang="zh-Hant">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>數據觀測儀表板</title>
-    
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>觀測數據儀表板</title>
     <!-- 引入 Tailwind CSS 實現現代化美觀排版 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Chart.js 實現精美的動態圖表 -->
@@ -30,11 +29,12 @@
                     <span class="inline-block w-2.5 h-6 bg-blue-600 rounded-full"></span>
                     遊戲押注數據觀測儀表板
                 </h1>
-                <p class="text-sm text-slate-500 mt-1">即時觀測當月與前月押注狀況</p>
+                <p class="text-sm text-slate-500 mt-1">即時觀測當週、上週與上月同期押注狀況｜更新時間：<span
+                        id="update-time-text">2026/6/5 19:22:00</span>｜資料筆數：<span id="record-count-text">9</span></p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-2">
                 <span class="text-xs bg-blue-600 text-white px-2.5 py-1 rounded-md font-medium">當週觀測區間</span>
-                <span class="text-sm font-semibold text-slate-600">05/13 (三) ~ 05/19 (二)</span>
+                <span class="text-sm font-semibold text-slate-600" id="current-period-text">05/29 (五) ~ 06/04 (四)</span>
             </div>
         </div>
         <!-- 上方區域：3個美化後的數據指標卡片 -->
@@ -56,16 +56,16 @@
                 <div>
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="overall-bet-current">
-                        7,929,355,593</div>
+                        7,888,993,946</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="overall-bet-wow-rate">▲ 4.10%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="overall-bet-wow-rate">▼ 14.51%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-bet-wow-value">(7,617,117,137)</span>
+                                    id="overall-bet-wow-value">(9,228,460,476)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -73,9 +73,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="overall-bet-mom-rate">▲ 14.09%</span>
+                                    id="overall-bet-mom-rate">▲ 1.45%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-bet-mom-value">(6,950,335,019)</span>
+                                    id="overall-bet-mom-value">(7,775,972,111)</span>
                             </div>
                         </div>
                     </div>
@@ -83,17 +83,17 @@
                 <!-- 指標 2：日均人數 -->
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="overall-user-current">17,867
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="overall-user-current">17,514
                     </div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="overall-user-wow-rate">▲ 0.66%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="overall-user-wow-rate">▼ 2.85%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-user-wow-value">(17,750)</span>
+                                    id="overall-user-wow-value">(18,028)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -101,9 +101,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="overall-user-mom-rate">▼ 0.26%</span>
+                                    id="overall-user-mom-rate">▼ 0.89%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-user-mom-value">(17,914)</span>
+                                    id="overall-user-mom-value">(17,671)</span>
                             </div>
                         </div>
                     </div>
@@ -114,17 +114,17 @@
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-blue-600 mt-0.5" id="overall-rtp-current">97.23%
+                            <div class="text-[13px] font-bold text-blue-600 mt-0.5" id="overall-rtp-current">98.44%
                             </div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-week">98.01%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-week">98.41%
                             </div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上月同期</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-month">96.84%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-month">97.81%
                             </div>
                         </div>
                     </div>
@@ -148,26 +148,26 @@
                 <div>
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="slot-bet-current">
-                        2,250,566,036</div>
+                        2,197,762,462</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-bet-wow-rate">▼ 0.87%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
+                                    id="slot-bet-wow-rate">▲ 4.25%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-bet-wow-value">(2,270,396,903)</span>
+                                    id="slot-bet-wow-value">(2,108,197,484)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上月同期</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="slot-bet-mom-rate">▲ 4.59%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="slot-bet-mom-rate">▼ 2.97%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-bet-mom-value">(2,151,850,715)</span>
+                                    id="slot-bet-mom-value">(2,265,041,230)</span>
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                 <!-- 指標 2：日均人數 -->
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="slot-user-current">11,466
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="slot-user-current">11,219
                     </div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
@@ -183,9 +183,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-user-wow-rate">▼ 0.20%</span>
+                                    id="slot-user-wow-rate">▼ 1.49%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-user-wow-value">(11,489)</span>
+                                    id="slot-user-wow-value">(11,389)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -193,9 +193,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-user-mom-rate">▼ 1.36%</span>
+                                    id="slot-user-mom-rate">▼ 1.86%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-user-mom-value">(11,624)</span>
+                                    id="slot-user-mom-value">(11,432)</span>
                             </div>
                         </div>
                     </div>
@@ -206,16 +206,16 @@
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-amber-600 mt-0.5" id="slot-rtp-current">95.03%</div>
+                            <div class="text-[13px] font-bold text-amber-600 mt-0.5" id="slot-rtp-current">98.11%</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-week">96.11%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-week">96.62%
                             </div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上月同期</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-month">93.57%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-month">96.25%
                             </div>
                         </div>
                     </div>
@@ -239,16 +239,16 @@
                 <div>
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="fish-bet-current">
-                        4,785,941,123</div>
+                        4,297,209,005</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-bet-wow-rate">▲ 20.17%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="fish-bet-wow-rate">▼ 25.76%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-bet-wow-value">(3,982,537,178)</span>
+                                    id="fish-bet-wow-value">(5,788,493,712)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -256,9 +256,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-bet-mom-rate">▲ 24.78%</span>
+                                    id="fish-bet-mom-rate">▲ 6.30%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-bet-mom-value">(3,835,398,829)</span>
+                                    id="fish-bet-mom-value">(4,042,534,298)</span>
                             </div>
                         </div>
                     </div>
@@ -266,16 +266,16 @@
                 <!-- 指標 2：日均人數 -->
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="fish-user-current">6,110</div>
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="fish-user-current">6,448</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-user-wow-rate">▲ 2.11%</span>
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="fish-user-wow-rate">▼ 2.83%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-user-wow-value">(5,984)</span>
+                                    id="fish-user-wow-value">(6,636)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -283,9 +283,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-user-mom-rate">▲ 3.21%</span>
+                                    id="fish-user-mom-rate">▲ 8.79%</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-user-mom-value">(5,920)</span>
+                                    id="fish-user-mom-value">(5,927)</span>
                             </div>
                         </div>
                     </div>
@@ -296,11 +296,11 @@
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-cyan-600 mt-0.5" id="fish-rtp-current">98.66%</div>
+                            <div class="text-[13px] font-bold text-cyan-600 mt-0.5" id="fish-rtp-current">98.06%</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-week">99.79%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-week">98.90%
                             </div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
@@ -319,7 +319,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
                     <div>
                         <h3 class="text-md font-bold text-slate-900">遊戲每日押注量折線圖</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">04/01 ~ 05/19 每日押注量變化趨勢</p>
+                        <p class="text-xs text-slate-400 mt-0.5" id="bet-chart-subtitle">依資料期間顯示押注量比較</p>
                     </div>
                     <span
                         class="self-start sm:self-auto text-[11px] bg-slate-100 text-slate-500 font-medium px-2 py-1 rounded">單位：金幣</span>
@@ -333,7 +333,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
                     <div>
                         <h3 class="text-md font-bold text-slate-900">遊戲每日押注人數折線圖</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">04/01 ~ 05/19 每日押注人數變化趨勢</p>
+                        <p class="text-xs text-slate-400 mt-0.5" id="user-chart-subtitle">依資料期間顯示押注人數比較</p>
                     </div>
                     <span
                         class="self-start sm:self-auto text-[11px] bg-slate-100 text-slate-500 font-medium px-2 py-1 rounded">單位：人數</span>
@@ -344,136 +344,224 @@
             </div>
         </div>
     </div>
-
     <script>
         (function () {
-            // n8n HTML Template 會把上一個節點的單筆 JSON 注入這裡
-            // 前一個 Code 節點需輸出 data / summary 結構
-            const dashboardData = { "generated_at": "2026-06-04T01:05:10.757Z", "raw": [{ "week": "當週", "dimension": "整體", "user_count_avg": 17544, "total_bet_avg": 7876184492, "rtp_avg": 0.9858, "rtp_pct": 98.58 }, { "week": "當週", "dimension": "虎機", "user_count_avg": 11210, "total_bet_avg": 2172928818, "rtp_avg": 0.988, "rtp_pct": 98.8 }, { "week": "當週", "dimension": "魚機", "user_count_avg": 6474, "total_bet_avg": 4346214581, "rtp_avg": 0.9805, "rtp_pct": 98.05 }, { "week": "上週", "dimension": "整體", "user_count_avg": 17987, "total_bet_avg": 8939405466, "rtp_avg": 0.9825, "rtp_pct": 98.25 }, { "week": "上週", "dimension": "虎機", "user_count_avg": 11353, "total_bet_avg": 2041985677, "rtp_avg": 0.9683, "rtp_pct": 96.83 }, { "week": "上週", "dimension": "魚機", "user_count_avg": 6644, "total_bet_avg": 5639509626, "rtp_avg": 0.9856, "rtp_pct": 98.56 }, { "week": "上月同期", "dimension": "虎機", "user_count_avg": 11480, "total_bet_avg": 2318271586, "rtp_avg": 0.9599, "rtp_pct": 95.99 }, { "week": "上月同期", "dimension": "魚機", "user_count_avg": 5896, "total_bet_avg": 4190470094, "rtp_avg": 0.9797, "rtp_pct": 97.97 }, { "week": "上月同期", "dimension": "整體", "user_count_avg": 17673, "total_bet_avg": 7993333759, "rtp_avg": 0.9764, "rtp_pct": 97.64 }], "data": { "當週": { "整體": { "week": "當週", "dimension": "整體", "user_count_avg": 17544, "total_bet_avg": 7876184492, "rtp_avg": 0.9858, "rtp_pct": 98.58 }, "虎機": { "week": "當週", "dimension": "虎機", "user_count_avg": 11210, "total_bet_avg": 2172928818, "rtp_avg": 0.988, "rtp_pct": 98.8 }, "魚機": { "week": "當週", "dimension": "魚機", "user_count_avg": 6474, "total_bet_avg": 4346214581, "rtp_avg": 0.9805, "rtp_pct": 98.05 } }, "上週": { "整體": { "week": "上週", "dimension": "整體", "user_count_avg": 17987, "total_bet_avg": 8939405466, "rtp_avg": 0.9825, "rtp_pct": 98.25 }, "虎機": { "week": "上週", "dimension": "虎機", "user_count_avg": 11353, "total_bet_avg": 2041985677, "rtp_avg": 0.9683, "rtp_pct": 96.83 }, "魚機": { "week": "上週", "dimension": "魚機", "user_count_avg": 6644, "total_bet_avg": 5639509626, "rtp_avg": 0.9856, "rtp_pct": 98.56 } }, "上月同期": { "虎機": { "week": "上月同期", "dimension": "虎機", "user_count_avg": 11480, "total_bet_avg": 2318271586, "rtp_avg": 0.9599, "rtp_pct": 95.99 }, "魚機": { "week": "上月同期", "dimension": "魚機", "user_count_avg": 5896, "total_bet_avg": 4190470094, "rtp_avg": 0.9797, "rtp_pct": 97.97 }, "整體": { "week": "上月同期", "dimension": "整體", "user_count_avg": 17673, "total_bet_avg": 7993333759, "rtp_avg": 0.9764, "rtp_pct": 97.64 } } }, "summary": { "整體": { "current": { "user_count_avg": 17544, "total_bet_avg": 7876184492, "rtp_avg": 0.9858, "rtp_pct": 98.58 }, "wow": { "user_count_avg": { "diff": -443, "rate": -0.024628898649024296, "rate_pct": -2.46288986490243 }, "total_bet_avg": { "diff": -1063220974, "rate": -0.11893643017355446, "rate_pct": -11.893643017355446 }, "rtp_avg": { "diff": 0.0032999999999999696, "rate": 0.0033587786259541676, "rate_pct": 0.33587786259541674 }, "rtp_pct": { "diff": 0.3299999999999983, "rate": 0.003358778625954181, "rate_pct": 0.33587786259541813 } }, "mom_same_period": { "user_count_avg": { "diff": -129, "rate": -0.0072992700729927005, "rate_pct": -0.7299270072992701 }, "total_bet_avg": { "diff": -117149267, "rate": -0.014655870820869598, "rate_pct": -1.4655870820869599 }, "rtp_avg": { "diff": 0.009399999999999964, "rate": 0.009627201966407173, "rate_pct": 0.9627201966407173 }, "rtp_pct": { "diff": 0.9399999999999977, "rate": 0.009627201966407187, "rate_pct": 0.9627201966407187 } } }, "虎機": { "current": { "user_count_avg": 11210, "total_bet_avg": 2172928818, "rtp_avg": 0.988, "rtp_pct": 98.8 }, "wow": { "user_count_avg": { "diff": -143, "rate": -0.012595789659120938, "rate_pct": -1.2595789659120937 }, "total_bet_avg": { "diff": 130943141, "rate": 0.0641253964094284, "rate_pct": 6.41253964094284 }, "rtp_avg": { "diff": 0.01969999999999994, "rate": 0.020344934421150408, "rate_pct": 2.034493442115041 }, "rtp_pct": { "diff": 1.9699999999999989, "rate": 0.020344934421150457, "rate_pct": 2.034493442115046 } }, "mom_same_period": { "user_count_avg": { "diff": -270, "rate": -0.023519163763066203, "rate_pct": -2.35191637630662 }, "total_bet_avg": { "diff": -145342768, "rate": -0.06269445257308175, "rate_pct": -6.269445257308175 }, "rtp_avg": { "diff": 0.028100000000000014, "rate": 0.029273882696114195, "rate_pct": 2.9273882696114195 }, "rtp_pct": { "diff": 2.8100000000000023, "rate": 0.029273882696114202, "rate_pct": 2.9273882696114204 } } }, "魚機": { "current": { "user_count_avg": 6474, "total_bet_avg": 4346214581, "rtp_avg": 0.9805, "rtp_pct": 98.05 }, "wow": { "user_count_avg": { "diff": -170, "rate": -0.025586995785671283, "rate_pct": -2.5586995785671283 }, "total_bet_avg": { "diff": -1293295045, "rate": -0.22932757114864796, "rate_pct": -22.932757114864796 }, "rtp_avg": { "diff": -0.005099999999999993, "rate": -0.00517451298701298, "rate_pct": -0.517451298701298 }, "rtp_pct": { "diff": -0.5100000000000051, "rate": -0.005174512987013039, "rate_pct": -0.5174512987013039 } }, "mom_same_period": { "user_count_avg": { "diff": 578, "rate": 0.0980325644504749, "rate_pct": 9.80325644504749 }, "total_bet_avg": { "diff": 155744487, "rate": 0.037166352105220395, "rate_pct": 3.7166352105220395 }, "rtp_avg": { "diff": 0.0008000000000000229, "rate": 0.0008165765030111492, "rate_pct": 0.08165765030111492 }, "rtp_pct": { "diff": 0.0799999999999983, "rate": 0.0008165765030111084, "rate_pct": 0.08165765030111084 } } } }, "charts": { "user_count_avg": [{ "week": "當週", "整體": 17544, "虎機": 11210, "魚機": 6474 }, { "week": "上週", "整體": 17987, "虎機": 11353, "魚機": 6644 }, { "week": "上月同期", "虎機": 11480, "魚機": 5896, "整體": 17673 }], "total_bet_avg": [{ "week": "當週", "整體": 7876184492, "虎機": 2172928818, "魚機": 4346214581 }, { "week": "上週", "整體": 8939405466, "虎機": 2041985677, "魚機": 5639509626 }, { "week": "上月同期", "虎機": 2318271586, "魚機": 4190470094, "整體": 7993333759 }], "rtp_pct": [{ "week": "當週", "整體": 98.58, "虎機": 98.8, "魚機": 98.05 }, { "week": "上週", "整體": 98.25, "虎機": 96.83, "魚機": 98.56 }, { "week": "上月同期", "虎機": 95.99, "魚機": 97.97, "整體": 97.64 }] } };
+            // n8n HTML Template：會把上一個節點的 JSON 注入這裡。
+            // 正確對應：CurrentWeek=當週、PreviousWeek=上週、PreviousMonth=上月同期；All=整體、Slot=虎機、Fish=魚機。
+            // n8n HTML 節點：直接將上一個節點的 $json 注入為 JavaScript 物件。
+            // 注意：不要包在反引號 `...` 或引號 '...' 裡，避免 n8n expression 出現 invalid syntax。
+            const injectedData = {{ JSON.stringify($json)
+        }};
 
-            const DIMENSION_MAP = {
-                overall: '整體',
-                slot: '虎機',
-                fish: '魚機'
-            };
-
-            const THEME_CLASS_MAP = {
-                overall: 'text-blue-600',
-                slot: 'text-amber-600',
-                fish: 'text-cyan-600'
-            };
-
-            const BASE_BADGE_CLASS = 'inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold';
-
-            function byId(id) {
-                return document.getElementById(id);
+        function normalizeData(raw) {
+            if (Array.isArray(raw)) return normalizeData(raw[0] || {});
+            if (raw && typeof raw === 'object') {
+                // 兼容 n8n 某些節點可能包成 { json: {...} } 的情況。
+                if (raw.json && typeof raw.json === 'object') return normalizeData(raw.json);
+                // 兼容少數情況：陣列被轉成 { "0": {...} }。
+                if (!raw.updateTime && raw[0] && typeof raw[0] === 'object') return normalizeData(raw[0]);
+                return raw;
             }
+            return {};
+        }
 
-            function toNumber(value) {
-                if (value === null || value === undefined || value === '') return null;
-                const n = Number(value);
-                return Number.isFinite(n) ? n : null;
+        const dashboardData = normalizeData(injectedData);
+
+        const PERIOD_MAP = {
+            current: 'CurrentWeek',
+            previousWeek: 'PreviousWeek',
+            previousMonth: 'PreviousMonth'
+        };
+
+        const DIMENSION_MAP = {
+            overall: 'All',
+            slot: 'Slot',
+            fish: 'Fish'
+        };
+
+        const THEME_CLASS_MAP = {
+            overall: 'text-blue-600',
+            slot: 'text-amber-600',
+            fish: 'text-cyan-600'
+        };
+
+        const BASE_BADGE_CLASS = 'inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold';
+
+        function byId(id) {
+            return document.getElementById(id);
+        }
+
+        function toNumber(value) {
+            if (value === null || value === undefined || value === '') return null;
+            const n = Number(value);
+            return Number.isFinite(n) ? n : null;
+        }
+
+        function formatNumber(value) {
+            const n = toNumber(value);
+            if (n === null) return '-';
+            return Math.round(n).toLocaleString('zh-TW');
+        }
+
+        function formatRate(value) {
+            const n = toNumber(value);
+            if (n === null) return '-';
+            return `${n.toFixed(2)}%`;
+        }
+
+        // function formatRtp(value) {
+        //     const n = toNumber(value);
+        //     if (n === null) return '-';
+        //     const pct = Math.abs(n) <= 1 ? n * 100 : n;
+        //     return `${pct.toFixed(2)}%`;
+        // }
+
+        function formatRtp(value) {
+            const n = toNumber(value);
+            if (n === null) return '-';
+            return `${(n * 100).toFixed(2)}%`;
+        }
+
+
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(`${dateString}T00:00:00+08:00`);
+            if (Number.isNaN(date.getTime())) return dateString;
+            return date.toLocaleDateString('zh-TW', {
+                month: '2-digit',
+                day: '2-digit',
+                weekday: 'short'
+            });
+        }
+
+        function formatPeriod(period) {
+            if (!period) return '-';
+            return `${formatDate(period.startDate)} ~ ${formatDate(period.endDate)}`;
+        }
+
+        function setText(id, value) {
+            const el = byId(id);
+            if (el) el.textContent = value;
+        }
+
+        function setClass(id, className) {
+            const el = byId(id);
+            if (el) el.className = className;
+        }
+
+        function getMetric(periodKey, dimensionKey, metricKey) {
+            return dashboardData?.data?.[periodKey]?.[dimensionKey]?.[metricKey];
+        }
+
+        function calcChangePct(currentValue, previousValue) {
+            const current = toNumber(currentValue);
+            const previous = toNumber(previousValue);
+            if (current === null || previous === null || previous === 0) return null;
+            return ((current - previous) / previous) * 100;
+        }
+
+        function getChangeDisplay(changePct) {
+            const n = toNumber(changePct);
+            if (n === null) {
+                return { text: '-', className: `${BASE_BADGE_CLASS} bg-slate-50 text-slate-500` };
             }
-
-            function formatNumber(value) {
-                const n = toNumber(value);
-                if (n === null) return '-';
-                return Math.round(n).toLocaleString('zh-TW');
+            if (n >= 0) {
+                return { text: `▲ ${formatRate(n)}`, className: `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600` };
             }
+            return { text: `▼ ${formatRate(Math.abs(n))}`, className: `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600` };
+        }
 
-            function formatPercent(value) {
-                const n = toNumber(value);
-                if (n === null) return '-';
-                return `${n.toFixed(2)}%`;
-            }
+        function setCompare(prefix, metricName, compareKey, currentValue, previousValue) {
+            const rateId = `${prefix}-${metricName}-${compareKey}-rate`;
+            const valueId = `${prefix}-${metricName}-${compareKey}-value`;
+            const display = getChangeDisplay(calcChangePct(currentValue, previousValue));
+            setText(rateId, display.text);
+            setClass(rateId, display.className);
+            setText(valueId, `(${formatNumber(previousValue)})`);
+        }
 
-            function formatRtp(value) {
-                const n = toNumber(value);
-                if (n === null) return '-';
-                return `${n.toFixed(2)}%`;
-            }
+        function updateCard(prefix) {
+            const dimension = DIMENSION_MAP[prefix];
+            const currentBet = getMetric(PERIOD_MAP.current, dimension, 'TotalBet_Avg');
+            const previousWeekBet = getMetric(PERIOD_MAP.previousWeek, dimension, 'TotalBet_Avg');
+            const previousMonthBet = getMetric(PERIOD_MAP.previousMonth, dimension, 'TotalBet_Avg');
 
-            function setText(id, value) {
-                const el = byId(id);
-                if (el) el.textContent = value;
-            }
+            const currentUser = getMetric(PERIOD_MAP.current, dimension, 'UserCount_Avg');
+            const previousWeekUser = getMetric(PERIOD_MAP.previousWeek, dimension, 'UserCount_Avg');
+            const previousMonthUser = getMetric(PERIOD_MAP.previousMonth, dimension, 'UserCount_Avg');
 
-            function setClass(id, className) {
-                const el = byId(id);
-                if (el) el.className = className;
-            }
+            setText(`${prefix}-bet-current`, formatNumber(currentBet));
+            setCompare(prefix, 'bet', 'wow', currentBet, previousWeekBet);
+            setCompare(prefix, 'bet', 'mom', currentBet, previousMonthBet);
 
-            function getChangeDisplay(ratePct) {
-                const n = toNumber(ratePct);
+            setText(`${prefix}-user-current`, formatNumber(currentUser));
+            setCompare(prefix, 'user', 'wow', currentUser, previousWeekUser);
+            setCompare(prefix, 'user', 'mom', currentUser, previousMonthUser);
 
-                if (n === null) {
-                    return {
-                        text: '-',
-                        className: `${BASE_BADGE_CLASS} bg-slate-50 text-slate-500`
-                    };
+            setText(`${prefix}-rtp-current`, formatRtp(getMetric(PERIOD_MAP.current, dimension, 'RTP_Avg')));
+            setText(`${prefix}-rtp-last-week`, formatRtp(getMetric(PERIOD_MAP.previousWeek, dimension, 'RTP_Avg')));
+            setText(`${prefix}-rtp-last-month`, formatRtp(getMetric(PERIOD_MAP.previousMonth, dimension, 'RTP_Avg')));
+            setClass(`${prefix}-rtp-current`, `text-[13px] font-bold ${THEME_CLASS_MAP[prefix]} mt-0.5`);
+        }
+
+        function updateHeader() {
+            setText('update-time-text', dashboardData.updateTime || '-');
+            setText('record-count-text', formatNumber(dashboardData.recordCount));
+            setText('current-period-text', formatPeriod(dashboardData?.periods?.CurrentWeek));
+
+            const current = dashboardData?.periods?.CurrentWeek;
+            const previousMonth = dashboardData?.periods?.PreviousMonth;
+            const chartPeriodText = current && previousMonth
+                ? `${formatDate(previousMonth.startDate)} ~ ${formatDate(current.endDate)}`
+                : '-';
+            setText('bet-chart-subtitle', `${chartPeriodText} 期間押注量比較`);
+            setText('user-chart-subtitle', `${chartPeriodText} 期間押注人數比較`);
+        }
+
+        function createComparisonChart(canvasId, metricKey, chartTitle) {
+            const canvas = byId(canvasId);
+            if (!canvas || typeof Chart === 'undefined') return;
+            const labels = ['上月同期', '上週', '當週'];
+            const periodKeys = [PERIOD_MAP.previousMonth, PERIOD_MAP.previousWeek, PERIOD_MAP.current];
+            const datasets = [
+                { label: '整體', dimension: 'All' },
+                { label: '虎機', dimension: 'Slot' },
+                { label: '魚機', dimension: 'Fish' }
+            ].map(item => ({
+                label: item.label,
+                data: periodKeys.map(period => getMetric(period, item.dimension, metricKey) ?? null),
+                borderWidth: 2,
+                tension: 0.35,
+                fill: false
+            }));
+
+            new Chart(canvas, {
+                type: 'line',
+                data: { labels, datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { callbacks: { label: context => `${context.dataset.label}：${formatNumber(context.parsed.y)}` } },
+                        title: { display: false, text: chartTitle }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: { callback: value => Number(value).toLocaleString('zh-TW') }
+                        }
+                    }
                 }
+            });
+        }
 
-                if (n >= 0) {
-                    return {
-                        text: `▲ ${formatPercent(n)}`,
-                        className: `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600`
-                    };
-                }
-
-                return {
-                    text: `▼ ${formatPercent(Math.abs(n))}`,
-                    className: `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600`
-                };
-            }
-
-            function setCompare(prefix, metric, compareKey, changeObj, previousValue) {
-                const rateId = `${prefix}-${metric}-${compareKey}-rate`;
-                const valueId = `${prefix}-${metric}-${compareKey}-value`;
-                const display = getChangeDisplay(changeObj?.rate_pct);
-
-                setText(rateId, display.text);
-                setClass(rateId, display.className);
-                setText(valueId, `(${formatNumber(previousValue)})`);
-            }
-
-            function getCurrent(dimension) {
-                return dashboardData?.data?.['當週']?.[dimension] || {};
-            }
-
-            function getLastWeek(dimension) {
-                return dashboardData?.data?.['上週']?.[dimension] || {};
-            }
-
-            function getLastMonth(dimension) {
-                return dashboardData?.data?.['上月同期']?.[dimension] || {};
-            }
-
-            function updateCard(prefix) {
-                const dimension = DIMENSION_MAP[prefix];
-                const summary = dashboardData?.summary?.[dimension] || {};
-                const current = getCurrent(dimension);
-                const lastWeek = getLastWeek(dimension);
-                const lastMonth = getLastMonth(dimension);
-
-                // 週日均押注量
-                setText(`${prefix}-bet-current`, formatNumber(current.total_bet_avg));
-                setCompare(prefix, 'bet', 'wow', summary.wow?.total_bet_avg, lastWeek.total_bet_avg);
-                setCompare(prefix, 'bet', 'mom', summary.mom_same_period?.total_bet_avg, lastMonth.total_bet_avg);
-
-                // 週日均押注人數
-                setText(`${prefix}-user-current`, formatNumber(current.user_count_avg));
-                setCompare(prefix, 'user', 'wow', summary.wow?.user_count_avg, lastWeek.user_count_avg);
-                setCompare(prefix, 'user', 'mom', summary.mom_same_period?.user_count_avg, lastMonth.user_count_avg);
-
-                // 週日均 RTP
-                setText(`${prefix}-rtp-current`, formatRtp(current.rtp_pct));
-                setText(`${prefix}-rtp-last-week`, formatRtp(lastWeek.rtp_pct));
-                setText(`${prefix}-rtp-last-month`, formatRtp(lastMonth.rtp_pct));
-                setClass(`${prefix}-rtp-current`, `text-[13px] font-bold ${THEME_CLASS_MAP[prefix]} mt-0.5`);
-            }
-
-            ['overall', 'slot', 'fish'].forEach(updateCard);
-        })();
+        updateHeader();
+        ['overall', 'slot', 'fish'].forEach(updateCard);
+        createComparisonChart('betAmountChart', 'TotalBet_Avg', '押注量比較');
+        createComparisonChart('userCountChart', 'UserCount_Avg', '押注人數比較');
+}) ();
     </script>
 </body>
 
