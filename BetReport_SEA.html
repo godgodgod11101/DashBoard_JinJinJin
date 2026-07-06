@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="zh-Hant">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>觀測數據儀表板</title>
-    <!-- 引入 Tailwind CSS 實現現代化美觀排版 -->
+    <title>遊戲押注數據觀測儀表板 V2</title>
+    <!-- 引入 Tailwind CSS 實作現代化美觀排版 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 引入 Chart.js 實現精美的動態圖表 -->
+    <!-- 引入 Chart.js 實作精美的動態圖表 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- 引入 Google Fonts 提升中文字體質感 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap"
@@ -27,17 +26,17 @@
             <div>
                 <h1 class="text-2xl font-bold text-slate-900 tracking-wide flex items-center gap-2">
                     <span class="inline-block w-2.5 h-6 bg-blue-600 rounded-full"></span>
-                    遊戲押注數據觀測儀表板
+                    押注數據觀測儀表板
                 </h1>
-                <p class="text-sm text-slate-500 mt-1">即時觀測當週、上週與上月同期押注狀況｜更新時間：<span
-                        id="update-time-text">2026/6/5 19:22:00</span>｜資料筆數：<span id="record-count-text">9</span></p>
+                <p class="text-sm text-slate-500 mt-1">更新時間：<span id="update-time-text">2026/07/01 14:35:00</span>｜觀測近 5 週平台押注狀況</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-2">
                 <span class="text-xs bg-blue-600 text-white px-2.5 py-1 rounded-md font-medium">當週觀測區間</span>
-                <span class="text-sm font-semibold text-slate-600" id="current-period-text">05/29 (五) ~ 06/04 (四)</span>
+                <span class="text-sm font-semibold text-slate-600" id="current-period-text">--/-- ~ --/--</span>
             </div>
         </div>
-        <!-- 上方區域：3個美化後的數據指標卡片 -->
+
+        <!-- 上方區域：3個數據指標卡片 -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <!-- 整體卡片 -->
             <div
@@ -52,9 +51,9 @@
                         </svg>
                     </span>
                 </div>
-                <!-- 指報 1：日均押注 -->
+                <!-- 指標 1：日均押注 -->
                 <div>
-                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="overall-bet-current">
                         7,888,993,946</div>
                     <div class="space-y-1.5">
@@ -112,10 +111,8 @@
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
                     <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
-                            <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-blue-600 mt-0.5" id="overall-rtp-current">98.44%
-                            </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
+                            <div class="text-base font-extrabold text-slate-800" id="overall-rtp-current">98.44%</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
@@ -146,7 +143,7 @@
                 </div>
                 <!-- 指標 1：日均押注 -->
                 <div>
-                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="slot-bet-current">
                         2,197,762,462</div>
                     <div class="space-y-1.5">
@@ -204,9 +201,8 @@
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
                     <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
-                            <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-amber-600 mt-0.5" id="slot-rtp-current">98.11%</div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
+                            <div class="text-base font-extrabold text-slate-800" id="slot-rtp-current">98.11%</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
@@ -237,7 +233,7 @@
                 </div>
                 <!-- 指標 1：日均押注 -->
                 <div>
-                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (元)</div>
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
                     <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="fish-bet-current">
                         4,297,209,005</div>
                     <div class="space-y-1.5">
@@ -294,9 +290,8 @@
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
                     <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
-                            <div class="text-[10px] text-slate-400">當週</div>
-                            <div class="text-[13px] font-bold text-cyan-600 mt-0.5" id="fish-rtp-current">98.06%</div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
+                            <div class="text-base font-extrabold text-slate-800" id="fish-rtp-current">98.06%</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
@@ -312,256 +307,843 @@
                 </div>
             </div>
         </div>
-        <!-- 下方區域：2個排版精美且搭載 Chart.js 的動態圖表區塊 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- 每日押注量折線圖 -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
-                    <div>
-                        <h3 class="text-md font-bold text-slate-900">遊戲每日押注量折線圖</h3>
-                        <p class="text-xs text-slate-400 mt-0.5" id="bet-chart-subtitle">依資料期間顯示押注量比較</p>
+
+        <!-- 全新區塊：二欄式穿透分析佈局 (左窄右寬) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 items-stretch">
+            <!-- 左方窄區塊：篩選面板與玩家字卡 -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <!-- 篩選控制面板 -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col gap-3 shrink-0">
+                    <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
+                        <h2 class="text-sm font-bold text-slate-800">遊戲分類篩選</h2>
                     </div>
-                    <span
-                        class="self-start sm:self-auto text-[11px] bg-slate-100 text-slate-500 font-medium px-2 py-1 rounded">單位：金幣</span>
+                    
+                    <div class="flex bg-slate-100 p-1 rounded-xl gap-1 w-full mt-1">
+                        <button id="filter-all" class="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-white text-blue-600 shadow-sm border border-slate-200/50" onclick="setGameFilter('All')">
+                            整體
+                        </button>
+                        <button id="filter-slot" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent" onclick="setGameFilter('Slot')">
+                            虎機
+                        </button>
+                        <button id="filter-fish" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent" onclick="setGameFilter('Fish')">
+                            魚機
+                        </button>
+                    </div>
                 </div>
-                <div class="relative w-full h-[360px]">
-                    <canvas id="betAmountChart"></canvas>
+
+                <!-- 玩家字卡面板 -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex-1 flex flex-col">
+                    <div class="grid grid-cols-3 items-center mb-4 pb-2 border-b border-slate-150 gap-2 shrink-0 w-full">
+                        <h3 class="text-sm font-bold text-slate-900 text-left">押注量排名</h3>
+                        <div class="flex justify-center">
+                            <!-- 分類標籤，與篩選器連動並自適應 KPI 區塊顏色，字型大小與下拉選單一致 (text-xs) -->
+                            <span id="player-card-category-label" class="text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600 tracking-wider">整體</span>
+                        </div>
+                        <div class="flex justify-end">
+                            <!-- 週次切換下拉選單 (日期區間格式如 05/29~06/04，替代原 Top 5 玩家字樣) -->
+                            <select id="filter-week" class="bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs font-bold text-slate-700 outline-none focus:border-blue-500 focus:bg-white transition-all duration-200 cursor-pointer max-w-[150px]" onchange="setWeekFilter(this.value)">
+                                <!-- 由 JavaScript 動態生成週次選項 -->
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 玩家字卡列表 (上下排列，透過 justify-between 實現動態等高對齊) -->
+                    <div id="top-players-list" class="flex flex-col gap-3 flex-1 justify-between">
+                        <!-- 由 JavaScript 動態生成字卡內容 -->
+                    </div>
                 </div>
             </div>
-            <!-- 每日押注人數折線圖 -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-6">
-                    <div>
-                        <h3 class="text-md font-bold text-slate-900">遊戲每日押注人數折線圖</h3>
-                        <p class="text-xs text-slate-400 mt-0.5" id="user-chart-subtitle">依資料期間顯示押注人數比較</p>
+
+            <!-- 右方寬區塊：雙趨勢圖對比 (上下對應，防數值差異過大) -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col gap-4 h-full">
+                    <div class="shrink-0">
+                        <h3 class="text-md font-bold text-slate-900">近 5 週每日押注量與回收量觀察</h3>
                     </div>
-                    <span
-                        class="self-start sm:self-auto text-[11px] bg-slate-100 text-slate-500 font-medium px-2 py-1 rounded">單位：人數</span>
-                </div>
-                <div class="relative w-full h-[360px]">
-                    <canvas id="userCountChart"></canvas>
+                    
+                    <div class="flex flex-col gap-4 flex-1 min-h-0">
+                        <!-- 上半部：每日押注量觀察 -->
+                        <div class="flex flex-col gap-1.5 flex-1 min-h-0">
+                            <div class="flex items-center justify-between shrink-0">
+                                <span class="text-xs font-bold text-slate-700">每日押注量</span>
+                                <span class="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                                    押注量 (金幣)
+                                </span>
+                            </div>
+                            <div class="relative w-full flex-1 min-h-0">
+                                <canvas id="chart-daily-bet"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- 下半部：每日回收量觀察 -->
+                        <div class="flex flex-col gap-1.5 border-t border-slate-100 pt-3 flex-1 min-h-0">
+                            <div class="flex items-center justify-between shrink-0">
+                                <span class="text-xs font-bold text-slate-700">每日回收量</span>
+                                <span class="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                                    回收量 (金幣)
+                                </span>
+                            </div>
+                            <div class="relative w-full flex-1 min-h-0">
+                                <canvas id="chart-daily-recovery"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
         (function () {
-            // n8n HTML Template：會把上一個節點的 JSON 注入這裡。
-            // 正確對應：CurrentWeek=當週、PreviousWeek=上週、PreviousMonth=上月同期；All=整體、Slot=虎機、Fish=魚機。
-            // n8n HTML 節點：直接將上一個節點的 $json 注入為 JavaScript 物件。
-            // 注意：不要包在反引號 `...` 或引號 '...' 裡，避免 n8n expression 出現 invalid syntax。
-            const injectedData = {{ JSON.stringify($json)
-        }};
-
-        function normalizeData(raw) {
-            if (Array.isArray(raw)) return normalizeData(raw[0] || {});
-            if (raw && typeof raw === 'object') {
-                // 兼容 n8n 某些節點可能包成 { json: {...} } 的情況。
-                if (raw.json && typeof raw.json === 'object') return normalizeData(raw.json);
-                // 兼容少數情況：陣列被轉成 { "0": {...} }。
-                if (!raw.updateTime && raw[0] && typeof raw[0] === 'object') return normalizeData(raw[0]);
-                return raw;
-            }
-            return {};
-        }
-
-        const dashboardData = normalizeData(injectedData);
-
-        const PERIOD_MAP = {
-            current: 'CurrentWeek',
-            previousWeek: 'PreviousWeek',
-            previousMonth: 'PreviousMonth'
-        };
-
-        const DIMENSION_MAP = {
-            overall: 'All',
-            slot: 'Slot',
-            fish: 'Fish'
-        };
-
-        const THEME_CLASS_MAP = {
-            overall: 'text-blue-600',
-            slot: 'text-amber-600',
-            fish: 'text-cyan-600'
-        };
-
-        const BASE_BADGE_CLASS = 'inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold';
-
-        function byId(id) {
-            return document.getElementById(id);
-        }
-
-        function toNumber(value) {
-            if (value === null || value === undefined || value === '') return null;
-            const n = Number(value);
-            return Number.isFinite(n) ? n : null;
-        }
-
-        function formatNumber(value) {
-            const n = toNumber(value);
-            if (n === null) return '-';
-            return Math.round(n).toLocaleString('zh-TW');
-        }
-
-        function formatRate(value) {
-            const n = toNumber(value);
-            if (n === null) return '-';
-            return `${n.toFixed(2)}%`;
-        }
-
-        // function formatRtp(value) {
-        //     const n = toNumber(value);
-        //     if (n === null) return '-';
-        //     const pct = Math.abs(n) <= 1 ? n * 100 : n;
-        //     return `${pct.toFixed(2)}%`;
-        // }
-
-        function formatRtp(value) {
-            const n = toNumber(value);
-            if (n === null) return '-';
-            return `${(n * 100).toFixed(2)}%`;
-        }
-
-
-        function formatDate(dateString) {
-            if (!dateString) return '-';
-            const date = new Date(`${dateString}T00:00:00+08:00`);
-            if (Number.isNaN(date.getTime())) return dateString;
-            return date.toLocaleDateString('zh-TW', {
-                month: '2-digit',
-                day: '2-digit',
-                weekday: 'short'
-            });
-        }
-
-        function formatPeriod(period) {
-            if (!period) return '-';
-            return `${formatDate(period.startDate)} ~ ${formatDate(period.endDate)}`;
-        }
-
-        function setText(id, value) {
-            const el = byId(id);
-            if (el) el.textContent = value;
-        }
-
-        function setClass(id, className) {
-            const el = byId(id);
-            if (el) el.className = className;
-        }
-
-        function getMetric(periodKey, dimensionKey, metricKey) {
-            return dashboardData?.data?.[periodKey]?.[dimensionKey]?.[metricKey];
-        }
-
-        function calcChangePct(currentValue, previousValue) {
-            const current = toNumber(currentValue);
-            const previous = toNumber(previousValue);
-            if (current === null || previous === null || previous === 0) return null;
-            return ((current - previous) / previous) * 100;
-        }
-
-        function getChangeDisplay(changePct) {
-            const n = toNumber(changePct);
-            if (n === null) {
-                return { text: '-', className: `${BASE_BADGE_CLASS} bg-slate-50 text-slate-500` };
-            }
-            if (n >= 0) {
-                return { text: `▲ ${formatRate(n)}`, className: `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600` };
-            }
-            return { text: `▼ ${formatRate(Math.abs(n))}`, className: `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600` };
-        }
-
-        function setCompare(prefix, metricName, compareKey, currentValue, previousValue) {
-            const rateId = `${prefix}-${metricName}-${compareKey}-rate`;
-            const valueId = `${prefix}-${metricName}-${compareKey}-value`;
-            const display = getChangeDisplay(calcChangePct(currentValue, previousValue));
-            setText(rateId, display.text);
-            setClass(rateId, display.className);
-            setText(valueId, `(${formatNumber(previousValue)})`);
-        }
-
-        function updateCard(prefix) {
-            const dimension = DIMENSION_MAP[prefix];
-            const currentBet = getMetric(PERIOD_MAP.current, dimension, 'TotalBet_Avg');
-            const previousWeekBet = getMetric(PERIOD_MAP.previousWeek, dimension, 'TotalBet_Avg');
-            const previousMonthBet = getMetric(PERIOD_MAP.previousMonth, dimension, 'TotalBet_Avg');
-
-            const currentUser = getMetric(PERIOD_MAP.current, dimension, 'UserCount_Avg');
-            const previousWeekUser = getMetric(PERIOD_MAP.previousWeek, dimension, 'UserCount_Avg');
-            const previousMonthUser = getMetric(PERIOD_MAP.previousMonth, dimension, 'UserCount_Avg');
-
-            setText(`${prefix}-bet-current`, formatNumber(currentBet));
-            setCompare(prefix, 'bet', 'wow', currentBet, previousWeekBet);
-            setCompare(prefix, 'bet', 'mom', currentBet, previousMonthBet);
-
-            setText(`${prefix}-user-current`, formatNumber(currentUser));
-            setCompare(prefix, 'user', 'wow', currentUser, previousWeekUser);
-            setCompare(prefix, 'user', 'mom', currentUser, previousMonthUser);
-
-            setText(`${prefix}-rtp-current`, formatRtp(getMetric(PERIOD_MAP.current, dimension, 'RTP_Avg')));
-            setText(`${prefix}-rtp-last-week`, formatRtp(getMetric(PERIOD_MAP.previousWeek, dimension, 'RTP_Avg')));
-            setText(`${prefix}-rtp-last-month`, formatRtp(getMetric(PERIOD_MAP.previousMonth, dimension, 'RTP_Avg')));
-            setClass(`${prefix}-rtp-current`, `text-[13px] font-bold ${THEME_CLASS_MAP[prefix]} mt-0.5`);
-        }
-
-        function updateHeader() {
-            setText('update-time-text', dashboardData.updateTime || '-');
-            setText('record-count-text', formatNumber(dashboardData.recordCount));
-            setText('current-period-text', formatPeriod(dashboardData?.periods?.CurrentWeek));
-
-            const current = dashboardData?.periods?.CurrentWeek;
-            const previousMonth = dashboardData?.periods?.PreviousMonth;
-            const chartPeriodText = current && previousMonth
-                ? `${formatDate(previousMonth.startDate)} ~ ${formatDate(current.endDate)}`
-                : '-';
-            setText('bet-chart-subtitle', `${chartPeriodText} 期間押注量比較`);
-            setText('user-chart-subtitle', `${chartPeriodText} 期間押注人數比較`);
-        }
-
-        function createComparisonChart(canvasId, metricKey, chartTitle) {
-            const canvas = byId(canvasId);
-            if (!canvas || typeof Chart === 'undefined') return;
-            const labels = ['上月同期', '上週', '當週'];
-            const periodKeys = [PERIOD_MAP.previousMonth, PERIOD_MAP.previousWeek, PERIOD_MAP.current];
-            const datasets = [
-                { label: '整體', dimension: 'All' },
-                { label: '虎機', dimension: 'Slot' },
-                { label: '魚機', dimension: 'Fish' }
-            ].map(item => ({
-                label: item.label,
-                data: periodKeys.map(period => getMetric(period, item.dimension, metricKey) ?? null),
-                borderWidth: 2,
-                tension: 0.35,
-                fill: false
-            }));
-
-            new Chart(canvas, {
-                type: 'line',
-                data: { labels, datasets },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        tooltip: { callbacks: { label: context => `${context.dataset.label}：${formatNumber(context.parsed.y)}` } },
-                        title: { display: false, text: chartTitle }
+            // ==================== 預設 KPI 模擬數據 (Fallback KPI Mock Data) ====================
+            const defaultMockData = {
+                updateTime: "2026/07/01 14:35:00",
+                recordCount: 45,
+                periods: {
+                    CurrentWeek: { startDate: "2026-05-29", endDate: "2026-06-04" },
+                    PreviousWeek: { startDate: "2026-05-22", endDate: "2026-05-28" },
+                    PreviousMonth: { startDate: "2026-05-01", endDate: "2026-05-07" }
+                },
+                kpiData: {
+                    CurrentWeek: {
+                        All: { UserCount_Avg: 17514, TotalBet_Avg: 7888993946, RTP_Avg: 0.9844 },
+                        Slot: { UserCount_Avg: 11219, TotalBet_Avg: 2197762462, RTP_Avg: 0.9811 },
+                        Fish: { UserCount_Avg: 6448, TotalBet_Avg: 4297209005, RTP_Avg: 0.9806 }
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks: { callback: value => Number(value).toLocaleString('zh-TW') }
-                        }
+                    PreviousWeek: {
+                        All: { UserCount_Avg: 18028, TotalBet_Avg: 9228460476, RTP_Avg: 0.9841 },
+                        Slot: { UserCount_Avg: 11389, TotalBet_Avg: 2108197484, RTP_Avg: 0.9662 },
+                        Fish: { UserCount_Avg: 6636, TotalBet_Avg: 5788493712, RTP_Avg: 0.9890 }
+                    },
+                    PreviousMonth: {
+                        All: { UserCount_Avg: 17671, TotalBet_Avg: 7775972111, RTP_Avg: 0.9781 },
+                        Slot: { UserCount_Avg: 11432, TotalBet_Avg: 2265041230, RTP_Avg: 0.9625 },
+                        Fish: { UserCount_Avg: 5927, TotalBet_Avg: 4042534298, RTP_Avg: 0.9831 }
                     }
                 }
-            });
-        }
+            };
 
-        updateHeader();
-        ['overall', 'slot', 'fish'].forEach(updateCard);
-        createComparisonChart('betAmountChart', 'TotalBet_Avg', '押注量比較');
-        createComparisonChart('userCountChart', 'UserCount_Avg', '押注人數比較');
-}) ();
+            // 用於相容於 n8n 注入以及瀏覽器本地直接開啟的設計
+            let injectedData = {};
+            try {
+                // n8n 在執行時會用真實 JSON 字串替換引號內的 expression
+                const n8nDataStr = '{"updateTime":"2026/7/6 上午9:02:54","recordCount":9,"periods":{"CurrentWeek":{"startDate":"2026-06-29","endDate":"2026-07-05"},"PreviousWeek":{"startDate":"2026-06-22","endDate":"2026-06-28"},"PreviousMonth":{"startDate":"2026-06-01","endDate":"2026-06-07"}},"kpiData":{"CurrentWeek":{"Slot":{"UserCount_Avg":9668,"TotalBet_Avg":2191904639,"RTP_Avg":0.9846},"All":{"UserCount_Avg":15896,"TotalBet_Avg":7260458238,"RTP_Avg":0.9787},"Fish":{"UserCount_Avg":5810,"TotalBet_Avg":3541385122,"RTP_Avg":0.9715}},"PreviousWeek":{"All":{"UserCount_Avg":16509,"TotalBet_Avg":6961520684,"RTP_Avg":0.9804},"Fish":{"UserCount_Avg":6191,"TotalBet_Avg":3777877479,"RTP_Avg":0.9915},"Slot":{"UserCount_Avg":9990,"TotalBet_Avg":2075364173,"RTP_Avg":0.9659}},"PreviousMonth":{"Slot":{"UserCount_Avg":11318,"TotalBet_Avg":2383374915,"RTP_Avg":0.9838},"All":{"UserCount_Avg":17692,"TotalBet_Avg":8313122131,"RTP_Avg":0.988},"Fish":{"UserCount_Avg":6480,"TotalBet_Avg":4353805564,"RTP_Avg":0.988}}},"trendData":{"All":[{"date":"06/01","bet":7454510409,"recovery":215528383},{"date":"06/02","bet":7752536985,"recovery":43497769},{"date":"06/03","bet":7964885691,"recovery":-111700853},{"date":"06/04","bet":9341857670,"recovery":147090479},{"date":"06/05","bet":8778057476,"recovery":208312334},{"date":"06/06","bet":8692423631,"recovery":64981652},{"date":"06/07","bet":8207583054,"recovery":136316407},{"date":"06/08","bet":7809860443,"recovery":157077131},{"date":"06/09","bet":8817348205,"recovery":372908260},{"date":"06/10","bet":8230935629,"recovery":138259021},{"date":"06/11","bet":7742556245,"recovery":334892554},{"date":"06/12","bet":7163257309,"recovery":-27062603},{"date":"06/13","bet":5934687990,"recovery":22788158},{"date":"06/14","bet":7417038860,"recovery":-102524778},{"date":"06/15","bet":6607856732,"recovery":-2075514},{"date":"06/16","bet":8663373335,"recovery":81428741},{"date":"06/17","bet":8965895796,"recovery":-183045765},{"date":"06/18","bet":6173404929,"recovery":40727186},{"date":"06/19","bet":6795785645,"recovery":168614075},{"date":"06/20","bet":5744053751,"recovery":152470284},{"date":"06/21","bet":5668981268,"recovery":135180595},{"date":"06/22","bet":7807543218,"recovery":8799786},{"date":"06/23","bet":6976278058,"recovery":-63520262},{"date":"06/24","bet":7416793277,"recovery":255823095},{"date":"06/25","bet":6237165341,"recovery":173731022},{"date":"06/26","bet":6592434676,"recovery":230939312},{"date":"06/27","bet":7128546270,"recovery":304249655},{"date":"06/28","bet":6571883947,"recovery":31550856},{"date":"06/29","bet":6162763092,"recovery":232486359},{"date":"06/30","bet":7516761927,"recovery":118809769},{"date":"07/01","bet":8339642240,"recovery":4928968},{"date":"07/02","bet":7855703370,"recovery":222163093},{"date":"07/03","bet":7434226344,"recovery":117788634},{"date":"07/04","bet":6712284881,"recovery":186908524},{"date":"07/05","bet":6801825813,"recovery":154354081}],"Slot":[{"date":"06/01","bet":1946220275,"recovery":118274867},{"date":"06/02","bet":2281624128,"recovery":-30992888},{"date":"06/03","bet":2254566763,"recovery":-127262632},{"date":"06/04","bet":2732946059,"recovery":90055109},{"date":"06/05","bet":2711092484,"recovery":87912464},{"date":"06/06","bet":2220518620,"recovery":80492773},{"date":"06/07","bet":2536656079,"recovery":53980476},{"date":"06/08","bet":2121967863,"recovery":2451860},{"date":"06/09","bet":2740927525,"recovery":153214008},{"date":"06/10","bet":2058794467,"recovery":120797057},{"date":"06/11","bet":2194087889,"recovery":209906314},{"date":"06/12","bet":1810383011,"recovery":104752909},{"date":"06/13","bet":2170362831,"recovery":-124175126},{"date":"06/14","bet":2106514466,"recovery":19987646},{"date":"06/15","bet":2374296953,"recovery":-124529665},{"date":"06/16","bet":2906191409,"recovery":78408249},{"date":"06/17","bet":2620079679,"recovery":-120867266},{"date":"06/18","bet":2202305338,"recovery":-55089321},{"date":"06/19","bet":2325303224,"recovery":2704827},{"date":"06/20","bet":1670169257,"recovery":104490737},{"date":"06/21","bet":1541202774,"recovery":16860064},{"date":"06/22","bet":1996817461,"recovery":-16047146},{"date":"06/23","bet":2146158076,"recovery":114442109},{"date":"06/24","bet":2125105362,"recovery":108803381},{"date":"06/25","bet":1927071513,"recovery":88071254},{"date":"06/26","bet":2026354157,"recovery":28672776},{"date":"06/27","bet":2132395981,"recovery":75864789},{"date":"06/28","bet":2173646664,"recovery":102193761},{"date":"06/29","bet":1876103459,"recovery":30055914},{"date":"06/30","bet":2322918756,"recovery":-9049054},{"date":"07/01","bet":2627180429,"recovery":-52906472},{"date":"07/02","bet":2153605275,"recovery":95033964},{"date":"07/03","bet":2463360958,"recovery":30676577},{"date":"07/04","bet":2249403534,"recovery":30988037},{"date":"07/05","bet":1650760062,"recovery":75297272}],"Fish":[{"date":"06/01","bet":3977626980,"recovery":90221973},{"date":"06/02","bet":3678435561,"recovery":64515981},{"date":"06/03","bet":4328611259,"recovery":3250767},{"date":"06/04","bet":4848419917,"recovery":89021901},{"date":"06/05","bet":4422971357,"recovery":87211492},{"date":"06/06","bet":4935163584,"recovery":-48922740},{"date":"06/07","bet":4285410289,"recovery":64511907},{"date":"06/08","bet":3984434635,"recovery":102796131},{"date":"06/09","bet":4862937227,"recovery":194518732},{"date":"06/10","bet":5065163317,"recovery":6295164},{"date":"06/11","bet":4543323488,"recovery":94261809},{"date":"06/12","bet":4132664677,"recovery":-135917115},{"date":"06/13","bet":2838196160,"recovery":97546236},{"date":"06/14","bet":4036880083,"recovery":-112149463},{"date":"06/15","bet":3104090708,"recovery":101690034},{"date":"06/16","bet":3738581353,"recovery":-3534507},{"date":"06/17","bet":4137885869,"recovery":-87579366},{"date":"06/18","bet":3145852865,"recovery":38130203},{"date":"06/19","bet":3825255492,"recovery":121585367},{"date":"06/20","bet":3214701491,"recovery":-193477},{"date":"06/21","bet":3059470004,"recovery":97741302},{"date":"06/22","bet":4894383663,"recovery":13841644},{"date":"06/23","bet":3240669074,"recovery":-112476399},{"date":"06/24","bet":4004117815,"recovery":98496977},{"date":"06/25","bet":3126975674,"recovery":32642114},{"date":"06/26","bet":3453842541,"recovery":92600019},{"date":"06/27","bet":4166172290,"recovery":192727486},{"date":"06/28","bet":3558981294,"recovery":-59397102},{"date":"06/29","bet":3213451737,"recovery":192811375},{"date":"06/30","bet":4308516507,"recovery":108182278},{"date":"07/01","bet":4380134860,"recovery":44617147},{"date":"07/02","bet":3692447018,"recovery":70108735},{"date":"07/03","bet":2954437597,"recovery":103348980},{"date":"07/04","bet":3014661255,"recovery":102687486},{"date":"07/05","bet":3226046877,"recovery":53051507}]},"topPlayers":{"All":{"06/22~06/28":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":2005787315,"rtp":0.9471,"recovery":106193039},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":1937530880,"rtp":1.0688,"recovery":-133375602},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":1492849860,"rtp":0.9646,"recovery":52886943},{"rank":4,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":1195495292,"rtp":1.0609,"recovery":-72768931},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":1086874060,"rtp":1.0686,"recovery":-74545491}],"06/01~06/07":[{"rank":1,"userId":"13144952","nickname":"T1234","totalBet":5054984135,"rtp":1.0761,"recovery":-384771696},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":1646926000,"rtp":1.0055,"recovery":-9012441},{"rank":3,"userId":"10237662","nickname":"Bryanong","totalBet":1221098871,"rtp":0.9779,"recovery":26926130},{"rank":4,"userId":"11586971","nickname":"Menang99","totalBet":988303000,"rtp":0.9633,"recovery":36313281},{"rank":5,"userId":"12315355","nickname":"LUK315355","totalBet":829496350,"rtp":0.9863,"recovery":11398004}],"06/15~06/21":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":2172712460,"rtp":1.0574,"recovery":-124772684},{"rank":2,"userId":"13144952","nickname":"T1234","totalBet":2021879520,"rtp":1.0812,"recovery":-164076634},{"rank":3,"userId":"11586971","nickname":"Menang99","totalBet":1715487680,"rtp":0.9827,"recovery":29729477},{"rank":4,"userId":"13422716","nickname":"Dup2","totalBet":1462133429,"rtp":1.1833,"recovery":-267973194},{"rank":5,"userId":"11535040","nickname":"ONG535040","totalBet":1063252652,"rtp":1.0025,"recovery":-2612365}],"06/08~06/14":[{"rank":1,"userId":"13144952","nickname":"T1234","totalBet":2367825140,"rtp":0.9073,"recovery":219445265},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":2099186000,"rtp":1.0541,"recovery":-113622594},{"rank":3,"userId":"13523793","nickname":"FUN😀123","totalBet":1594869824,"rtp":1.0069,"recovery":-11069588},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":1528762500,"rtp":0.9995,"recovery":777977},{"rank":5,"userId":"12652207","nickname":"Jun11","totalBet":1047131840,"rtp":0.9761,"recovery":25022483}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2489237030,"rtp":1.0448,"recovery":-111467749},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":1092823098,"rtp":0.9931,"recovery":7538341},{"rank":3,"userId":"10003615","nickname":"小馬","totalBet":803331280,"rtp":0.9584,"recovery":33454442},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":797528500,"rtp":0.9653,"recovery":27677050},{"rank":5,"userId":"13144952","nickname":"T1234","totalBet":727471030,"rtp":0.881,"recovery":86552436}]},"Slot":{"06/15~06/21":[{"rank":1,"userId":"13422716","nickname":"Dup2","totalBet":1100278220,"rtp":1.2491,"recovery":-274075454},{"rank":2,"userId":"13480187","nickname":"Aiseh333","totalBet":1014486330,"rtp":0.9964,"recovery":3609330},{"rank":3,"userId":"10564919","nickname":"Nooby","totalBet":634173900,"rtp":1.0888,"recovery":-56299923},{"rank":4,"userId":"13242391","nickname":"Devi27","totalBet":447075343,"rtp":0.945,"recovery":24606019},{"rank":5,"userId":"10162209","nickname":"9699","totalBet":323932760,"rtp":1.2094,"recovery":-67838442}],"06/22~06/28":[{"rank":1,"userId":"10564919","nickname":"Nooby","totalBet":774700220,"rtp":0.9529,"recovery":36503094},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":593460940,"rtp":1.1109,"recovery":-65818082},{"rank":3,"userId":"12210641","nickname":"伏佛","totalBet":504419120,"rtp":0.9657,"recovery":17287367},{"rank":4,"userId":"10162209","nickname":"9699","totalBet":467534632,"rtp":1.0349,"recovery":-16321309},{"rank":5,"userId":"13480187","nickname":"Aiseh333","totalBet":461174200,"rtp":0.8203,"recovery":82867691}],"06/29~07/05":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":535118680,"rtp":0.9484,"recovery":27612382},{"rank":2,"userId":"10703419","nickname":"JOY703419","totalBet":459879259,"rtp":1.0279,"recovery":-12835491},{"rank":3,"userId":"10564919","nickname":"Nooby","totalBet":429842440,"rtp":1.0355,"recovery":-15245209},{"rank":4,"userId":"12365470","nickname":"Smithi168","totalBet":304059868,"rtp":0.9997,"recovery":80146},{"rank":5,"userId":"10162209","nickname":"9699","totalBet":266092120,"rtp":0.9748,"recovery":6711322}],"06/08~06/14":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":912772740,"rtp":1.1779,"recovery":-162411928},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":674209240,"rtp":0.9592,"recovery":27493618},{"rank":3,"userId":"13429705","nickname":"Abc88","totalBet":430579141,"rtp":0.9118,"recovery":37992600},{"rank":4,"userId":"10278537","nickname":"BENG000","totalBet":360443080,"rtp":0.9303,"recovery":25133576},{"rank":5,"userId":"13144952","nickname":"T1234","totalBet":249492140,"rtp":1.0088,"recovery":-2193584}],"06/01~06/07":[{"rank":1,"userId":"10564919","nickname":"Nooby","totalBet":720905600,"rtp":1.0879,"recovery":-63359156},{"rank":2,"userId":"13493807","nickname":"FUN493807","totalBet":585821478,"rtp":1.0083,"recovery":-4889348},{"rank":3,"userId":"13429705","nickname":"Abc88","totalBet":512228017,"rtp":0.9694,"recovery":15656815},{"rank":4,"userId":"13242391","nickname":"Devi27","totalBet":382684692,"rtp":0.949,"recovery":19523536},{"rank":5,"userId":"10278537","nickname":"BENG000","totalBet":366914540,"rtp":1.009,"recovery":-3320238}]},"Fish":{"06/01~06/07":[{"rank":1,"userId":"13144952","nickname":"T1234","totalBet":4811770600,"rtp":1.0567,"recovery":-272956739},{"rank":2,"userId":"10237662","nickname":"Bryanong","totalBet":1184415671,"rtp":0.9859,"recovery":16662036},{"rank":3,"userId":"12315355","nickname":"LUK315355","totalBet":829496350,"rtp":0.9863,"recovery":11398004},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":787865420,"rtp":1.0698,"recovery":-54991400},{"rank":5,"userId":"13523793","nickname":"FUN😀123","totalBet":711847385,"rtp":0.952,"recovery":34150085}],"06/22~06/28":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1793549810,"rtp":0.945,"recovery":98656058},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":1344005940,"rtp":1.0503,"recovery":-67593020},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":1226071000,"rtp":0.9788,"recovery":25955251},{"rank":4,"userId":"12652207","nickname":"Jun11","totalBet":1071216000,"rtp":1.0114,"recovery":-12207000},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":829063000,"rtp":1.1025,"recovery":-84958000}],"06/08~06/14":[{"rank":1,"userId":"13144952","nickname":"T1234","totalBet":2118333000,"rtp":0.8954,"recovery":221638849},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":1997157180,"rtp":1.0668,"recovery":-133485667},{"rank":3,"userId":"13523793","nickname":"FUN😀123","totalBet":1541369312,"rtp":1.0145,"recovery":-22331278},{"rank":4,"userId":"12652207","nickname":"Jun11","totalBet":1045641560,"rtp":0.9769,"recovery":24169903},{"rank":5,"userId":"12315355","nickname":"LUK315355","totalBet":917466735,"rtp":1.0415,"recovery":-38061430}],"06/15~06/21":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1929102420,"rtp":1.0284,"recovery":-54820550},{"rank":2,"userId":"13144952","nickname":"T1234","totalBet":1832019000,"rtp":1.1038,"recovery":-190109908},{"rank":3,"userId":"10259798","nickname":"一路發433","totalBet":813854780,"rtp":0.9689,"recovery":25343727},{"rank":4,"userId":"13045169","nickname":"小吃","totalBet":685402550,"rtp":1.0958,"recovery":-65682950},{"rank":5,"userId":"12315355","nickname":"LUK315355","totalBet":651056525,"rtp":0.9372,"recovery":40908124}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2335675150,"rtp":1.0366,"recovery":-85560790},{"rank":2,"userId":"10003615","nickname":"小馬","totalBet":711305000,"rtp":0.9208,"recovery":56324000},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":702331390,"rtp":0.8911,"recovery":76469816},{"rank":4,"userId":"10519263","nickname":"捕鱼高手","totalBet":627090500,"rtp":1.0154,"recovery":-9640500},{"rank":5,"userId":"10029744","nickname":"zhai","totalBet":505706240,"rtp":0.9484,"recovery":26084619}]}}}';
+                if (n8nDataStr && !n8nDataStr.startsWith('{{')) {
+                    injectedData = JSON.parse(n8nDataStr);
+                }
+            } catch (e) {
+                console.warn("無法解析 n8n 注入數據，將使用模擬數據", e);
+            }
+
+            function normalizeData(raw) {
+                if (Array.isArray(raw)) return normalizeData(raw[0] || {});
+                if (raw && typeof raw === 'object' && Object.keys(raw).length > 0) {
+                    if (raw.json && typeof raw.json === 'object') return normalizeData(raw.json);
+                    if (!raw.updateTime && raw[0] && typeof raw[0] === 'object') return normalizeData(raw[0]);
+                    return raw;
+                }
+                return defaultMockData;
+            }
+
+            const dashboardData = normalizeData(injectedData);
+
+            // ==================== 模擬數據生成器 (Fallback Mock Data) ====================
+            function generateDailyMockData() {
+                const dates = [];
+                // 產生 5/1 至 5/31
+                for (let d = 1; d <= 31; d++) {
+                    dates.push(`05/${d < 10 ? '0' + d : d}`);
+                }
+                // 產生 6/1 至 6/4
+                for (let d = 1; d <= 4; d++) {
+                    dates.push(`06/0${d}`);
+                }
+                
+                const trend = { All: [], Slot: [], Fish: [] };
+                
+                dates.forEach((date, i) => {
+                    const isWeekend = i % 7 === 1 || i % 7 === 2; // 週六、週日加成
+                    const rateMultiplier = isWeekend ? 1.2 : 1.0;
+                    
+                    // 整體 (All) 日均大約 7~10 億上下
+                    const allBet = Math.round((8000000000 + Math.sin(i * 0.7) * 700000000 + Math.random() * 300000000) * rateMultiplier / 7);
+                    // 為了引入負官方回收，某些日期的 RTP 大於 100%
+                    let allRtp = 0.975 + Math.sin(i * 0.4) * 0.012 + Math.random() * 0.01;
+                    if (i === 4 || i === 11 || i === 18 || i === 25 || i === 31) {
+                        allRtp = 1.015 + Math.random() * 0.035;
+                    }
+                    const allWin = Math.round(allBet * allRtp);
+                    
+                    // 老虎機 (Slot) 佔大約 2.5~3.5 億
+                    const slotBet = Math.round((2200000000 + Math.cos(i * 0.6) * 300000000 + Math.random() * 150000000) * rateMultiplier / 7);
+                    let slotRtp = 0.962 + Math.sin(i * 0.5) * 0.018 + Math.random() * 0.015;
+                    if (i === 6 || i === 13 || i === 20 || i === 27) {
+                        slotRtp = 1.02 + Math.random() * 0.04;
+                    }
+                    const slotWin = Math.round(slotBet * slotRtp);
+                    
+                    // 魚機 (Fish) 佔大約 4.5~6 億
+                    const fishBet = Math.round((4800000000 + Math.sin(i * 0.9) * 500000000 + Math.random() * 200000000) * rateMultiplier / 7);
+                    let fishRtp = 0.981 + Math.cos(i * 0.3) * 0.01 + Math.random() * 0.008;
+                    if (i === 2 || i === 9 || i === 16 || i === 23 || i === 30) {
+                        fishRtp = 1.01 + Math.random() * 0.03;
+                    }
+                    const fishWin = Math.round(fishBet * fishRtp);
+                    
+                    trend.All.push({ date, bet: allBet, recovery: allBet - allWin });
+                    trend.Slot.push({ date, bet: slotBet, recovery: slotBet - slotWin });
+                    trend.Fish.push({ date, bet: fishBet, recovery: fishBet - fishWin });
+                });
+                return trend;
+            }
+
+            function generateTopPlayersMockData() {
+                const weeks = [
+                    { name: "W1 (05/01-05/07)" },
+                    { name: "W2 (05/08-05/14)" },
+                    { name: "W3 (05/15-05/21)" },
+                    { name: "W4 (05/22-05/28)" },
+                    { name: "W5 (05/29-06/04)" }
+                ];
+                
+                const top = { All: {}, Slot: {}, Fish: {} };
+                const userPool = [
+                    { id: 882941, name: "神秘大亨" },
+                    { id: 104820, name: "黃金獵人" },
+                    { id: 552948, name: "老虎霸主" },
+                    { id: 309482, name: "歡樂捕魚" },
+                    { id: 948210, name: "幸運之星" },
+                    { id: 482019, name: "風捲殘雲" },
+                    { id: 773910, name: "金幣狂熱" },
+                    { id: 620482, name: "千倍大贏家" },
+                    { id: 119482, name: "捕魚達人" },
+                    { id: 502841, name: "至尊大玩家" }
+                ];
+                
+                weeks.forEach(w => {
+                    const weekName = w.name;
+                    
+                    const makePlayers = (baseBet) => {
+                        const list = [];
+                        const shuffledUsers = [...userPool].sort(() => 0.5 - Math.random()).slice(0, 5);
+                        shuffledUsers.forEach((u, index) => {
+                            const rank = index + 1;
+                            const totalBet = Math.round(baseBet * (1 - index * 0.14) * (0.88 + Math.random() * 0.22));
+                            const rtp = rank === 1 ? (0.95 + Math.random() * 0.16) : (0.92 + Math.random() * 0.11);
+                            const totalWin = Math.round(totalBet * rtp);
+                            list.push({ rank, userId: u.id, nickname: u.name, totalBet, rtp, recovery: totalBet - totalWin });
+                        });
+                        return list;
+                    };
+                    
+                    top.All[weekName] = makePlayers(850000000);
+                    top.Slot[weekName] = makePlayers(380000000);
+                    top.Fish[weekName] = makePlayers(520000000);
+                });
+                return top;
+            }
+
+            // ==================== 讀取真實或模擬數據 ====================
+            let trendData = dashboardData.trendData;
+            if (!trendData || !trendData.All || trendData.All.length === 0) {
+                trendData = generateDailyMockData();
+            }
+
+            let topPlayers = dashboardData.topPlayers;
+            if (!topPlayers || !topPlayers.All || Object.keys(topPlayers.All).length === 0) {
+                topPlayers = generateTopPlayersMockData();
+            }
+
+            const PERIOD_MAP = {
+                current: 'CurrentWeek',
+                previousWeek: 'PreviousWeek',
+                previousMonth: 'PreviousMonth'
+            };
+
+            const DIMENSION_MAP = {
+                overall: 'All',
+                slot: 'Slot',
+                fish: 'Fish'
+            };
+
+            const THEME_CLASS_MAP = {
+                overall: 'text-blue-600',
+                slot: 'text-amber-600',
+                fish: 'text-cyan-600'
+            };
+
+            const BASE_BADGE_CLASS = 'inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold';
+
+            function byId(id) {
+                return document.getElementById(id);
+            }
+
+            function toNumber(value) {
+                if (value === null || value === undefined || value === '') return null;
+                const n = Number(value);
+                return Number.isFinite(n) ? n : null;
+            }
+
+            function formatNumber(value) {
+                const n = toNumber(value);
+                if (n === null) return '-';
+                return Math.round(n).toLocaleString('zh-TW');
+            }
+
+            function formatRate(value) {
+                const n = toNumber(value);
+                if (n === null) return '-';
+                return `${n.toFixed(2)}%`;
+            }
+
+            function formatRtp(value) {
+                const n = toNumber(value);
+                if (n === null) return '-';
+                return `${(n * 100).toFixed(2)}%`;
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return '-';
+                const date = new Date(`${dateString}T00:00:00+08:00`);
+                if (Number.isNaN(date.getTime())) return dateString;
+                return date.toLocaleDateString('zh-TW', {
+                    month: '2-digit',
+                    day: '2-digit',
+                    weekday: 'short'
+                });
+            }
+
+            function formatPeriod(period) {
+                if (!period) return '-';
+                return `${formatDate(period.startDate)} ~ ${formatDate(period.endDate)}`;
+            }
+
+            function setText(id, value) {
+                const el = byId(id);
+                if (el) el.textContent = value;
+            }
+
+            function setClass(id, className) {
+                const el = byId(id);
+                if (el) el.className = className;
+            }
+
+            function getMetric(periodKey, dimensionKey, metricKey) {
+                return dashboardData?.kpiData?.[periodKey]?.[dimensionKey]?.[metricKey];
+            }
+
+            function calcChangePct(currentValue, previousValue) {
+                const current = toNumber(currentValue);
+                const previous = toNumber(previousValue);
+                if (current === null || previous === null || previous === 0) return null;
+                return ((current - previous) / previous) * 100;
+            }
+
+            function getChangeDisplay(changePct) {
+                const n = toNumber(changePct);
+                if (n === null) {
+                    return { text: '-', className: `${BASE_BADGE_CLASS} bg-slate-50 text-slate-500` };
+                }
+                
+                const isSmallChange = Math.abs(n) <= 3;
+                
+                if (n >= 0) {
+                    const text = `▲ ${formatRate(n)}`;
+                    const className = isSmallChange 
+                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500` // 微幅上升：灰階
+                        : `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600`;   // 大幅上升：紅色
+                    return { text, className };
+                } else {
+                    const text = `▼ ${formatRate(Math.abs(n))}`;
+                    const className = isSmallChange
+                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500` // 微幅下降：灰階
+                        : `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600`; // 大幅下降：綠色
+                    return { text, className };
+                }
+            }
+
+            function setCompare(prefix, metricName, compareKey, currentValue, previousValue) {
+                const rateId = `${prefix}-${metricName}-${compareKey}-rate`;
+                const valueId = `${prefix}-${metricName}-${compareKey}-value`;
+                const display = getChangeDisplay(calcChangePct(currentValue, previousValue));
+                setText(rateId, display.text);
+                setClass(rateId, display.className);
+                setText(valueId, `(${formatNumber(previousValue)})`);
+            }
+
+            function updateCard(prefix) {
+                const dimension = DIMENSION_MAP[prefix];
+                const currentBet = getMetric(PERIOD_MAP.current, dimension, 'TotalBet_Avg');
+                const previousWeekBet = getMetric(PERIOD_MAP.previousWeek, dimension, 'TotalBet_Avg');
+                const previousMonthBet = getMetric(PERIOD_MAP.previousMonth, dimension, 'TotalBet_Avg');
+
+                const currentUser = getMetric(PERIOD_MAP.current, dimension, 'UserCount_Avg');
+                const previousWeekUser = getMetric(PERIOD_MAP.previousWeek, dimension, 'UserCount_Avg');
+                const previousMonthUser = getMetric(PERIOD_MAP.previousMonth, dimension, 'UserCount_Avg');
+
+                setText(`${prefix}-bet-current`, formatNumber(currentBet));
+                setCompare(prefix, 'bet', 'wow', currentBet, previousWeekBet);
+                setCompare(prefix, 'bet', 'mom', currentBet, previousMonthBet);
+
+                setText(`${prefix}-user-current`, formatNumber(currentUser));
+                setCompare(prefix, 'user', 'wow', currentUser, previousWeekUser);
+                setCompare(prefix, 'user', 'mom', currentUser, previousMonthUser);
+
+                setText(`${prefix}-rtp-current`, formatRtp(getMetric(PERIOD_MAP.current, dimension, 'RTP_Avg')));
+                setText(`${prefix}-rtp-last-week`, formatRtp(getMetric(PERIOD_MAP.previousWeek, dimension, 'RTP_Avg')));
+                setText(`${prefix}-rtp-last-month`, formatRtp(getMetric(PERIOD_MAP.previousMonth, dimension, 'RTP_Avg')));
+                // 當週 RTP 改成字體放大，並使用無顏色的 text-slate-800
+                setClass(`${prefix}-rtp-current`, `text-base font-extrabold text-slate-800`);
+            }
+
+            function updateHeader() {
+                setText('update-time-text', dashboardData.updateTime || '2026/07/01 14:35:00');
+                setText('record-count-text', formatNumber(dashboardData.recordCount || 45));
+                setText('current-period-text', formatPeriod(dashboardData?.periods?.CurrentWeek || { startDate: "2026-05-29", endDate: "2026-06-04" }));
+            }
+
+            // ==================== 進階版數字千分縮寫格式化 (億、萬) ====================
+            function formatCompactNumber(value) {
+                const n = toNumber(value);
+                if (n === null) return '-';
+                const isNegative = n < 0;
+                const absN = Math.abs(n);
+                let result = '';
+                if (absN >= 1e8) {
+                    const num = absN / 1e8;
+                    result = num.toLocaleString('zh-TW', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' 億';
+                } else if (absN >= 1e4) {
+                    const num = Math.round(absN / 1e4);
+                    result = num.toLocaleString('zh-TW') + ' 萬';
+                } else {
+                    result = Math.round(absN).toLocaleString('zh-TW');
+                }
+                return isNegative ? '-' + result : result;
+            }
+
+            // ==================== 趨勢折線圖動態渲染與重繪 (雙圖表上下對應) ====================
+            let dailyBetChartInstance = null;
+            let dailyRecoveryChartInstance = null;
+
+            function renderTrendChart(gameFilter) {
+                const canvasBet = byId('chart-daily-bet');
+                const canvasRecovery = byId('chart-daily-recovery');
+                if (!canvasBet || !canvasRecovery || typeof Chart === 'undefined') return;
+
+                const rawList = trendData[gameFilter] || [];
+                const labels = rawList.map(item => item.date);
+                const betData = rawList.map(item => item.bet);
+                // 官方回收量已直接由聚合提供
+                const recoveryData = rawList.map(item => item.recovery || 0);
+
+                // 1. 每日押注量標準線定義
+                const THRESHOLD_MAP = {
+                    All: 7000000000,
+                    Slot: 2000000000,
+                    Fish: 4000000000
+                };
+                const threshold = THRESHOLD_MAP[gameFilter] || 0;
+                
+                // 低於標準線的柱體使用醒目的黃橘色 (Amber)，高於標準線使用原本的藍色
+                const betBgColors = betData.map(val => val < threshold ? 'rgba(245, 158, 11, 0.85)' : 'rgba(59, 130, 246, 0.85)');
+                const betBorderColors = betData.map(val => val < threshold ? 'rgb(245, 158, 11)' : 'rgb(59, 130, 246)');
+
+                // 1. 每日押注量直方圖 (Bar Chart)
+                if (dailyBetChartInstance) {
+                    dailyBetChartInstance.data.labels = labels;
+                    dailyBetChartInstance.data.datasets[0].data = betData;
+                    dailyBetChartInstance.data.datasets[0].backgroundColor = betBgColors;
+                    dailyBetChartInstance.data.datasets[0].borderColor = betBorderColors;
+                    dailyBetChartInstance.options.thresholdValue = threshold;
+                    dailyBetChartInstance.update();
+                } else {
+                    dailyBetChartInstance = new Chart(canvasBet, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: '每日押注量',
+                                data: betData,
+                                borderColor: betBorderColors,
+                                backgroundColor: betBgColors,
+                                borderWidth: 1,
+                                borderRadius: 4
+                            }]
+                        },
+                        plugins: [{
+                            id: 'thresholdLine',
+                            afterDraw: function(chart) {
+                                const ctx = chart.ctx;
+                                const yAxis = chart.scales.y;
+                                const xAxis = chart.scales.x;
+                                const thresholdVal = chart.options.thresholdValue;
+                                if (thresholdVal) {
+                                    const y = yAxis.getPixelForValue(thresholdVal);
+                                    ctx.save();
+                                    ctx.beginPath();
+                                    ctx.strokeStyle = 'rgba(71, 85, 105, 0.8)'; // 深炭灰虛線 (Slate 600)，防與柱體融為一體
+                                    ctx.lineWidth = 1.5;
+                                    ctx.setLineDash([5, 3]);
+                                    ctx.moveTo(xAxis.left, y);
+                                    ctx.lineTo(xAxis.right, y);
+                                    ctx.stroke();
+                                    
+                                    // 繪製標準線文字標籤
+                                    ctx.fillStyle = 'rgba(71, 85, 105, 1)'; // 深炭灰字體 (Slate 600)
+                                    ctx.font = 'bold 10px sans-serif';
+                                    ctx.textAlign = 'right';
+                                    const thresholdText = 'Threshold=' + Math.round(thresholdVal / 1e8) + '億';
+                                    ctx.fillText(thresholdText, xAxis.right - 5, y - 5);
+                                    ctx.restore();
+                                }
+                            }
+                        }],
+                        options: {
+                            thresholdValue: threshold,
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                                    titleColor: '#f8fafc',
+                                    bodyColor: '#e2e8f0',
+                                    callbacks: {
+                                        label: function (context) {
+                                            return `  押注量：${context.raw.toLocaleString('zh-TW')} 金幣`;
+                                        },
+                                        footer: function (tooltipItems) {
+                                            const idx = tooltipItems[0].dataIndex;
+                                            const item = rawList[idx];
+                                            if (item && item.bet > 0) {
+                                                const win = item.bet - (item.recovery || 0);
+                                                const rtp = (win / item.bet * 100).toFixed(2);
+                                                return `  玩家 RTP：${rtp}%`;
+                                            }
+                                            return '';
+                                        }
+                                    },
+                                    footerFont: { size: 11, weight: 'bold' },
+                                    footerColor: '#34d399'
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: '#64748b',
+                                        font: { size: 10 },
+                                        callback: function (value, index) {
+                                            if (index % 7 === 0 || index === labels.length - 1) {
+                                                return labels[index];
+                                            }
+                                            return '';
+                                        }
+                                    }
+                                },
+                                y: {
+                                    grid: { color: '#f1f5f9' },
+                                    ticks: {
+                                        color: '#64748b',
+                                        font: { size: 10 },
+                                        callback: function (value) {
+                                            const absVal = Math.abs(value);
+                                            const sign = value < 0 ? '-' : '';
+                                            if (absVal >= 1e8) {
+                                                const num = Math.round(absVal / 1e8);
+                                                return sign + num.toLocaleString('zh-TW') + ' 億';
+                                            }
+                                            if (absVal >= 1e4) {
+                                                const num = Math.round(absVal / 1e4);
+                                                return sign + num.toLocaleString('zh-TW') + ' 萬';
+                                            }
+                                            return sign + absVal.toLocaleString('zh-TW');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // 2. 每日官方回收量直方圖 (Bar Chart) - 綠色代表正回收，紅色代表負回收
+                const dynamicBgColors = recoveryData.map(val => val >= 0 ? 'rgba(16, 185, 129, 0.85)' : 'rgba(239, 68, 68, 0.85)');
+                const dynamicBorderColors = recoveryData.map(val => val >= 0 ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)');
+
+                if (dailyRecoveryChartInstance) {
+                    dailyRecoveryChartInstance.data.labels = labels;
+                    dailyRecoveryChartInstance.data.datasets[0].data = recoveryData;
+                    dailyRecoveryChartInstance.data.datasets[0].backgroundColor = dynamicBgColors;
+                    dailyRecoveryChartInstance.data.datasets[0].borderColor = dynamicBorderColors;
+                    dailyRecoveryChartInstance.update();
+                } else {
+                    dailyRecoveryChartInstance = new Chart(canvasRecovery, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: '每日官方回收量',
+                                data: recoveryData,
+                                borderColor: dynamicBorderColors,
+                                backgroundColor: dynamicBgColors,
+                                borderWidth: 1,
+                                borderRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                                    titleColor: '#f8fafc',
+                                    bodyColor: '#e2e8f0',
+                                    callbacks: {
+                                        label: function (context) {
+                                            return `  官方回收：${context.raw.toLocaleString('zh-TW')} 金幣`;
+                                        },
+                                        footer: function (tooltipItems) {
+                                            const idx = tooltipItems[0].dataIndex;
+                                            const item = rawList[idx];
+                                            if (item && item.bet > 0) {
+                                                const recoveryRate = ((item.recovery || 0) / item.bet * 100).toFixed(2);
+                                                return `  官方回收率：${recoveryRate}%`;
+                                            }
+                                            return '';
+                                        }
+                                    },
+                                    footerFont: { size: 11, weight: 'bold' },
+                                    footerColor: '#34d399'
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: '#64748b',
+                                        font: { size: 10 },
+                                        callback: function (value, index) {
+                                            if (index % 7 === 0 || index === labels.length - 1) {
+                                                return labels[index];
+                                            }
+                                            return '';
+                                        }
+                                    }
+                                },
+                                y: {
+                                    grid: { color: '#f1f5f9' },
+                                    ticks: {
+                                        color: '#64748b',
+                                        font: { size: 10 },
+                                        callback: function (value) {
+                                            const absVal = Math.abs(value);
+                                            const sign = value < 0 ? '-' : '';
+                                            if (absVal >= 1e8) {
+                                                const num = Math.round(absVal / 1e8);
+                                                return sign + num.toLocaleString('zh-TW') + ' 億';
+                                            }
+                                            if (absVal >= 1e4) {
+                                                const num = Math.round(absVal / 1e4);
+                                                return sign + num.toLocaleString('zh-TW') + ' 萬';
+                                            }
+                                            return sign + absVal.toLocaleString('zh-TW');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+
+            let activeFilter = 'All';
+            let activeWeek = '';
+
+            // ==================== 週次切換篩選器動態生成 ====================
+            function populateWeekFilter() {
+                const select = byId('filter-week');
+                if (!select) return;
+                
+                const weeksData = topPlayers[activeFilter] || {};
+                
+                // 週次排序輔助函數：提取週次名稱中的日期作為排序依據 (由新到舊)
+                function getSortValue(weekName) {
+                    const match = weekName.match(/(\d{2})[/\-](\d{2})/);
+                    if (match) {
+                        return Number(match[1]) * 100 + Number(match[2]);
+                    }
+                    return 0;
+                }
+                
+                // 按週次新舊排序：最新週次排最上方，最舊排最下方
+                const weekKeys = Object.keys(weeksData).sort((a, b) => getSortValue(b) - getSortValue(a));
+                
+                let html = '';
+                weekKeys.forEach((weekName, idx) => {
+                    const match = weekName.match(/\(([^)]+)\)/);
+                    let dateRange = match ? match[1] : weekName;
+                    // 將日期區間的 '-' 替換為 '~'，符合 '05/29~06/04'
+                    dateRange = dateRange.replace('-', '~');
+                    const selected = idx === 0 ? 'selected' : '';
+                    html += `<option value="${weekName}" ${selected}>${dateRange}</option>`;
+                });
+                select.innerHTML = html;
+                
+                if (weekKeys.length > 0) {
+                    activeWeek = weekKeys[0];
+                }
+            }
+
+            // ==================== 每週 Top 5 玩家字卡動態生成 (單週垂直排列) ====================
+            function renderTopPlayers() {
+                const container = byId('top-players-list');
+                if (!container) return;
+
+                const weeksData = topPlayers[activeFilter] || {};
+                const players = weeksData[activeWeek] || [];
+                if (players.length === 0) {
+                    container.innerHTML = '<div class="text-center text-slate-400 py-8">無此週玩家排名數據</div>';
+                    return;
+                }
+
+                let html = '';
+                players.forEach(player => {
+                    const isWinner = player.rtp > 1.0;
+                    const rtpColorClass = isWinner ? 'text-rose-600 font-bold' : 'text-slate-650 font-semibold';
+                    
+                    let rankBadgeStyle = 'bg-slate-100 text-slate-500';
+                    let cardBorderClass = 'border-slate-200/60';
+
+                    if (player.rank === 1) {
+                        rankBadgeStyle = 'bg-amber-100 text-amber-700 font-bold';
+                        cardBorderClass = 'border-amber-200/80 bg-amber-50/5';
+                    } else if (player.rank === 2) {
+                        rankBadgeStyle = 'bg-slate-200/70 text-slate-600 font-bold';
+                    } else if (player.rank === 3) {
+                        rankBadgeStyle = 'bg-amber-700/10 text-amber-800/80 font-bold';
+                    }
+
+                    // 官方回收量已直接由聚合提供，不需以 totalWin 逆算
+                    const houseRecovery = player.recovery || 0;
+
+                    const formattedBet = formatCompactNumber(player.totalBet);
+                    const formattedRecovery = houseRecovery < 0 
+                        ? '-' + formatCompactNumber(Math.abs(houseRecovery))
+                        : formatCompactNumber(houseRecovery);
+                    const formattedRtp = (player.rtp * 100).toFixed(1) + '%';
+
+                    html += `
+                        <div class="bg-white rounded-xl p-3 border ${cardBorderClass} shadow-sm transition-all duration-200 hover:shadow flex items-center justify-between gap-3">
+                            <!-- 左側：名次標記與 NickName, UserID (上下排列，Nickname加粗，UID在前置字樣下不加粗) -->
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${rankBadgeStyle} shrink-0">
+                                    ${player.rank}
+                                </span>
+                                <div class="flex flex-col min-w-0 text-xs text-slate-700 leading-tight">
+                                    <span class="font-bold text-slate-800 truncate">${player.nickname || player.nickName || '玩家'}</span>
+                                    <span class="text-slate-450 truncate mt-0.5">UID: ${player.userId}</span>
+                                </div>
+                            </div>
+                            <!-- 右側：Bet / RTP / Return (單行水平排列，斜線分隔，對調RTP與回收順元) -->
+                            <div class="text-xs font-bold text-slate-700 shrink-0 font-mono">
+                                <span class="text-slate-850">${formattedBet}</span>
+                                <span class="text-slate-300 mx-1">/</span>
+                                <span class="${rtpColorClass}">${formattedRtp}</span>
+                                <span class="text-slate-300 mx-1">/</span>
+                                <span class="text-slate-600">${formattedRecovery}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            // ==================== 篩選切換邏輯與 CSS 樣式控制 ====================
+            window.setGameFilter = function(filter) {
+                activeFilter = filter;
+                
+                // 更新按鈕狀態
+                const btnAll = byId('filter-all');
+                const btnSlot = byId('filter-slot');
+                const btnFish = byId('filter-fish');
+                
+                const activeStyle = 'bg-white text-blue-600 shadow-sm border border-slate-200/50';
+                const inactiveStyle = 'text-slate-600 hover:text-slate-900 border border-transparent';
+                
+                const btns = [
+                    { element: btnAll, key: 'All' },
+                    { element: btnSlot, key: 'Slot' },
+                    { element: btnFish, key: 'Fish' }
+                ];
+                
+                btns.forEach(item => {
+                    if (item.element) {
+                        if (item.key === filter) {
+                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${activeStyle}`;
+                        } else {
+                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${inactiveStyle}`;
+                        }
+                    }
+                });
+
+                // 更新玩家字卡區域的動態分類標籤與配色 (與 KPI 區塊呼應，文字大小為 text-xs 與篩選器一致)
+                const categoryLabel = byId('player-card-category-label');
+                if (categoryLabel) {
+                    if (filter === 'All') {
+                        categoryLabel.textContent = '整體';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600 tracking-wider';
+                    } else if (filter === 'Slot') {
+                        categoryLabel.textContent = '虎機';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-600 tracking-wider';
+                    } else if (filter === 'Fish') {
+                        categoryLabel.textContent = '魚機';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 tracking-wider';
+                    }
+                }
+
+                // 更新趨勢圖
+                renderTrendChart(filter);
+                
+                // 重新載入週次下拉選單，並儘量保留先前的選取狀態
+                const previousWeek = activeWeek;
+                populateWeekFilter();
+                
+                const select = byId('filter-week');
+                if (select && previousWeek) {
+                    const optionExists = Array.from(select.options).some(opt => opt.value === previousWeek);
+                    if (optionExists) {
+                        select.value = previousWeek;
+                        activeWeek = previousWeek;
+                    }
+                }
+                
+                // 重新渲染玩家列表
+                renderTopPlayers();
+            };
+
+            window.setWeekFilter = function(weekName) {
+                activeWeek = weekName;
+                renderTopPlayers();
+            };
+
+            // ==================== 初始化執行 ====================
+            updateHeader();
+            ['overall', 'slot', 'fish'].forEach(updateCard);
+
+            // 初始化週次篩選下拉選單與選取最新週
+            populateWeekFilter();
+
+            // 預設篩選「全部遊戲」，觸發圖表與玩家列表渲染
+            window.setGameFilter('All');
+
+        })();
     </script>
 </body>
 
