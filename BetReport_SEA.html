@@ -9,10 +9,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Chart.js 實作精美的動態圖表 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入 FontAwesome 6 實作專業 Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- 引入 Google Fonts 提升中文字體質感 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&amp;display=swap"
         rel="stylesheet" />
     <style>
+        
+        /* 定製 Top 玩家列表滾動條 */
+        #top-players-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        #top-players-list::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        #top-players-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        #top-players-list::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
         body {
             font-family: 'Noto Sans TC', sans-serif;
         }
@@ -28,43 +47,39 @@
                     <span class="inline-block w-2.5 h-6 bg-blue-600 rounded-full"></span>
                     押注數據觀測儀表板
                 </h1>
-                <p class="text-sm text-slate-500 mt-1">更新時間：<span id="update-time-text">2026/07/01 14:35:00</span>｜觀測近 5 週平台押注狀況</p>
+                <p class="text-sm text-slate-500 mt-1">更新時間：<span id="update-time-text">-</span>｜觀測近 5 週平台押注狀況</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-2">
                 <span class="text-xs bg-blue-600 text-white px-2.5 py-1 rounded-md font-medium">當週觀測區間</span>
-                <span class="text-sm font-semibold text-slate-600" id="current-period-text">--/-- ~ --/--</span>
+                <span class="text-sm font-semibold text-slate-600" id="current-period-text">- ~ -</span>
             </div>
         </div>
 
         <!-- 上方區域：3個數據指標卡片 -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- 整體卡片 -->
             <div
-                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
+                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 border-l-4 border-l-slate-500 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
                 <!-- 標題區 -->
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="text-base font-bold text-slate-800 tracking-wider">整體概況</h3>
-                    <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                            <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2"></path>
-                        </svg>
+                    <span class="p-2 bg-slate-100 text-slate-600 rounded-lg">
+                        <i class="fa-solid fa-globe text-base"></i>
                     </span>
                 </div>
                 <!-- 指標 1：日均押注 -->
                 <div>
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
-                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="overall-bet-current">
-                        7,888,993,946</div>
+                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="overall-bet-current">-</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="overall-bet-wow-rate">▼ 14.51%</span>
+                                    id="overall-bet-wow-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-bet-wow-value">(9,228,460,476)</span>
+                                    id="overall-bet-wow-value">(-)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -72,9 +87,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="overall-bet-mom-rate">▲ 1.45%</span>
+                                    id="overall-bet-mom-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-bet-mom-value">(7,775,972,111)</span>
+                                    id="overall-bet-mom-value">(-)</span>
                             </div>
                         </div>
                     </div>
@@ -82,17 +97,16 @@
                 <!-- 指標 2：日均人數 -->
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="overall-user-current">17,514
-                    </div>
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="overall-user-current">-</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="overall-user-wow-rate">▼ 2.85%</span>
+                                    id="overall-user-wow-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-user-wow-value">(18,028)</span>
+                                    id="overall-user-wow-value">(-)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -100,9 +114,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="overall-user-mom-rate">▼ 0.89%</span>
+                                    id="overall-user-mom-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="overall-user-mom-value">(17,671)</span>
+                                    id="overall-user-mom-value">(-)</span>
                             </div>
                         </div>
                     </div>
@@ -112,139 +126,43 @@
                     <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
-                            <div class="text-base font-extrabold text-slate-800" id="overall-rtp-current">98.44%</div>
+                            <div class="text-base font-extrabold text-slate-800" id="overall-rtp-current">-</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-week">98.41%
-                            </div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-week">-</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上月同期</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-month">97.81%
-                            </div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="overall-rtp-last-month">-</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- 虎機卡片 -->
+
+            <!-- 魚機卡片 (Sky 600 / #0284c7) -->
             <div
-                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
-                <!-- 標題區 -->
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h3 class="text-base font-bold text-slate-800 tracking-wider">虎機概況</h3>
-                    <span class="p-1.5 bg-amber-50 text-amber-600 rounded-lg">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                            <path
-                                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 3h2zm-2 2h4M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        </svg>
-                    </span>
-                </div>
-                <!-- 指標 1：日均押注 -->
-                <div>
-                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
-                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="slot-bet-current">
-                        2,197,762,462</div>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-500">較上週</span>
-                            <div class="flex items-center gap-1.5">
-                                <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="slot-bet-wow-rate">▲ 4.25%</span>
-                                <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-bet-wow-value">(2,108,197,484)</span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-500">較上月同期</span>
-                            <div class="flex items-center gap-1.5">
-                                <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-bet-mom-rate">▼ 2.97%</span>
-                                <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-bet-mom-value">(2,265,041,230)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 指標 2：日均人數 -->
-                <div class="pt-4 border-t border-slate-50">
-                    <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="slot-user-current">11,219
-                    </div>
-                    <div class="space-y-1.5">
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-500">較上週</span>
-                            <div class="flex items-center gap-1.5">
-                                <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-user-wow-rate">▼ 1.49%</span>
-                                <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-user-wow-value">(11,389)</span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-xs text-slate-500">較上月同期</span>
-                            <div class="flex items-center gap-1.5">
-                                <span
-                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="slot-user-mom-rate">▼ 1.86%</span>
-                                <span class="text-[11px] text-slate-400 font-mono"
-                                    id="slot-user-mom-value">(11,432)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 指標 3：RTP 三段展示 -->
-                <div class="pt-4 border-t border-slate-50">
-                    <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
-                    <div class="grid grid-cols-3 gap-2 text-center">
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
-                            <div class="text-base font-extrabold text-slate-800" id="slot-rtp-current">98.11%</div>
-                        </div>
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
-                            <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-week">96.62%
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
-                            <div class="text-[10px] text-slate-400">上月同期</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-month">96.25%
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 魚機卡片 -->
-            <div
-                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
+                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 border-l-4 border-l-sky-600 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
                 <!-- 標題區 -->
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
                     <h3 class="text-base font-bold text-slate-800 tracking-wider">魚機概況</h3>
-                    <span class="p-1.5 bg-cyan-50 text-cyan-600 rounded-lg">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-                            <path
-                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        </svg>
+                    <span class="p-2 bg-sky-50 text-sky-600 rounded-lg">
+                        <i class="fa-solid fa-fish text-base"></i>
                     </span>
                 </div>
                 <!-- 指標 1：日均押注 -->
                 <div>
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
-                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="fish-bet-current">
-                        4,297,209,005</div>
+                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="fish-bet-current">-</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="fish-bet-wow-rate">▼ 25.76%</span>
+                                    id="fish-bet-wow-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-bet-wow-value">(5,788,493,712)</span>
+                                    id="fish-bet-wow-value">(-)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -252,9 +170,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-bet-mom-rate">▲ 6.30%</span>
+                                    id="fish-bet-mom-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-bet-mom-value">(4,042,534,298)</span>
+                                    id="fish-bet-mom-value">(-)</span>
                             </div>
                         </div>
                     </div>
@@ -262,16 +180,16 @@
                 <!-- 指標 2：日均人數 -->
                 <div class="pt-4 border-t border-slate-50">
                     <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
-                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="fish-user-current">6,448</div>
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="fish-user-current">-</div>
                     <div class="space-y-1.5">
                         <div class="flex justify-between items-center">
                             <span class="text-xs text-slate-500">較上週</span>
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
-                                    id="fish-user-wow-rate">▼ 2.83%</span>
+                                    id="fish-user-wow-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-user-wow-value">(6,636)</span>
+                                    id="fish-user-wow-value">(-)</span>
                             </div>
                         </div>
                         <div class="flex justify-between items-center">
@@ -279,9 +197,9 @@
                             <div class="flex items-center gap-1.5">
                                 <span
                                     class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
-                                    id="fish-user-mom-rate">▲ 8.79%</span>
+                                    id="fish-user-mom-rate">-</span>
                                 <span class="text-[11px] text-slate-400 font-mono"
-                                    id="fish-user-mom-value">(5,927)</span>
+                                    id="fish-user-mom-value">(-)</span>
                             </div>
                         </div>
                     </div>
@@ -291,17 +209,181 @@
                     <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
                     <div class="grid grid-cols-3 gap-2 text-center">
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
-                            <div class="text-base font-extrabold text-slate-800" id="fish-rtp-current">98.06%</div>
+                            <div class="text-base font-extrabold text-slate-800" id="fish-rtp-current">-</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上週</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-week">98.90%
-                            </div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-week">-</div>
                         </div>
                         <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
                             <div class="text-[10px] text-slate-400">上月同期</div>
-                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-month">98.31%
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="fish-rtp-last-month">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 虎機卡片 (Amber 600 / #d97706) -->
+            <div
+                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 border-l-4 border-l-amber-600 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
+                <!-- 標題區 -->
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h3 class="text-base font-bold text-slate-800 tracking-wider">虎機概況</h3>
+                    <span class="p-2 bg-amber-50 text-amber-600 rounded-lg">
+                        <i class="fa-solid fa-circle-dollar-to-slot text-base"></i>
+                    </span>
+                </div>
+                <!-- 指標 1：日均押注 -->
+                <div>
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
+                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="slot-bet-current">-</div>
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上週</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
+                                    id="slot-bet-wow-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="slot-bet-wow-value">(-)</span>
                             </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上月同期</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="slot-bet-mom-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="slot-bet-mom-value">(-)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 指標 2：日均人數 -->
+                <div class="pt-4 border-t border-slate-50">
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="slot-user-current">-</div>
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上週</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="slot-user-wow-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="slot-user-wow-value">(-)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上月同期</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="slot-user-mom-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="slot-user-mom-value">(-)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 指標 3：RTP 三段展示 -->
+                <div class="pt-4 border-t border-slate-50">
+                    <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
+                            <div class="text-base font-extrabold text-slate-800" id="slot-rtp-current">-</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
+                            <div class="text-[10px] text-slate-400">上週</div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-week">-</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
+                            <div class="text-[10px] text-slate-400">上月同期</div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="slot-rtp-last-month">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 押分機卡片 (Teal 600 / #0d9488) -->
+            <div
+                class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 border-l-4 border-l-teal-600 transition-all duration-300 hover:shadow-md hover:-translate-y-1 flex flex-col gap-4">
+                <!-- 標題區 -->
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <h3 class="text-base font-bold text-slate-800 tracking-wider">押分機概況</h3>
+                    <span class="p-2 bg-teal-50 text-teal-600 rounded-lg">
+                        <i class="fa-solid fa-dice text-base"></i>
+                    </span>
+                </div>
+                <!-- 指標 1：日均押注 -->
+                <div>
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注量 (金幣)</div>
+                    <div class="text-2xl font-bold tracking-tight text-slate-900 mb-2" id="betting-bet-current">-</div>
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上週</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-600"
+                                    id="betting-bet-wow-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="betting-bet-wow-value">(-)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上月同期</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="betting-bet-mom-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="betting-bet-mom-value">(-)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 指標 2：日均人數 -->
+                <div class="pt-4 border-t border-slate-50">
+                    <div class="text-[13px] text-slate-500 mb-1">週日均押注人數 (人)</div>
+                    <div class="text-xl font-bold tracking-tight text-slate-900 mb-2" id="betting-user-current">-</div>
+                    <div class="space-y-1.5">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上週</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="betting-user-wow-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="betting-user-wow-value">(-)</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs text-slate-500">較上月同期</span>
+                            <div class="flex items-center gap-1.5">
+                                <span
+                                    class="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-600"
+                                    id="betting-user-mom-rate">-</span>
+                                <span class="text-[11px] text-slate-400 font-mono"
+                                    id="betting-user-mom-value">(-)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 指標 3：RTP 三段展示 -->
+                <div class="pt-4 border-t border-slate-50">
+                    <div class="text-[13px] text-slate-500 mb-2 font-medium">週日均 RTP</div>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100 flex flex-col justify-center items-center">
+                            <div class="text-base font-extrabold text-slate-800" id="betting-rtp-current">-</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
+                            <div class="text-[10px] text-slate-400">上週</div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="betting-rtp-last-week">-</div>
+                        </div>
+                        <div class="bg-slate-50 rounded-lg p-1.5 border border-slate-100">
+                            <div class="text-[10px] text-slate-400">上月同期</div>
+                            <div class="text-[13px] font-bold text-slate-600 mt-0.5" id="betting-rtp-last-month">-</div>
                         </div>
                     </div>
                 </div>
@@ -319,14 +401,17 @@
                     </div>
                     
                     <div class="flex bg-slate-100 p-1 rounded-xl gap-1 w-full mt-1">
-                        <button id="filter-all" class="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-white text-blue-600 shadow-sm border border-slate-200/50" onclick="setGameFilter('All')">
-                            整體
+                        <button id="filter-all" class="flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 bg-white text-slate-700 shadow-sm border border-slate-200/50 flex items-center justify-center gap-1" onclick="setGameFilter('All')">
+                            <i class="fa-solid fa-globe text-[11px]"></i>整體
                         </button>
-                        <button id="filter-slot" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent" onclick="setGameFilter('Slot')">
-                            虎機
+                        <button id="filter-fish" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent flex items-center justify-center gap-1" onclick="setGameFilter('Fish')">
+                            <i class="fa-solid fa-fish text-[11px]"></i>魚機
                         </button>
-                        <button id="filter-fish" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent" onclick="setGameFilter('Fish')">
-                            魚機
+                        <button id="filter-slot" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent flex items-center justify-center gap-1" onclick="setGameFilter('Slot')">
+                            <i class="fa-solid fa-circle-dollar-to-slot text-[11px]"></i>虎機
+                        </button>
+                        <button id="filter-betting" class="flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 text-slate-600 hover:text-slate-900 border border-transparent flex items-center justify-center gap-1" onclick="setGameFilter('Betting')">
+                            <i class="fa-solid fa-dice text-[11px]"></i>押分機
                         </button>
                     </div>
                 </div>
@@ -347,7 +432,7 @@
                         </div>
                     </div>
                     <!-- 玩家字卡列表 (上下排列，透過 justify-between 實現動態等高對齊) -->
-                    <div id="top-players-list" class="flex flex-col gap-3 flex-1 justify-between">
+                    <div id="top-players-list" class="flex flex-col gap-2.5 max-h-[345px] overflow-y-auto pr-1">
                         <!-- 由 JavaScript 動態生成字卡內容 -->
                     </div>
                 </div>
@@ -396,164 +481,54 @@
 
     <script>
         (function () {
-            // ==================== 預設 KPI 模擬數據 (Fallback KPI Mock Data) ====================
-            const defaultMockData = {
-                updateTime: "2026/07/01 14:35:00",
-                recordCount: 45,
-                periods: {
-                    CurrentWeek: { startDate: "2026-05-29", endDate: "2026-06-04" },
-                    PreviousWeek: { startDate: "2026-05-22", endDate: "2026-05-28" },
-                    PreviousMonth: { startDate: "2026-05-01", endDate: "2026-05-07" }
-                },
-                kpiData: {
-                    CurrentWeek: {
-                        All: { UserCount_Avg: 17514, TotalBet_Avg: 7888993946, RTP_Avg: 0.9844 },
-                        Slot: { UserCount_Avg: 11219, TotalBet_Avg: 2197762462, RTP_Avg: 0.9811 },
-                        Fish: { UserCount_Avg: 6448, TotalBet_Avg: 4297209005, RTP_Avg: 0.9806 }
-                    },
-                    PreviousWeek: {
-                        All: { UserCount_Avg: 18028, TotalBet_Avg: 9228460476, RTP_Avg: 0.9841 },
-                        Slot: { UserCount_Avg: 11389, TotalBet_Avg: 2108197484, RTP_Avg: 0.9662 },
-                        Fish: { UserCount_Avg: 6636, TotalBet_Avg: 5788493712, RTP_Avg: 0.9890 }
-                    },
-                    PreviousMonth: {
-                        All: { UserCount_Avg: 17671, TotalBet_Avg: 7775972111, RTP_Avg: 0.9781 },
-                        Slot: { UserCount_Avg: 11432, TotalBet_Avg: 2265041230, RTP_Avg: 0.9625 },
-                        Fish: { UserCount_Avg: 5927, TotalBet_Avg: 4042534298, RTP_Avg: 0.9831 }
-                    }
-                }
-            };
-
-            // 用於相容於 n8n 注入以及瀏覽器本地直接開啟的設計
-            let injectedData = {};
+            // ==================== 數據注入與解析 ====================
+            let rawInjectedData = null;
             try {
-                // n8n 在執行時會用真實 JSON 字串替換引號內的 expression
-                const n8nDataStr = '{"updateTime":"2026/7/27 上午9:51:06","recordCount":9,"periods":{"CurrentWeek":{"startDate":"2026-07-20","endDate":"2026-07-26"},"PreviousWeek":{"startDate":"2026-07-13","endDate":"2026-07-19"},"PreviousMonth":{"startDate":"2026-06-22","endDate":"2026-06-28"}},"kpiData":{"CurrentWeek":{"Fish":{"UserCount_Avg":5427,"TotalBet_Avg":3214233094,"RTP_Avg":0.9835},"All":{"UserCount_Avg":16392,"TotalBet_Avg":7604056309,"RTP_Avg":0.9823},"Slot":{"UserCount_Avg":10748,"TotalBet_Avg":2414800302,"RTP_Avg":0.9609}},"PreviousWeek":{"Fish":{"UserCount_Avg":5441,"TotalBet_Avg":2768414532,"RTP_Avg":0.9855},"All":{"UserCount_Avg":16428,"TotalBet_Avg":6265280426,"RTP_Avg":0.9756},"Slot":{"UserCount_Avg":10735,"TotalBet_Avg":2266090409,"RTP_Avg":0.9556}},"PreviousMonth":{"Fish":{"UserCount_Avg":6191,"TotalBet_Avg":3777877479,"RTP_Avg":0.9915},"All":{"UserCount_Avg":16509,"TotalBet_Avg":6961520684,"RTP_Avg":0.9804},"Slot":{"UserCount_Avg":9990,"TotalBet_Avg":2075364173,"RTP_Avg":0.9659}}},"trendData":{"All":[{"date":"06/22","bet":7807543218,"recovery":8799786},{"date":"06/23","bet":6976278058,"recovery":-63520262},{"date":"06/24","bet":7416793277,"recovery":255823095},{"date":"06/25","bet":6237165341,"recovery":173731022},{"date":"06/26","bet":6592434676,"recovery":230939312},{"date":"06/27","bet":7128546270,"recovery":304249655},{"date":"06/28","bet":6571883947,"recovery":31550856},{"date":"06/29","bet":6162763092,"recovery":232486359},{"date":"06/30","bet":7516761927,"recovery":118809769},{"date":"07/01","bet":8339642240,"recovery":4928968},{"date":"07/02","bet":7855703370,"recovery":222163093},{"date":"07/03","bet":7434226344,"recovery":117788634},{"date":"07/04","bet":6712284881,"recovery":186908524},{"date":"07/05","bet":6801825813,"recovery":154354081},{"date":"07/06","bet":6477065324,"recovery":122432873},{"date":"07/07","bet":7426335956,"recovery":290821167},{"date":"07/08","bet":7592390346,"recovery":124181050},{"date":"07/09","bet":6386204457,"recovery":165354977},{"date":"07/10","bet":7685570768,"recovery":-255610622},{"date":"07/11","bet":6912789962,"recovery":219359279},{"date":"07/12","bet":6038182874,"recovery":160694376},{"date":"07/13","bet":5388774752,"recovery":236942911},{"date":"07/14","bet":6144182005,"recovery":173185469},{"date":"07/15","bet":5795568005,"recovery":172115725},{"date":"07/16","bet":6194032448,"recovery":45926974},{"date":"07/17","bet":6812216495,"recovery":84759387},{"date":"07/18","bet":6247723051,"recovery":99852474},{"date":"07/19","bet":7274466228,"recovery":240065642},{"date":"07/20","bet":6985070953,"recovery":149600602},{"date":"07/21","bet":8031701213,"recovery":135402807},{"date":"07/22","bet":7788684990,"recovery":158540199},{"date":"07/23","bet":7712437133,"recovery":238350897},{"date":"07/24","bet":6435308814,"recovery":160131213},{"date":"07/25","bet":7539592717,"recovery":-49479278},{"date":"07/26","bet":8735598343,"recovery":141187396}],"Slot":[{"date":"06/22","bet":1996817461,"recovery":-16047146},{"date":"06/23","bet":2146158076,"recovery":114442109},{"date":"06/24","bet":2125105362,"recovery":108803381},{"date":"06/25","bet":1927071513,"recovery":88071254},{"date":"06/26","bet":2026354157,"recovery":28672776},{"date":"06/27","bet":2132395981,"recovery":75864789},{"date":"06/28","bet":2173646664,"recovery":102193761},{"date":"06/29","bet":1876103459,"recovery":30055914},{"date":"06/30","bet":2322918756,"recovery":-9049054},{"date":"07/01","bet":2627180429,"recovery":-52906472},{"date":"07/02","bet":2153605275,"recovery":95033964},{"date":"07/03","bet":2463360958,"recovery":30676577},{"date":"07/04","bet":2249403534,"recovery":30988037},{"date":"07/05","bet":1650760062,"recovery":75297272},{"date":"07/06","bet":1679512661,"recovery":37415273},{"date":"07/07","bet":2975105352,"recovery":125079896},{"date":"07/08","bet":2725043742,"recovery":-7691},{"date":"07/09","bet":2331682200,"recovery":153244994},{"date":"07/10","bet":2717873279,"recovery":-183373389},{"date":"07/11","bet":2689897154,"recovery":93041133},{"date":"07/12","bet":2089428807,"recovery":96376042},{"date":"07/13","bet":2124660522,"recovery":131917012},{"date":"07/14","bet":2257720093,"recovery":107840480},{"date":"07/15","bet":2348177449,"recovery":58730887},{"date":"07/16","bet":2146241429,"recovery":63444858},{"date":"07/17","bet":2404758066,"recovery":93414456},{"date":"07/18","bet":2026097932,"recovery":150274536},{"date":"07/19","bet":2554977371,"recovery":86080140},{"date":"07/20","bet":2364999870,"recovery":163601583},{"date":"07/21","bet":2259448857,"recovery":118712616},{"date":"07/22","bet":2423403364,"recovery":113596343},{"date":"07/23","bet":2506917664,"recovery":102652910},{"date":"07/24","bet":2478946478,"recovery":148939969},{"date":"07/25","bet":2309287819,"recovery":21567541},{"date":"07/26","bet":2560598062,"recovery":-14103087}],"Fish":[{"date":"06/22","bet":4894383663,"recovery":13841644},{"date":"06/23","bet":3240669074,"recovery":-112476399},{"date":"06/24","bet":4004117815,"recovery":98496977},{"date":"06/25","bet":3126975674,"recovery":32642114},{"date":"06/26","bet":3453842541,"recovery":92600019},{"date":"06/27","bet":4166172290,"recovery":192727486},{"date":"06/28","bet":3558981294,"recovery":-59397102},{"date":"06/29","bet":3213451737,"recovery":192811375},{"date":"06/30","bet":4308516507,"recovery":108182278},{"date":"07/01","bet":4380134860,"recovery":44617147},{"date":"07/02","bet":3692447018,"recovery":70108735},{"date":"07/03","bet":2954437597,"recovery":103348980},{"date":"07/04","bet":3014661255,"recovery":102687486},{"date":"07/05","bet":3226046877,"recovery":53051507},{"date":"07/06","bet":3197246290,"recovery":42974519},{"date":"07/07","bet":3053606957,"recovery":153589877},{"date":"07/08","bet":3446669083,"recovery":102667347},{"date":"07/09","bet":2791894115,"recovery":17593857},{"date":"07/10","bet":3649563623,"recovery":-75612246},{"date":"07/11","bet":2948003113,"recovery":126013050},{"date":"07/12","bet":2790995334,"recovery":46112176},{"date":"07/13","bet":2143773452,"recovery":57854467},{"date":"07/14","bet":2637922285,"recovery":76310767},{"date":"07/15","bet":2038077052,"recovery":115972683},{"date":"07/16","bet":2900536444,"recovery":-38518949},{"date":"07/17","bet":3290065049,"recovery":-36546738},{"date":"07/18","bet":3049590831,"recovery":-60957061},{"date":"07/19","bet":3318936611,"recovery":109089478},{"date":"07/20","bet":3111997121,"recovery":-69551487},{"date":"07/21","bet":3311105851,"recovery":2009734},{"date":"07/22","bet":3350847283,"recovery":-3323385},{"date":"07/23","bet":3674979291,"recovery":149956223},{"date":"07/24","bet":2667764810,"recovery":18444223},{"date":"07/25","bet":2741593872,"recovery":162709737},{"date":"07/26","bet":3641343429,"recovery":112903169}]},"topPlayers":{"All":{"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1132198680,"rtp":0.9421,"recovery":65544388},{"rank":2,"userId":"12916309","nickname":"许念2133","totalBet":987937906,"rtp":1.0114,"recovery":-11291026},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":874225657,"rtp":0.9557,"recovery":38721461},{"rank":4,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":819020870,"rtp":1.0206,"recovery":-16891599},{"rank":5,"userId":"10278537","nickname":"BENG000","totalBet":770924197,"rtp":1.0604,"recovery":-46530189}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":4212470480,"rtp":1.0496,"recovery":-208927536},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":1481012000,"rtp":0.9342,"recovery":97443848},{"rank":3,"userId":"10259798","nickname":"一路發433","totalBet":1206008790,"rtp":0.9164,"recovery":100865157},{"rank":4,"userId":"13523793","nickname":"FUN😀123","totalBet":1163839788,"rtp":1.0469,"recovery":-54621443},{"rank":5,"userId":"12265085","nickname":"包谷886377","totalBet":1001341033,"rtp":0.9266,"recovery":73501963}],"06/22~06/28":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":2005787315,"rtp":0.9471,"recovery":106193039},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":1937530880,"rtp":1.0688,"recovery":-133375602},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":1492849860,"rtp":0.9646,"recovery":52886943},{"rank":4,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":1195495292,"rtp":1.0609,"recovery":-72768931},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":1086874060,"rtp":1.0686,"recovery":-74545491}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1638358595,"rtp":0.9026,"recovery":159520450},{"rank":2,"userId":"13480187","nickname":"Aiseh333","totalBet":1265965220,"rtp":1.1226,"recovery":-155196884},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":1222982260,"rtp":0.999,"recovery":1180974},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":978695800,"rtp":0.8959,"recovery":101914148},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":897584100,"rtp":1.0438,"recovery":-39347049}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2489237030,"rtp":1.0448,"recovery":-111467749},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":1092823098,"rtp":0.9931,"recovery":7538341},{"rank":3,"userId":"10003615","nickname":"小馬","totalBet":803331280,"rtp":0.9584,"recovery":33454442},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":797528500,"rtp":0.9653,"recovery":27677050},{"rank":5,"userId":"13144952","nickname":"T1234","totalBet":727471030,"rtp":0.881,"recovery":86552436}]},"Slot":{"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1045488460,"rtp":0.9301,"recovery":73031968},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":534831800,"rtp":1.0552,"recovery":-29546581},{"rank":3,"userId":"12989709","nickname":"蓝","totalBet":474485600,"rtp":0.8161,"recovery":87243500},{"rank":4,"userId":"10278537","nickname":"BENG000","totalBet":344613785,"rtp":1.0518,"recovery":-17834787},{"rank":5,"userId":"10488466","nickname":"1229","totalBet":300870230,"rtp":0.9106,"recovery":26895167}],"06/29~07/05":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":535118680,"rtp":0.9484,"recovery":27612382},{"rank":2,"userId":"10703419","nickname":"JOY703419","totalBet":459879259,"rtp":1.0279,"recovery":-12835491},{"rank":3,"userId":"10564919","nickname":"Nooby","totalBet":429842440,"rtp":1.0355,"recovery":-15245209},{"rank":4,"userId":"12365470","nickname":"Smithi168","totalBet":304059868,"rtp":0.9997,"recovery":80146},{"rank":5,"userId":"10162209","nickname":"9699","totalBet":266092120,"rtp":0.9748,"recovery":6711322}],"06/22~06/28":[{"rank":1,"userId":"10564919","nickname":"Nooby","totalBet":774700220,"rtp":0.9529,"recovery":36503094},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":593460940,"rtp":1.1109,"recovery":-65818082},{"rank":3,"userId":"12210641","nickname":"伏佛","totalBet":504419120,"rtp":0.9657,"recovery":17287367},{"rank":4,"userId":"10162209","nickname":"9699","totalBet":467534632,"rtp":1.0349,"recovery":-16321309},{"rank":5,"userId":"13480187","nickname":"Aiseh333","totalBet":461174200,"rtp":0.8203,"recovery":82867691}],"07/06~07/12":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1128295220,"rtp":1.1255,"recovery":-141615984},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":628822590,"rtp":1.1293,"recovery":-81316131},{"rank":3,"userId":"10488466","nickname":"1229","totalBet":536065200,"rtp":0.9692,"recovery":16494537},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":335065600,"rtp":0.9108,"recovery":29881151},{"rank":5,"userId":"13333291","nickname":"CHENGOD02","totalBet":312557280,"rtp":1.0153,"recovery":-4775739}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1786360480,"rtp":1.0166,"recovery":-29655936},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":721210000,"rtp":0.8504,"recovery":107900048},{"rank":3,"userId":"10278537","nickname":"BENG000","totalBet":462812040,"rtp":0.952,"recovery":22225551},{"rank":4,"userId":"10564919","nickname":"Nooby","totalBet":415035300,"rtp":0.831,"recovery":70131860},{"rank":5,"userId":"12151507","nickname":"只想暴富","totalBet":337564900,"rtp":0.8897,"recovery":37221540}]},"Fish":{"07/20~07/26":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":1090767990,"rtp":0.9367,"recovery":69025857},{"rank":2,"userId":"13523793","nickname":"FUN😀123","totalBet":986278160,"rtp":1.0269,"recovery":-26505245},{"rank":3,"userId":"11154374","nickname":"sha4627","totalBet":506386083,"rtp":0.9304,"recovery":35244604},{"rank":4,"userId":"10442554","nickname":"mic6228","totalBet":468207220,"rtp":1.0429,"recovery":-20099230},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":462747500,"rtp":0.9604,"recovery":18308500}],"06/22~06/28":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1793549810,"rtp":0.945,"recovery":98656058},{"rank":2,"userId":"10488466","nickname":"1229","totalBet":1344005940,"rtp":1.0503,"recovery":-67593020},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":1226071000,"rtp":0.9788,"recovery":25955251},{"rank":4,"userId":"12652207","nickname":"Jun11","totalBet":1071216000,"rtp":1.0114,"recovery":-12207000},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":829063000,"rtp":1.1025,"recovery":-84958000}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1439303950,"rtp":0.9138,"recovery":124015640},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":914860000,"rtp":0.8938,"recovery":97132000},{"rank":3,"userId":"12315355","nickname":"LUK315355","totalBet":723996320,"rtp":1.0124,"recovery":-9000928},{"rank":4,"userId":"12102113","nickname":"LUX102113","totalBet":685413968,"rtp":0.9964,"recovery":2494912},{"rank":5,"userId":"10299559","nickname":"JoeTan","totalBet":618462715,"rtp":1.0141,"recovery":-8732095}],"07/13~07/19":[{"rank":1,"userId":"12916309","nickname":"许念2133","totalBet":778107680,"rtp":1.0074,"recovery":-5784192},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":633373435,"rtp":0.9441,"recovery":35421415},{"rank":3,"userId":"10029744","nickname":"zhai","totalBet":566454770,"rtp":0.9213,"recovery":44601139},{"rank":4,"userId":"10134554","nickname":"lee02","totalBet":508835510,"rtp":1.0357,"recovery":-18169771},{"rank":5,"userId":"13523793","nickname":"FUN😀123","totalBet":482935300,"rtp":1.1531,"recovery":-73917950}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2335675150,"rtp":1.0366,"recovery":-85560790},{"rank":2,"userId":"10003615","nickname":"小馬","totalBet":711305000,"rtp":0.9208,"recovery":56324000},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":702331390,"rtp":0.8911,"recovery":76469816},{"rank":4,"userId":"10519263","nickname":"捕鱼高手","totalBet":627090500,"rtp":1.0154,"recovery":-9640500},{"rank":5,"userId":"10029744","nickname":"zhai","totalBet":505706240,"rtp":0.9484,"recovery":26084619}]}}}';
+                // n8n HTML Template 節點執行時會將 {"updateTime":"2026/08/03 09:10:13","recordCount":352,"periods":{"CurrentWeek":{"startDate":"2026-07-26","endDate":"2026-08-01"},"PreviousWeek":{"startDate":"2026-07-19","endDate":"2026-07-25"},"PreviousMonth":{"startDate":"2026-06-28","endDate":"2026-07-04"}},"kpiData":{"CurrentWeek":{"Betting":{"UserCount_Avg":3485,"TotalBet_Avg":1561088852,"RTP_Avg":0.9871},"All":{"UserCount_Avg":16250,"TotalBet_Avg":7095823223,"RTP_Avg":0.968},"Slot":{"UserCount_Avg":10766,"TotalBet_Avg":2199614369,"RTP_Avg":0.9529},"Fish":{"UserCount_Avg":5274,"TotalBet_Avg":3214076346,"RTP_Avg":0.9674}},"PreviousWeek":{"All":{"UserCount_Avg":16392,"TotalBet_Avg":7604056309,"RTP_Avg":0.9823},"Fish":{"UserCount_Avg":5427,"TotalBet_Avg":3214233094,"RTP_Avg":0.9835},"Slot":{"UserCount_Avg":10748,"TotalBet_Avg":2414800302,"RTP_Avg":0.9609},"Betting":{"UserCount_Avg":3575,"TotalBet_Avg":1902060325,"RTP_Avg":1.0018}},"PreviousMonth":{"Fish":{"UserCount_Avg":5810,"TotalBet_Avg":3541385122,"RTP_Avg":0.9715},"Slot":{"UserCount_Avg":9668,"TotalBet_Avg":2191904639,"RTP_Avg":0.9846},"All":{"UserCount_Avg":15896,"TotalBet_Avg":7260458238,"RTP_Avg":0.9787},"Betting":{"UserCount_Avg":3765,"TotalBet_Avg":1453615410,"RTP_Avg":0.9839}}},"trendData":{"All":[{"date":"06/29","bet":6162763092,"recovery":232486359},{"date":"06/30","bet":7516761927,"recovery":118809769},{"date":"07/01","bet":8339642240,"recovery":4928968},{"date":"07/02","bet":7855703370,"recovery":222163093},{"date":"07/03","bet":7434226344,"recovery":117788634},{"date":"07/04","bet":6712284881,"recovery":186908524},{"date":"07/05","bet":6801825813,"recovery":154354081},{"date":"07/06","bet":6477065324,"recovery":122432873},{"date":"07/07","bet":7426335956,"recovery":290821167},{"date":"07/08","bet":7592390346,"recovery":124181050},{"date":"07/09","bet":6386204457,"recovery":165354977},{"date":"07/10","bet":7685570768,"recovery":-255610622},{"date":"07/11","bet":6912789962,"recovery":219359279},{"date":"07/12","bet":6038182874,"recovery":160694376},{"date":"07/13","bet":5388774752,"recovery":236942911},{"date":"07/14","bet":6144182005,"recovery":173185469},{"date":"07/15","bet":5795568005,"recovery":172115725},{"date":"07/16","bet":6194032448,"recovery":45926974},{"date":"07/17","bet":6812216495,"recovery":84759387},{"date":"07/18","bet":6247723051,"recovery":99852474},{"date":"07/19","bet":7274466228,"recovery":240065642},{"date":"07/20","bet":6985070953,"recovery":149600602},{"date":"07/21","bet":8031701213,"recovery":135402807},{"date":"07/22","bet":7788684990,"recovery":158540199},{"date":"07/23","bet":7712437133,"recovery":238350897},{"date":"07/24","bet":6435308814,"recovery":160131213},{"date":"07/25","bet":7539592717,"recovery":-49479278},{"date":"07/26","bet":8735598343,"recovery":141187396},{"date":"07/27","bet":6411083569,"recovery":381655846},{"date":"07/28","bet":6367179931,"recovery":228596963},{"date":"07/29","bet":7421680610,"recovery":193274795},{"date":"07/30","bet":6556522414,"recovery":75543149},{"date":"07/31","bet":8056123786,"recovery":266606315},{"date":"08/01","bet":7322955212,"recovery":339676702},{"date":"08/02","bet":7535217038,"recovery":84582325}],"Betting":[{"date":"06/29","bet":1013780853,"recovery":11368544},{"date":"06/30","bet":843450043,"recovery":18492209},{"date":"07/01","bet":1263206082,"recovery":11150659},{"date":"07/02","bet":1932955203,"recovery":58579546},{"date":"07/03","bet":1938307816,"recovery":-17554065},{"date":"07/04","bet":1361608432,"recovery":50639989},{"date":"07/05","bet":1821999442,"recovery":21901278},{"date":"07/06","bet":1511693080,"recovery":51325864},{"date":"07/07","bet":1277061245,"recovery":16748905},{"date":"07/08","bet":1377150806,"recovery":21505457},{"date":"07/09","bet":1153964905,"recovery":1240053},{"date":"07/10","bet":1208105284,"recovery":16694917},{"date":"07/11","bet":1132525414,"recovery":-3943029},{"date":"07/12","bet":1066125443,"recovery":11749208},{"date":"07/13","bet":1011847227,"recovery":43920016},{"date":"07/14","bet":1085261228,"recovery":-21815713},{"date":"07/15","bet":1312537138,"recovery":-5938059},{"date":"07/16","bet":947919533,"recovery":27583081},{"date":"07/17","bet":961320302,"recovery":15238860},{"date":"07/18","bet":989922890,"recovery":-4138970},{"date":"07/19","bet":1344386000,"recovery":45241628},{"date":"07/20","bet":1423207633,"recovery":51457798},{"date":"07/21","bet":2403608661,"recovery":16915855},{"date":"07/22","bet":1940624079,"recovery":50501378},{"date":"07/23","bet":1407314847,"recovery":6692616},{"date":"07/24","bet":1220576148,"recovery":-4880277},{"date":"07/25","bet":2445454181,"recovery":-238571903},{"date":"07/26","bet":2473636730,"recovery":36569874},{"date":"07/27","bet":1442028634,"recovery":51074146},{"date":"07/28","bet":1607348205,"recovery":-24360868},{"date":"07/29","bet":1535495149,"recovery":21275653},{"date":"07/30","bet":1407968896,"recovery":11653806},{"date":"07/31","bet":1483333862,"recovery":2413806},{"date":"08/01","bet":1644725543,"recovery":57241596},{"date":"08/02","bet":1806721675,"recovery":21178570}],"Fish":[{"date":"06/29","bet":3213451737,"recovery":192811375},{"date":"06/30","bet":4308516507,"recovery":108182278},{"date":"07/01","bet":4380134860,"recovery":44617147},{"date":"07/02","bet":3692447018,"recovery":70108735},{"date":"07/03","bet":2954437597,"recovery":103348980},{"date":"07/04","bet":3014661255,"recovery":102687486},{"date":"07/05","bet":3226046877,"recovery":53051507},{"date":"07/06","bet":3197246290,"recovery":42974519},{"date":"07/07","bet":3053606957,"recovery":153589877},{"date":"07/08","bet":3446669083,"recovery":102667347},{"date":"07/09","bet":2791894115,"recovery":17593857},{"date":"07/10","bet":3649563623,"recovery":-75612246},{"date":"07/11","bet":2948003113,"recovery":126013050},{"date":"07/12","bet":2790995334,"recovery":46112176},{"date":"07/13","bet":2143773452,"recovery":57854467},{"date":"07/14","bet":2637922285,"recovery":76310767},{"date":"07/15","bet":2038077052,"recovery":115972683},{"date":"07/16","bet":2900536444,"recovery":-38518949},{"date":"07/17","bet":3290065049,"recovery":-36546738},{"date":"07/18","bet":3049590831,"recovery":-60957061},{"date":"07/19","bet":3318936611,"recovery":109089478},{"date":"07/20","bet":3111997121,"recovery":-69551487},{"date":"07/21","bet":3311105851,"recovery":2009734},{"date":"07/22","bet":3350847283,"recovery":-3323385},{"date":"07/23","bet":3674979291,"recovery":149956223},{"date":"07/24","bet":2667764810,"recovery":18444223},{"date":"07/25","bet":2741593872,"recovery":162709737},{"date":"07/26","bet":3641343429,"recovery":112903169},{"date":"07/27","bet":2825128527,"recovery":153968688},{"date":"07/28","bet":2733742315,"recovery":118936069},{"date":"07/29","bet":3866914442,"recovery":68565489},{"date":"07/30","bet":2948764560,"recovery":75249415},{"date":"07/31","bet":3937359641,"recovery":100525388},{"date":"08/01","bet":3113030878,"recovery":166507956},{"date":"08/02","bet":3073594057,"recovery":24201422}],"Slot":[{"date":"06/29","bet":1876103459,"recovery":30055914},{"date":"06/30","bet":2322918756,"recovery":-9049054},{"date":"07/01","bet":2627180429,"recovery":-52906472},{"date":"07/02","bet":2153605275,"recovery":95033964},{"date":"07/03","bet":2463360958,"recovery":30676577},{"date":"07/04","bet":2249403534,"recovery":30988037},{"date":"07/05","bet":1650760062,"recovery":75297272},{"date":"07/06","bet":1679512661,"recovery":37415273},{"date":"07/07","bet":2975105352,"recovery":125079896},{"date":"07/08","bet":2725043742,"recovery":-7691},{"date":"07/09","bet":2331682200,"recovery":153244994},{"date":"07/10","bet":2717873279,"recovery":-183373389},{"date":"07/11","bet":2689897154,"recovery":93041133},{"date":"07/12","bet":2089428807,"recovery":96376042},{"date":"07/13","bet":2124660522,"recovery":131917012},{"date":"07/14","bet":2257720093,"recovery":107840480},{"date":"07/15","bet":2348177449,"recovery":58730887},{"date":"07/16","bet":2146241429,"recovery":63444858},{"date":"07/17","bet":2404758066,"recovery":93414456},{"date":"07/18","bet":2026097932,"recovery":150274536},{"date":"07/19","bet":2554977371,"recovery":86080140},{"date":"07/20","bet":2364999870,"recovery":163601583},{"date":"07/21","bet":2259448857,"recovery":118712616},{"date":"07/22","bet":2423403364,"recovery":113596343},{"date":"07/23","bet":2506917664,"recovery":102652910},{"date":"07/24","bet":2478946478,"recovery":148939969},{"date":"07/25","bet":2309287819,"recovery":21567541},{"date":"07/26","bet":2560598062,"recovery":-14103087},{"date":"07/27","bet":2067635356,"recovery":176826130},{"date":"07/28","bet":1936765863,"recovery":131194538},{"date":"07/29","bet":1945119966,"recovery":108173076},{"date":"07/30","bet":2060035424,"recovery":-20464650},{"date":"07/31","bet":2526047676,"recovery":165631151},{"date":"08/01","bet":2437991367,"recovery":114557689},{"date":"08/02","bet":2423704932,"recovery":44937672}]},"topPlayers":{"Betting":{"07/27~08/02":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2002906580,"rtp":0.9882,"recovery":23546560},{"rank":2,"userId":"10357155","nickname":"MikeTing","totalBet":1316063100,"rtp":1.0081,"recovery":-10615900},{"rank":3,"userId":"12099192","nickname":"百忍生金","totalBet":455840000,"rtp":1.0296,"recovery":-13488500},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":371880000,"rtp":0.92,"recovery":29740500},{"rank":5,"userId":"13309114","nickname":"wa9010","totalBet":369972000,"rtp":0.9946,"recovery":1983650},{"rank":6,"userId":"12773040","nickname":"Burn33","totalBet":364427830,"rtp":1.0818,"recovery":-29799214},{"rank":7,"userId":"11503598","nickname":"kokkan96","totalBet":290300440,"rtp":0.9329,"recovery":19489940},{"rank":8,"userId":"13020058","nickname":"Devil00","totalBet":268499200,"rtp":1.083,"recovery":-22292250},{"rank":9,"userId":"13510010","nickname":"ONG510010","totalBet":259260700,"rtp":0.944,"recovery":14510200},{"rank":10,"userId":"12387358","nickname":"PikaPika2","totalBet":247882500,"rtp":0.936,"recovery":15852500}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2426110000,"rtp":1.0739,"recovery":-179271600},{"rank":2,"userId":"12265085","nickname":"包谷886377","totalBet":981046700,"rtp":0.9327,"recovery":66006900},{"rank":3,"userId":"10357155","nickname":"MikeTing","totalBet":824881600,"rtp":0.9959,"recovery":3391574},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":752310000,"rtp":1.0194,"recovery":-14617000},{"rank":5,"userId":"12387358","nickname":"PikaPika2","totalBet":495590100,"rtp":1.006,"recovery":-2959900},{"rank":6,"userId":"13510010","nickname":"ONG510010","totalBet":445944000,"rtp":1.0091,"recovery":-4036000},{"rank":7,"userId":"13553670","nickname":"LUX553670","totalBet":434750522,"rtp":0.9841,"recovery":6919279},{"rank":8,"userId":"10243134","nickname":"SKYWAYS","totalBet":360085000,"rtp":1.0368,"recovery":-13244150},{"rank":9,"userId":"10501803","nickname":"maxmax","totalBet":264904300,"rtp":0.9925,"recovery":1975050},{"rank":10,"userId":"10003615","nickname":"小馬","totalBet":261470000,"rtp":0.975,"recovery":6545000}],"07/13~07/19":[{"rank":1,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":605326000,"rtp":1.0453,"recovery":-27425000},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":591592500,"rtp":0.9604,"recovery":23408050},{"rank":3,"userId":"12265085","nickname":"包谷886377","totalBet":534999400,"rtp":1.1112,"recovery":-59465850},{"rank":4,"userId":"12773040","nickname":"Burn33","totalBet":206620000,"rtp":0.9704,"recovery":6124900},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":206530000,"rtp":0.9063,"recovery":19345000},{"rank":6,"userId":"12387358","nickname":"PikaPika2","totalBet":200507000,"rtp":1.0092,"recovery":-1853000},{"rank":7,"userId":"13510010","nickname":"ONG510010","totalBet":200372000,"rtp":1.0045,"recovery":-908000},{"rank":8,"userId":"11861978","nickname":"Haw101","totalBet":177045100,"rtp":1.0365,"recovery":-6456200},{"rank":9,"userId":"10234878","nickname":"3rdEyed","totalBet":172422700,"rtp":0.9807,"recovery":3332700},{"rank":10,"userId":"10501803","nickname":"maxmax","totalBet":160874337,"rtp":0.9902,"recovery":1574013}],"07/06~07/12":[{"rank":1,"userId":"13523237","nickname":"ulrixch","totalBet":891551140,"rtp":0.982,"recovery":16006348},{"rank":2,"userId":"10357155","nickname":"MikeTing","totalBet":526440400,"rtp":0.9767,"recovery":12245900},{"rank":3,"userId":"10990119","nickname":"BenWukong","totalBet":440541500,"rtp":1.0192,"recovery":-8441600},{"rank":4,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":337835000,"rtp":0.9867,"recovery":4487100},{"rank":5,"userId":"13553670","nickname":"LUX553670","totalBet":297750930,"rtp":0.9863,"recovery":4085899},{"rank":6,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":296979000,"rtp":1.0497,"recovery":-14758000},{"rank":7,"userId":"12265085","nickname":"包谷886377","totalBet":294525600,"rtp":1.138,"recovery":-40632910},{"rank":8,"userId":"12989709","nickname":"蓝","totalBet":263010000,"rtp":1.1106,"recovery":-29097500},{"rank":9,"userId":"11535040","nickname":"ONG535040","totalBet":254643670,"rtp":0.8967,"recovery":26311590},{"rank":10,"userId":"12038846","nickname":"TOP210419","totalBet":198152884,"rtp":1.0297,"recovery":-5885266}],"06/29~07/05":[{"rank":1,"userId":"13523237","nickname":"ulrixch","totalBet":937704300,"rtp":0.9848,"recovery":14256800},{"rank":2,"userId":"10501803","nickname":"maxmax","totalBet":608128579,"rtp":0.9789,"recovery":12815096},{"rank":3,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":556130700,"rtp":1.0073,"recovery":-4034508},{"rank":4,"userId":"10357155","nickname":"MikeTing","totalBet":550409100,"rtp":0.9817,"recovery":10079600},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":469070000,"rtp":0.9815,"recovery":8691000},{"rank":6,"userId":"10453779","nickname":"Nick7777","totalBet":429150706,"rtp":0.9764,"recovery":10106995},{"rank":7,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":389133000,"rtp":1.0108,"recovery":-4192760},{"rank":8,"userId":"12265085","nickname":"包谷886377","totalBet":381428500,"rtp":1.0784,"recovery":-29907500},{"rank":9,"userId":"10581414","nickname":"kamyi","totalBet":339069200,"rtp":0.9522,"recovery":16209500},{"rank":10,"userId":"11535040","nickname":"ONG535040","totalBet":271180780,"rtp":0.9441,"recovery":15170440}]},"All":{"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":4212470480,"rtp":1.0496,"recovery":-208927536},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":1481012000,"rtp":0.9342,"recovery":97443848},{"rank":3,"userId":"10259798","nickname":"一路發433","totalBet":1206008790,"rtp":0.9164,"recovery":100865157},{"rank":4,"userId":"13523793","nickname":"FUN😀123","totalBet":1163839788,"rtp":1.0469,"recovery":-54621443},{"rank":5,"userId":"12265085","nickname":"包谷886377","totalBet":1001341033,"rtp":0.9266,"recovery":73501963},{"rank":6,"userId":"10278537","nickname":"BENG000","totalBet":934998700,"rtp":0.9727,"recovery":25479385},{"rank":7,"userId":"10357155","nickname":"MikeTing","totalBet":824881600,"rtp":0.9959,"recovery":3391574},{"rank":8,"userId":"10003615","nickname":"小馬","totalBet":746717500,"rtp":0.9692,"recovery":23014133},{"rank":9,"userId":"13488668","nickname":"KingLeo88","totalBet":596038743,"rtp":1.1206,"recovery":-71903192},{"rank":10,"userId":"10243134","nickname":"SKYWAYS","totalBet":585125579,"rtp":0.9921,"recovery":4637770}],"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1132198680,"rtp":0.9421,"recovery":65544388},{"rank":2,"userId":"12916309","nickname":"许念2133","totalBet":987937906,"rtp":1.0114,"recovery":-11291026},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":874225657,"rtp":0.9557,"recovery":38721461},{"rank":4,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":819020870,"rtp":1.0206,"recovery":-16891599},{"rank":5,"userId":"10278537","nickname":"BENG000","totalBet":770924197,"rtp":1.0604,"recovery":-46530189},{"rank":6,"userId":"12989709","nickname":"蓝","totalBet":700378600,"rtp":0.8424,"recovery":110350500},{"rank":7,"userId":"10259798","nickname":"一路發433","totalBet":687891235,"rtp":0.9044,"recovery":65772953},{"rank":8,"userId":"10029744","nickname":"zhai","totalBet":616316690,"rtp":0.9076,"recovery":56946516},{"rank":9,"userId":"10134554","nickname":"lee02","totalBet":597815430,"rtp":1.0177,"recovery":-10564775},{"rank":10,"userId":"12265085","nickname":"包谷886377","totalBet":558746022,"rtp":1.1013,"recovery":-56592700}],"07/27~08/02":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2718500880,"rtp":0.9283,"recovery":194842858},{"rank":2,"userId":"12898257","nickname":"ACE898257","totalBet":1792305702,"rtp":0.993,"recovery":12583236},{"rank":3,"userId":"10357155","nickname":"MikeTing","totalBet":1316131812,"rtp":1.0081,"recovery":-10614277},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":986335385,"rtp":0.9138,"recovery":85047550},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":897007800,"rtp":0.9214,"recovery":70469083},{"rank":6,"userId":"10029744","nickname":"zhai","totalBet":859059820,"rtp":0.9617,"recovery":32861183},{"rank":7,"userId":"13523793","nickname":"FUN😀123","totalBet":708236972,"rtp":0.8006,"recovery":141245166},{"rank":8,"userId":"12895117","nickname":"贠920717","totalBet":704603050,"rtp":1.0839,"recovery":-59124519},{"rank":9,"userId":"13488668","nickname":"KingLeo88","totalBet":644579981,"rtp":0.9922,"recovery":5044445},{"rank":10,"userId":"11444882","nickname":"Great777","totalBet":628697600,"rtp":1.0232,"recovery":-14585270}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2489237030,"rtp":1.0448,"recovery":-111467749},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":1092823098,"rtp":0.9931,"recovery":7538341},{"rank":3,"userId":"10003615","nickname":"小馬","totalBet":803331280,"rtp":0.9584,"recovery":33454442},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":797528500,"rtp":0.9653,"recovery":27677050},{"rank":5,"userId":"13144952","nickname":"T1234","totalBet":727471030,"rtp":0.881,"recovery":86552436},{"rank":6,"userId":"10519263","nickname":"捕鱼高手","totalBet":694373280,"rtp":1.074,"recovery":-51398810},{"rank":7,"userId":"10703419","nickname":"JOY703419","totalBet":641740309,"rtp":1.0187,"recovery":-12016591},{"rank":8,"userId":"10501803","nickname":"maxmax","totalBet":617672087,"rtp":0.9771,"recovery":14169011},{"rank":9,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":577823850,"rtp":1.044,"recovery":-25403708},{"rank":10,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":569662464,"rtp":1.0055,"recovery":-3117865}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1638358595,"rtp":0.9026,"recovery":159520450},{"rank":2,"userId":"13480187","nickname":"Aiseh333","totalBet":1265965220,"rtp":1.1226,"recovery":-155196884},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":1222982260,"rtp":0.999,"recovery":1180974},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":978695800,"rtp":0.8959,"recovery":101914148},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":897584100,"rtp":1.0438,"recovery":-39347049},{"rank":6,"userId":"12315355","nickname":"LUK315355","totalBet":726469920,"rtp":1.0114,"recovery":-8260288},{"rank":7,"userId":"12102113","nickname":"LUX102113","totalBet":687605404,"rtp":0.9966,"recovery":2317672},{"rank":8,"userId":"10299559","nickname":"JoeTan","totalBet":638422771,"rtp":1.0172,"recovery":-11008591},{"rank":9,"userId":"10564919","nickname":"Nooby","totalBet":628822590,"rtp":1.1293,"recovery":-81316131},{"rank":10,"userId":"10134554","nickname":"lee02","totalBet":563787550,"rtp":1.0244,"recovery":-13740002}]},"Fish":{"07/27~08/02":[{"rank":1,"userId":"12898257","nickname":"ACE898257","totalBet":1784903512,"rtp":0.9937,"recovery":11210594},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":939444185,"rtp":0.9252,"recovery":70267977},{"rank":3,"userId":"10029744","nickname":"zhai","totalBet":703000920,"rtp":0.9655,"recovery":24271000},{"rank":4,"userId":"13523793","nickname":"FUN😀123","totalBet":582629778,"rtp":0.8223,"recovery":103541065},{"rank":5,"userId":"10237662","nickname":"Bryanong","totalBet":479654675,"rtp":0.995,"recovery":2381258},{"rank":6,"userId":"13488668","nickname":"KingLeo88","totalBet":477374736,"rtp":0.9392,"recovery":29017471},{"rank":7,"userId":"10184944","nickname":"vanessa68","totalBet":391154045,"rtp":1.0243,"recovery":-9490011},{"rank":8,"userId":"13332498","nickname":"WIN332498","totalBet":311536328,"rtp":1.173,"recovery":-53883604},{"rank":9,"userId":"11834155","nickname":"34155","totalBet":310603910,"rtp":1.0428,"recovery":-13294600},{"rank":10,"userId":"10442554","nickname":"mic6228","totalBet":308148056,"rtp":1.0436,"recovery":-13442312}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2335675150,"rtp":1.0366,"recovery":-85560790},{"rank":2,"userId":"10003615","nickname":"小馬","totalBet":711305000,"rtp":0.9208,"recovery":56324000},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":702331390,"rtp":0.8911,"recovery":76469816},{"rank":4,"userId":"10519263","nickname":"捕鱼高手","totalBet":627090500,"rtp":1.0154,"recovery":-9640500},{"rank":5,"userId":"10029744","nickname":"zhai","totalBet":505706240,"rtp":0.9484,"recovery":26084619},{"rank":6,"userId":"10442554","nickname":"mic6228","totalBet":486882697,"rtp":0.9701,"recovery":14560563},{"rank":7,"userId":"10134554","nickname":"lee02","totalBet":398639220,"rtp":1.1287,"recovery":-51306174},{"rank":8,"userId":"13051116","nickname":"TT99","totalBet":394624938,"rtp":0.8855,"recovery":45182779},{"rank":9,"userId":"13523793","nickname":"FUN😀123","totalBet":375767524,"rtp":0.8639,"recovery":51145024},{"rank":10,"userId":"10243134","nickname":"SKYWAYS","totalBet":369272480,"rtp":1.0315,"recovery":-11642793}],"07/13~07/19":[{"rank":1,"userId":"12916309","nickname":"许念2133","totalBet":778107680,"rtp":1.0074,"recovery":-5784192},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":633373435,"rtp":0.9441,"recovery":35421415},{"rank":3,"userId":"10029744","nickname":"zhai","totalBet":566454770,"rtp":0.9213,"recovery":44601139},{"rank":4,"userId":"10134554","nickname":"lee02","totalBet":508835510,"rtp":1.0357,"recovery":-18169771},{"rank":5,"userId":"13523793","nickname":"FUN😀123","totalBet":482935300,"rtp":1.1531,"recovery":-73917950},{"rank":6,"userId":"10278537","nickname":"BENG000","totalBet":426310412,"rtp":1.0673,"recovery":-28695401},{"rank":7,"userId":"10442554","nickname":"mic6228","totalBet":406079420,"rtp":1.0132,"recovery":-5349510},{"rank":8,"userId":"11651713","nickname":"幸运之星998","totalBet":367297910,"rtp":0.998,"recovery":737722},{"rank":9,"userId":"10237662","nickname":"Bryanong","totalBet":303578237,"rtp":0.9033,"recovery":29349507},{"rank":10,"userId":"11834155","nickname":"34155","totalBet":278475930,"rtp":1.0531,"recovery":-14790340}],"07/20~07/26":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":1090767990,"rtp":0.9367,"recovery":69025857},{"rank":2,"userId":"13523793","nickname":"FUN😀123","totalBet":986278160,"rtp":1.0269,"recovery":-26505245},{"rank":3,"userId":"11154374","nickname":"sha4627","totalBet":506386083,"rtp":0.9304,"recovery":35244604},{"rank":4,"userId":"10442554","nickname":"mic6228","totalBet":468207220,"rtp":1.0429,"recovery":-20099230},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":462747500,"rtp":0.9604,"recovery":18308500},{"rank":6,"userId":"13488668","nickname":"KingLeo88","totalBet":412401511,"rtp":1.188,"recovery":-77540124},{"rank":7,"userId":"10278537","nickname":"BENG000","totalBet":412221660,"rtp":1.0088,"recovery":-3613316},{"rank":8,"userId":"12442791","nickname":"Dan4145","totalBet":362563075,"rtp":1.0297,"recovery":-10760796},{"rank":9,"userId":"13323772","nickname":"Borneo44","totalBet":351214000,"rtp":1.2256,"recovery":-79225000},{"rank":10,"userId":"11651713","nickname":"幸运之星998","totalBet":351005320,"rtp":0.9708,"recovery":10239662}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1439303950,"rtp":0.9138,"recovery":124015640},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":914860000,"rtp":0.8938,"recovery":97132000},{"rank":3,"userId":"12315355","nickname":"LUK315355","totalBet":723996320,"rtp":1.0124,"recovery":-9000928},{"rank":4,"userId":"12102113","nickname":"LUX102113","totalBet":685413968,"rtp":0.9964,"recovery":2494912},{"rank":5,"userId":"10299559","nickname":"JoeTan","totalBet":618462715,"rtp":1.0141,"recovery":-8732095},{"rank":6,"userId":"10134554","nickname":"lee02","totalBet":476513630,"rtp":1.0351,"recovery":-16729292},{"rank":7,"userId":"13184033","nickname":"chuan178","totalBet":335997294,"rtp":0.9429,"recovery":19183670},{"rank":8,"userId":"10442554","nickname":"mic6228","totalBet":333610870,"rtp":0.9928,"recovery":2392760},{"rank":9,"userId":"10029744","nickname":"zhai","totalBet":322794670,"rtp":0.8851,"recovery":37099916},{"rank":10,"userId":"13084020","nickname":"暴你奶奶的鱼","totalBet":310782168,"rtp":1.0474,"recovery":-14715867}]},"Slot":{"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1045488460,"rtp":0.9301,"recovery":73031968},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":534831800,"rtp":1.0552,"recovery":-29546581},{"rank":3,"userId":"12989709","nickname":"蓝","totalBet":474485600,"rtp":0.8161,"recovery":87243500},{"rank":4,"userId":"10278537","nickname":"BENG000","totalBet":344613785,"rtp":1.0518,"recovery":-17834787},{"rank":5,"userId":"10488466","nickname":"1229","totalBet":300870230,"rtp":0.9106,"recovery":26895167},{"rank":6,"userId":"12151507","nickname":"只想暴富","totalBet":278628300,"rtp":1.1177,"recovery":-32793511},{"rank":7,"userId":"13429705","nickname":"Abc88","totalBet":229775744,"rtp":0.9998,"recovery":55280},{"rank":8,"userId":"11011055","nickname":"kelly9999","totalBet":206025392,"rtp":0.9332,"recovery":13762063},{"rank":9,"userId":"10346226","nickname":"枫清杨","totalBet":201675185,"rtp":0.9447,"recovery":11153725},{"rank":10,"userId":"10129668","nickname":"悟空五二零变","totalBet":187605332,"rtp":1.1384,"recovery":-25960997}],"07/27~08/02":[{"rank":1,"userId":"12895117","nickname":"贠920717","totalBet":675615190,"rtp":1.0856,"recovery":-57835389},{"rank":2,"userId":"11444882","nickname":"Great777","totalBet":628697600,"rtp":1.0232,"recovery":-14585270},{"rank":3,"userId":"13480187","nickname":"Aiseh333","totalBet":610858800,"rtp":0.664,"recovery":205231798},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":525105000,"rtp":0.9225,"recovery":40712263},{"rank":5,"userId":"12749673","nickname":"MESSI88","totalBet":307896020,"rtp":1.0426,"recovery":-13104964},{"rank":6,"userId":"12151507","nickname":"只想暴富","totalBet":279001380,"rtp":0.9164,"recovery":23329187},{"rank":7,"userId":"10162209","nickname":"9699","totalBet":212938560,"rtp":1.0657,"recovery":-13996673},{"rank":8,"userId":"11871989","nickname":"Super8899","totalBet":200304000,"rtp":0.9226,"recovery":15496790},{"rank":9,"userId":"10703419","nickname":"JOY703419","totalBet":180622224,"rtp":1.2019,"recovery":-36468257},{"rank":10,"userId":"10029744","nickname":"zhai","totalBet":154409900,"rtp":0.9503,"recovery":7679683}],"07/06~07/12":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1128295220,"rtp":1.1255,"recovery":-141615984},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":628822590,"rtp":1.1293,"recovery":-81316131},{"rank":3,"userId":"10488466","nickname":"1229","totalBet":536065200,"rtp":0.9692,"recovery":16494537},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":335065600,"rtp":0.9108,"recovery":29881151},{"rank":5,"userId":"13333291","nickname":"CHENGOD02","totalBet":312557280,"rtp":1.0153,"recovery":-4775739},{"rank":6,"userId":"13429705","nickname":"Abc88","totalBet":277960453,"rtp":0.8484,"recovery":42147046},{"rank":7,"userId":"10278537","nickname":"BENG000","totalBet":254392880,"rtp":1.1179,"recovery":-29981137},{"rank":8,"userId":"12743796","nickname":"FUN743796","totalBet":228364400,"rtp":0.945,"recovery":12558200},{"rank":9,"userId":"12791902","nickname":"88财神保佑99","totalBet":186874360,"rtp":1.1031,"recovery":-19259957},{"rank":10,"userId":"12151507","nickname":"只想暴富","totalBet":186333480,"rtp":1.1191,"recovery":-22195618}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1786360480,"rtp":1.0166,"recovery":-29655936},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":721210000,"rtp":0.8504,"recovery":107900048},{"rank":3,"userId":"10278537","nickname":"BENG000","totalBet":462812040,"rtp":0.952,"recovery":22225551},{"rank":4,"userId":"10564919","nickname":"Nooby","totalBet":415035300,"rtp":0.831,"recovery":70131860},{"rank":5,"userId":"12151507","nickname":"只想暴富","totalBet":337564900,"rtp":0.8897,"recovery":37221540},{"rank":6,"userId":"10488466","nickname":"1229","totalBet":265394000,"rtp":0.9681,"recovery":8471259},{"rank":7,"userId":"12895117","nickname":"贠920717","totalBet":262534230,"rtp":1.0367,"recovery":-9639752},{"rank":8,"userId":"13429705","nickname":"Abc88","totalBet":220199471,"rtp":0.9261,"recovery":16281890},{"rank":9,"userId":"10129668","nickname":"悟空五二零变","totalBet":196438420,"rtp":0.9629,"recovery":7283520},{"rank":10,"userId":"11640594","nickname":"e08086","totalBet":176965123,"rtp":1.0745,"recovery":-13178477}],"06/29~07/05":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":535118680,"rtp":0.9484,"recovery":27612382},{"rank":2,"userId":"10703419","nickname":"JOY703419","totalBet":459879259,"rtp":1.0279,"recovery":-12835491},{"rank":3,"userId":"10564919","nickname":"Nooby","totalBet":429842440,"rtp":1.0355,"recovery":-15245209},{"rank":4,"userId":"12365470","nickname":"Smithi168","totalBet":304059868,"rtp":0.9997,"recovery":80146},{"rank":5,"userId":"10162209","nickname":"9699","totalBet":266092120,"rtp":0.9748,"recovery":6711322},{"rank":6,"userId":"13429705","nickname":"Abc88","totalBet":243341935,"rtp":0.977,"recovery":5594658},{"rank":7,"userId":"13529267","nickname":"FRASER61","totalBet":240963034,"rtp":0.9734,"recovery":6418028},{"rank":8,"userId":"10278537","nickname":"BENG000","totalBet":233334000,"rtp":1.005,"recovery":-1161031},{"rank":9,"userId":"13333291","nickname":"CHENGOD02","totalBet":203784335,"rtp":0.9489,"recovery":10414304},{"rank":10,"userId":"13153480","nickname":"VIP3313","totalBet":178617910,"rtp":1.2631,"recovery":-46990858}]}}} 替換為真實 JSON 字串
+                const n8nDataStr = '{"updateTime":"2026/08/03 09:10:13","recordCount":352,"periods":{"CurrentWeek":{"startDate":"2026-07-26","endDate":"2026-08-01"},"PreviousWeek":{"startDate":"2026-07-19","endDate":"2026-07-25"},"PreviousMonth":{"startDate":"2026-06-28","endDate":"2026-07-04"}},"kpiData":{"CurrentWeek":{"Betting":{"UserCount_Avg":3485,"TotalBet_Avg":1561088852,"RTP_Avg":0.9871},"All":{"UserCount_Avg":16250,"TotalBet_Avg":7095823223,"RTP_Avg":0.968},"Slot":{"UserCount_Avg":10766,"TotalBet_Avg":2199614369,"RTP_Avg":0.9529},"Fish":{"UserCount_Avg":5274,"TotalBet_Avg":3214076346,"RTP_Avg":0.9674}},"PreviousWeek":{"All":{"UserCount_Avg":16392,"TotalBet_Avg":7604056309,"RTP_Avg":0.9823},"Fish":{"UserCount_Avg":5427,"TotalBet_Avg":3214233094,"RTP_Avg":0.9835},"Slot":{"UserCount_Avg":10748,"TotalBet_Avg":2414800302,"RTP_Avg":0.9609},"Betting":{"UserCount_Avg":3575,"TotalBet_Avg":1902060325,"RTP_Avg":1.0018}},"PreviousMonth":{"Fish":{"UserCount_Avg":5810,"TotalBet_Avg":3541385122,"RTP_Avg":0.9715},"Slot":{"UserCount_Avg":9668,"TotalBet_Avg":2191904639,"RTP_Avg":0.9846},"All":{"UserCount_Avg":15896,"TotalBet_Avg":7260458238,"RTP_Avg":0.9787},"Betting":{"UserCount_Avg":3765,"TotalBet_Avg":1453615410,"RTP_Avg":0.9839}}},"trendData":{"All":[{"date":"06/29","bet":6162763092,"recovery":232486359},{"date":"06/30","bet":7516761927,"recovery":118809769},{"date":"07/01","bet":8339642240,"recovery":4928968},{"date":"07/02","bet":7855703370,"recovery":222163093},{"date":"07/03","bet":7434226344,"recovery":117788634},{"date":"07/04","bet":6712284881,"recovery":186908524},{"date":"07/05","bet":6801825813,"recovery":154354081},{"date":"07/06","bet":6477065324,"recovery":122432873},{"date":"07/07","bet":7426335956,"recovery":290821167},{"date":"07/08","bet":7592390346,"recovery":124181050},{"date":"07/09","bet":6386204457,"recovery":165354977},{"date":"07/10","bet":7685570768,"recovery":-255610622},{"date":"07/11","bet":6912789962,"recovery":219359279},{"date":"07/12","bet":6038182874,"recovery":160694376},{"date":"07/13","bet":5388774752,"recovery":236942911},{"date":"07/14","bet":6144182005,"recovery":173185469},{"date":"07/15","bet":5795568005,"recovery":172115725},{"date":"07/16","bet":6194032448,"recovery":45926974},{"date":"07/17","bet":6812216495,"recovery":84759387},{"date":"07/18","bet":6247723051,"recovery":99852474},{"date":"07/19","bet":7274466228,"recovery":240065642},{"date":"07/20","bet":6985070953,"recovery":149600602},{"date":"07/21","bet":8031701213,"recovery":135402807},{"date":"07/22","bet":7788684990,"recovery":158540199},{"date":"07/23","bet":7712437133,"recovery":238350897},{"date":"07/24","bet":6435308814,"recovery":160131213},{"date":"07/25","bet":7539592717,"recovery":-49479278},{"date":"07/26","bet":8735598343,"recovery":141187396},{"date":"07/27","bet":6411083569,"recovery":381655846},{"date":"07/28","bet":6367179931,"recovery":228596963},{"date":"07/29","bet":7421680610,"recovery":193274795},{"date":"07/30","bet":6556522414,"recovery":75543149},{"date":"07/31","bet":8056123786,"recovery":266606315},{"date":"08/01","bet":7322955212,"recovery":339676702},{"date":"08/02","bet":7535217038,"recovery":84582325}],"Betting":[{"date":"06/29","bet":1013780853,"recovery":11368544},{"date":"06/30","bet":843450043,"recovery":18492209},{"date":"07/01","bet":1263206082,"recovery":11150659},{"date":"07/02","bet":1932955203,"recovery":58579546},{"date":"07/03","bet":1938307816,"recovery":-17554065},{"date":"07/04","bet":1361608432,"recovery":50639989},{"date":"07/05","bet":1821999442,"recovery":21901278},{"date":"07/06","bet":1511693080,"recovery":51325864},{"date":"07/07","bet":1277061245,"recovery":16748905},{"date":"07/08","bet":1377150806,"recovery":21505457},{"date":"07/09","bet":1153964905,"recovery":1240053},{"date":"07/10","bet":1208105284,"recovery":16694917},{"date":"07/11","bet":1132525414,"recovery":-3943029},{"date":"07/12","bet":1066125443,"recovery":11749208},{"date":"07/13","bet":1011847227,"recovery":43920016},{"date":"07/14","bet":1085261228,"recovery":-21815713},{"date":"07/15","bet":1312537138,"recovery":-5938059},{"date":"07/16","bet":947919533,"recovery":27583081},{"date":"07/17","bet":961320302,"recovery":15238860},{"date":"07/18","bet":989922890,"recovery":-4138970},{"date":"07/19","bet":1344386000,"recovery":45241628},{"date":"07/20","bet":1423207633,"recovery":51457798},{"date":"07/21","bet":2403608661,"recovery":16915855},{"date":"07/22","bet":1940624079,"recovery":50501378},{"date":"07/23","bet":1407314847,"recovery":6692616},{"date":"07/24","bet":1220576148,"recovery":-4880277},{"date":"07/25","bet":2445454181,"recovery":-238571903},{"date":"07/26","bet":2473636730,"recovery":36569874},{"date":"07/27","bet":1442028634,"recovery":51074146},{"date":"07/28","bet":1607348205,"recovery":-24360868},{"date":"07/29","bet":1535495149,"recovery":21275653},{"date":"07/30","bet":1407968896,"recovery":11653806},{"date":"07/31","bet":1483333862,"recovery":2413806},{"date":"08/01","bet":1644725543,"recovery":57241596},{"date":"08/02","bet":1806721675,"recovery":21178570}],"Fish":[{"date":"06/29","bet":3213451737,"recovery":192811375},{"date":"06/30","bet":4308516507,"recovery":108182278},{"date":"07/01","bet":4380134860,"recovery":44617147},{"date":"07/02","bet":3692447018,"recovery":70108735},{"date":"07/03","bet":2954437597,"recovery":103348980},{"date":"07/04","bet":3014661255,"recovery":102687486},{"date":"07/05","bet":3226046877,"recovery":53051507},{"date":"07/06","bet":3197246290,"recovery":42974519},{"date":"07/07","bet":3053606957,"recovery":153589877},{"date":"07/08","bet":3446669083,"recovery":102667347},{"date":"07/09","bet":2791894115,"recovery":17593857},{"date":"07/10","bet":3649563623,"recovery":-75612246},{"date":"07/11","bet":2948003113,"recovery":126013050},{"date":"07/12","bet":2790995334,"recovery":46112176},{"date":"07/13","bet":2143773452,"recovery":57854467},{"date":"07/14","bet":2637922285,"recovery":76310767},{"date":"07/15","bet":2038077052,"recovery":115972683},{"date":"07/16","bet":2900536444,"recovery":-38518949},{"date":"07/17","bet":3290065049,"recovery":-36546738},{"date":"07/18","bet":3049590831,"recovery":-60957061},{"date":"07/19","bet":3318936611,"recovery":109089478},{"date":"07/20","bet":3111997121,"recovery":-69551487},{"date":"07/21","bet":3311105851,"recovery":2009734},{"date":"07/22","bet":3350847283,"recovery":-3323385},{"date":"07/23","bet":3674979291,"recovery":149956223},{"date":"07/24","bet":2667764810,"recovery":18444223},{"date":"07/25","bet":2741593872,"recovery":162709737},{"date":"07/26","bet":3641343429,"recovery":112903169},{"date":"07/27","bet":2825128527,"recovery":153968688},{"date":"07/28","bet":2733742315,"recovery":118936069},{"date":"07/29","bet":3866914442,"recovery":68565489},{"date":"07/30","bet":2948764560,"recovery":75249415},{"date":"07/31","bet":3937359641,"recovery":100525388},{"date":"08/01","bet":3113030878,"recovery":166507956},{"date":"08/02","bet":3073594057,"recovery":24201422}],"Slot":[{"date":"06/29","bet":1876103459,"recovery":30055914},{"date":"06/30","bet":2322918756,"recovery":-9049054},{"date":"07/01","bet":2627180429,"recovery":-52906472},{"date":"07/02","bet":2153605275,"recovery":95033964},{"date":"07/03","bet":2463360958,"recovery":30676577},{"date":"07/04","bet":2249403534,"recovery":30988037},{"date":"07/05","bet":1650760062,"recovery":75297272},{"date":"07/06","bet":1679512661,"recovery":37415273},{"date":"07/07","bet":2975105352,"recovery":125079896},{"date":"07/08","bet":2725043742,"recovery":-7691},{"date":"07/09","bet":2331682200,"recovery":153244994},{"date":"07/10","bet":2717873279,"recovery":-183373389},{"date":"07/11","bet":2689897154,"recovery":93041133},{"date":"07/12","bet":2089428807,"recovery":96376042},{"date":"07/13","bet":2124660522,"recovery":131917012},{"date":"07/14","bet":2257720093,"recovery":107840480},{"date":"07/15","bet":2348177449,"recovery":58730887},{"date":"07/16","bet":2146241429,"recovery":63444858},{"date":"07/17","bet":2404758066,"recovery":93414456},{"date":"07/18","bet":2026097932,"recovery":150274536},{"date":"07/19","bet":2554977371,"recovery":86080140},{"date":"07/20","bet":2364999870,"recovery":163601583},{"date":"07/21","bet":2259448857,"recovery":118712616},{"date":"07/22","bet":2423403364,"recovery":113596343},{"date":"07/23","bet":2506917664,"recovery":102652910},{"date":"07/24","bet":2478946478,"recovery":148939969},{"date":"07/25","bet":2309287819,"recovery":21567541},{"date":"07/26","bet":2560598062,"recovery":-14103087},{"date":"07/27","bet":2067635356,"recovery":176826130},{"date":"07/28","bet":1936765863,"recovery":131194538},{"date":"07/29","bet":1945119966,"recovery":108173076},{"date":"07/30","bet":2060035424,"recovery":-20464650},{"date":"07/31","bet":2526047676,"recovery":165631151},{"date":"08/01","bet":2437991367,"recovery":114557689},{"date":"08/02","bet":2423704932,"recovery":44937672}]},"topPlayers":{"Betting":{"07/27~08/02":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2002906580,"rtp":0.9882,"recovery":23546560},{"rank":2,"userId":"10357155","nickname":"MikeTing","totalBet":1316063100,"rtp":1.0081,"recovery":-10615900},{"rank":3,"userId":"12099192","nickname":"百忍生金","totalBet":455840000,"rtp":1.0296,"recovery":-13488500},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":371880000,"rtp":0.92,"recovery":29740500},{"rank":5,"userId":"13309114","nickname":"wa9010","totalBet":369972000,"rtp":0.9946,"recovery":1983650},{"rank":6,"userId":"12773040","nickname":"Burn33","totalBet":364427830,"rtp":1.0818,"recovery":-29799214},{"rank":7,"userId":"11503598","nickname":"kokkan96","totalBet":290300440,"rtp":0.9329,"recovery":19489940},{"rank":8,"userId":"13020058","nickname":"Devil00","totalBet":268499200,"rtp":1.083,"recovery":-22292250},{"rank":9,"userId":"13510010","nickname":"ONG510010","totalBet":259260700,"rtp":0.944,"recovery":14510200},{"rank":10,"userId":"12387358","nickname":"PikaPika2","totalBet":247882500,"rtp":0.936,"recovery":15852500}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2426110000,"rtp":1.0739,"recovery":-179271600},{"rank":2,"userId":"12265085","nickname":"包谷886377","totalBet":981046700,"rtp":0.9327,"recovery":66006900},{"rank":3,"userId":"10357155","nickname":"MikeTing","totalBet":824881600,"rtp":0.9959,"recovery":3391574},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":752310000,"rtp":1.0194,"recovery":-14617000},{"rank":5,"userId":"12387358","nickname":"PikaPika2","totalBet":495590100,"rtp":1.006,"recovery":-2959900},{"rank":6,"userId":"13510010","nickname":"ONG510010","totalBet":445944000,"rtp":1.0091,"recovery":-4036000},{"rank":7,"userId":"13553670","nickname":"LUX553670","totalBet":434750522,"rtp":0.9841,"recovery":6919279},{"rank":8,"userId":"10243134","nickname":"SKYWAYS","totalBet":360085000,"rtp":1.0368,"recovery":-13244150},{"rank":9,"userId":"10501803","nickname":"maxmax","totalBet":264904300,"rtp":0.9925,"recovery":1975050},{"rank":10,"userId":"10003615","nickname":"小馬","totalBet":261470000,"rtp":0.975,"recovery":6545000}],"07/13~07/19":[{"rank":1,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":605326000,"rtp":1.0453,"recovery":-27425000},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":591592500,"rtp":0.9604,"recovery":23408050},{"rank":3,"userId":"12265085","nickname":"包谷886377","totalBet":534999400,"rtp":1.1112,"recovery":-59465850},{"rank":4,"userId":"12773040","nickname":"Burn33","totalBet":206620000,"rtp":0.9704,"recovery":6124900},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":206530000,"rtp":0.9063,"recovery":19345000},{"rank":6,"userId":"12387358","nickname":"PikaPika2","totalBet":200507000,"rtp":1.0092,"recovery":-1853000},{"rank":7,"userId":"13510010","nickname":"ONG510010","totalBet":200372000,"rtp":1.0045,"recovery":-908000},{"rank":8,"userId":"11861978","nickname":"Haw101","totalBet":177045100,"rtp":1.0365,"recovery":-6456200},{"rank":9,"userId":"10234878","nickname":"3rdEyed","totalBet":172422700,"rtp":0.9807,"recovery":3332700},{"rank":10,"userId":"10501803","nickname":"maxmax","totalBet":160874337,"rtp":0.9902,"recovery":1574013}],"07/06~07/12":[{"rank":1,"userId":"13523237","nickname":"ulrixch","totalBet":891551140,"rtp":0.982,"recovery":16006348},{"rank":2,"userId":"10357155","nickname":"MikeTing","totalBet":526440400,"rtp":0.9767,"recovery":12245900},{"rank":3,"userId":"10990119","nickname":"BenWukong","totalBet":440541500,"rtp":1.0192,"recovery":-8441600},{"rank":4,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":337835000,"rtp":0.9867,"recovery":4487100},{"rank":5,"userId":"13553670","nickname":"LUX553670","totalBet":297750930,"rtp":0.9863,"recovery":4085899},{"rank":6,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":296979000,"rtp":1.0497,"recovery":-14758000},{"rank":7,"userId":"12265085","nickname":"包谷886377","totalBet":294525600,"rtp":1.138,"recovery":-40632910},{"rank":8,"userId":"12989709","nickname":"蓝","totalBet":263010000,"rtp":1.1106,"recovery":-29097500},{"rank":9,"userId":"11535040","nickname":"ONG535040","totalBet":254643670,"rtp":0.8967,"recovery":26311590},{"rank":10,"userId":"12038846","nickname":"TOP210419","totalBet":198152884,"rtp":1.0297,"recovery":-5885266}],"06/29~07/05":[{"rank":1,"userId":"13523237","nickname":"ulrixch","totalBet":937704300,"rtp":0.9848,"recovery":14256800},{"rank":2,"userId":"10501803","nickname":"maxmax","totalBet":608128579,"rtp":0.9789,"recovery":12815096},{"rank":3,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":556130700,"rtp":1.0073,"recovery":-4034508},{"rank":4,"userId":"10357155","nickname":"MikeTing","totalBet":550409100,"rtp":0.9817,"recovery":10079600},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":469070000,"rtp":0.9815,"recovery":8691000},{"rank":6,"userId":"10453779","nickname":"Nick7777","totalBet":429150706,"rtp":0.9764,"recovery":10106995},{"rank":7,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":389133000,"rtp":1.0108,"recovery":-4192760},{"rank":8,"userId":"12265085","nickname":"包谷886377","totalBet":381428500,"rtp":1.0784,"recovery":-29907500},{"rank":9,"userId":"10581414","nickname":"kamyi","totalBet":339069200,"rtp":0.9522,"recovery":16209500},{"rank":10,"userId":"11535040","nickname":"ONG535040","totalBet":271180780,"rtp":0.9441,"recovery":15170440}]},"All":{"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":4212470480,"rtp":1.0496,"recovery":-208927536},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":1481012000,"rtp":0.9342,"recovery":97443848},{"rank":3,"userId":"10259798","nickname":"一路發433","totalBet":1206008790,"rtp":0.9164,"recovery":100865157},{"rank":4,"userId":"13523793","nickname":"FUN😀123","totalBet":1163839788,"rtp":1.0469,"recovery":-54621443},{"rank":5,"userId":"12265085","nickname":"包谷886377","totalBet":1001341033,"rtp":0.9266,"recovery":73501963},{"rank":6,"userId":"10278537","nickname":"BENG000","totalBet":934998700,"rtp":0.9727,"recovery":25479385},{"rank":7,"userId":"10357155","nickname":"MikeTing","totalBet":824881600,"rtp":0.9959,"recovery":3391574},{"rank":8,"userId":"10003615","nickname":"小馬","totalBet":746717500,"rtp":0.9692,"recovery":23014133},{"rank":9,"userId":"13488668","nickname":"KingLeo88","totalBet":596038743,"rtp":1.1206,"recovery":-71903192},{"rank":10,"userId":"10243134","nickname":"SKYWAYS","totalBet":585125579,"rtp":0.9921,"recovery":4637770}],"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1132198680,"rtp":0.9421,"recovery":65544388},{"rank":2,"userId":"12916309","nickname":"许念2133","totalBet":987937906,"rtp":1.0114,"recovery":-11291026},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":874225657,"rtp":0.9557,"recovery":38721461},{"rank":4,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":819020870,"rtp":1.0206,"recovery":-16891599},{"rank":5,"userId":"10278537","nickname":"BENG000","totalBet":770924197,"rtp":1.0604,"recovery":-46530189},{"rank":6,"userId":"12989709","nickname":"蓝","totalBet":700378600,"rtp":0.8424,"recovery":110350500},{"rank":7,"userId":"10259798","nickname":"一路發433","totalBet":687891235,"rtp":0.9044,"recovery":65772953},{"rank":8,"userId":"10029744","nickname":"zhai","totalBet":616316690,"rtp":0.9076,"recovery":56946516},{"rank":9,"userId":"10134554","nickname":"lee02","totalBet":597815430,"rtp":1.0177,"recovery":-10564775},{"rank":10,"userId":"12265085","nickname":"包谷886377","totalBet":558746022,"rtp":1.1013,"recovery":-56592700}],"07/27~08/02":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":2718500880,"rtp":0.9283,"recovery":194842858},{"rank":2,"userId":"12898257","nickname":"ACE898257","totalBet":1792305702,"rtp":0.993,"recovery":12583236},{"rank":3,"userId":"10357155","nickname":"MikeTing","totalBet":1316131812,"rtp":1.0081,"recovery":-10614277},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":986335385,"rtp":0.9138,"recovery":85047550},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":897007800,"rtp":0.9214,"recovery":70469083},{"rank":6,"userId":"10029744","nickname":"zhai","totalBet":859059820,"rtp":0.9617,"recovery":32861183},{"rank":7,"userId":"13523793","nickname":"FUN😀123","totalBet":708236972,"rtp":0.8006,"recovery":141245166},{"rank":8,"userId":"12895117","nickname":"贠920717","totalBet":704603050,"rtp":1.0839,"recovery":-59124519},{"rank":9,"userId":"13488668","nickname":"KingLeo88","totalBet":644579981,"rtp":0.9922,"recovery":5044445},{"rank":10,"userId":"11444882","nickname":"Great777","totalBet":628697600,"rtp":1.0232,"recovery":-14585270}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2489237030,"rtp":1.0448,"recovery":-111467749},{"rank":2,"userId":"13523237","nickname":"ulrixch","totalBet":1092823098,"rtp":0.9931,"recovery":7538341},{"rank":3,"userId":"10003615","nickname":"小馬","totalBet":803331280,"rtp":0.9584,"recovery":33454442},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":797528500,"rtp":0.9653,"recovery":27677050},{"rank":5,"userId":"13144952","nickname":"T1234","totalBet":727471030,"rtp":0.881,"recovery":86552436},{"rank":6,"userId":"10519263","nickname":"捕鱼高手","totalBet":694373280,"rtp":1.074,"recovery":-51398810},{"rank":7,"userId":"10703419","nickname":"JOY703419","totalBet":641740309,"rtp":1.0187,"recovery":-12016591},{"rank":8,"userId":"10501803","nickname":"maxmax","totalBet":617672087,"rtp":0.9771,"recovery":14169011},{"rank":9,"userId":"10116497","nickname":"夜闯寡妇营","totalBet":577823850,"rtp":1.044,"recovery":-25403708},{"rank":10,"userId":"10015857","nickname":"GUEENBAE¹","totalBet":569662464,"rtp":1.0055,"recovery":-3117865}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1638358595,"rtp":0.9026,"recovery":159520450},{"rank":2,"userId":"13480187","nickname":"Aiseh333","totalBet":1265965220,"rtp":1.1226,"recovery":-155196884},{"rank":3,"userId":"13523237","nickname":"ulrixch","totalBet":1222982260,"rtp":0.999,"recovery":1180974},{"rank":4,"userId":"10259798","nickname":"一路發433","totalBet":978695800,"rtp":0.8959,"recovery":101914148},{"rank":5,"userId":"12989709","nickname":"蓝","totalBet":897584100,"rtp":1.0438,"recovery":-39347049},{"rank":6,"userId":"12315355","nickname":"LUK315355","totalBet":726469920,"rtp":1.0114,"recovery":-8260288},{"rank":7,"userId":"12102113","nickname":"LUX102113","totalBet":687605404,"rtp":0.9966,"recovery":2317672},{"rank":8,"userId":"10299559","nickname":"JoeTan","totalBet":638422771,"rtp":1.0172,"recovery":-11008591},{"rank":9,"userId":"10564919","nickname":"Nooby","totalBet":628822590,"rtp":1.1293,"recovery":-81316131},{"rank":10,"userId":"10134554","nickname":"lee02","totalBet":563787550,"rtp":1.0244,"recovery":-13740002}]},"Fish":{"07/27~08/02":[{"rank":1,"userId":"12898257","nickname":"ACE898257","totalBet":1784903512,"rtp":0.9937,"recovery":11210594},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":939444185,"rtp":0.9252,"recovery":70267977},{"rank":3,"userId":"10029744","nickname":"zhai","totalBet":703000920,"rtp":0.9655,"recovery":24271000},{"rank":4,"userId":"13523793","nickname":"FUN😀123","totalBet":582629778,"rtp":0.8223,"recovery":103541065},{"rank":5,"userId":"10237662","nickname":"Bryanong","totalBet":479654675,"rtp":0.995,"recovery":2381258},{"rank":6,"userId":"13488668","nickname":"KingLeo88","totalBet":477374736,"rtp":0.9392,"recovery":29017471},{"rank":7,"userId":"10184944","nickname":"vanessa68","totalBet":391154045,"rtp":1.0243,"recovery":-9490011},{"rank":8,"userId":"13332498","nickname":"WIN332498","totalBet":311536328,"rtp":1.173,"recovery":-53883604},{"rank":9,"userId":"11834155","nickname":"34155","totalBet":310603910,"rtp":1.0428,"recovery":-13294600},{"rank":10,"userId":"10442554","nickname":"mic6228","totalBet":308148056,"rtp":1.0436,"recovery":-13442312}],"06/29~07/05":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":2335675150,"rtp":1.0366,"recovery":-85560790},{"rank":2,"userId":"10003615","nickname":"小馬","totalBet":711305000,"rtp":0.9208,"recovery":56324000},{"rank":3,"userId":"13144952","nickname":"T1234","totalBet":702331390,"rtp":0.8911,"recovery":76469816},{"rank":4,"userId":"10519263","nickname":"捕鱼高手","totalBet":627090500,"rtp":1.0154,"recovery":-9640500},{"rank":5,"userId":"10029744","nickname":"zhai","totalBet":505706240,"rtp":0.9484,"recovery":26084619},{"rank":6,"userId":"10442554","nickname":"mic6228","totalBet":486882697,"rtp":0.9701,"recovery":14560563},{"rank":7,"userId":"10134554","nickname":"lee02","totalBet":398639220,"rtp":1.1287,"recovery":-51306174},{"rank":8,"userId":"13051116","nickname":"TT99","totalBet":394624938,"rtp":0.8855,"recovery":45182779},{"rank":9,"userId":"13523793","nickname":"FUN😀123","totalBet":375767524,"rtp":0.8639,"recovery":51145024},{"rank":10,"userId":"10243134","nickname":"SKYWAYS","totalBet":369272480,"rtp":1.0315,"recovery":-11642793}],"07/13~07/19":[{"rank":1,"userId":"12916309","nickname":"许念2133","totalBet":778107680,"rtp":1.0074,"recovery":-5784192},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":633373435,"rtp":0.9441,"recovery":35421415},{"rank":3,"userId":"10029744","nickname":"zhai","totalBet":566454770,"rtp":0.9213,"recovery":44601139},{"rank":4,"userId":"10134554","nickname":"lee02","totalBet":508835510,"rtp":1.0357,"recovery":-18169771},{"rank":5,"userId":"13523793","nickname":"FUN😀123","totalBet":482935300,"rtp":1.1531,"recovery":-73917950},{"rank":6,"userId":"10278537","nickname":"BENG000","totalBet":426310412,"rtp":1.0673,"recovery":-28695401},{"rank":7,"userId":"10442554","nickname":"mic6228","totalBet":406079420,"rtp":1.0132,"recovery":-5349510},{"rank":8,"userId":"11651713","nickname":"幸运之星998","totalBet":367297910,"rtp":0.998,"recovery":737722},{"rank":9,"userId":"10237662","nickname":"Bryanong","totalBet":303578237,"rtp":0.9033,"recovery":29349507},{"rank":10,"userId":"11834155","nickname":"34155","totalBet":278475930,"rtp":1.0531,"recovery":-14790340}],"07/20~07/26":[{"rank":1,"userId":"10259798","nickname":"一路發433","totalBet":1090767990,"rtp":0.9367,"recovery":69025857},{"rank":2,"userId":"13523793","nickname":"FUN😀123","totalBet":986278160,"rtp":1.0269,"recovery":-26505245},{"rank":3,"userId":"11154374","nickname":"sha4627","totalBet":506386083,"rtp":0.9304,"recovery":35244604},{"rank":4,"userId":"10442554","nickname":"mic6228","totalBet":468207220,"rtp":1.0429,"recovery":-20099230},{"rank":5,"userId":"10003615","nickname":"小馬","totalBet":462747500,"rtp":0.9604,"recovery":18308500},{"rank":6,"userId":"13488668","nickname":"KingLeo88","totalBet":412401511,"rtp":1.188,"recovery":-77540124},{"rank":7,"userId":"10278537","nickname":"BENG000","totalBet":412221660,"rtp":1.0088,"recovery":-3613316},{"rank":8,"userId":"12442791","nickname":"Dan4145","totalBet":362563075,"rtp":1.0297,"recovery":-10760796},{"rank":9,"userId":"13323772","nickname":"Borneo44","totalBet":351214000,"rtp":1.2256,"recovery":-79225000},{"rank":10,"userId":"11651713","nickname":"幸运之星998","totalBet":351005320,"rtp":0.9708,"recovery":10239662}],"07/06~07/12":[{"rank":1,"userId":"13523793","nickname":"FUN😀123","totalBet":1439303950,"rtp":0.9138,"recovery":124015640},{"rank":2,"userId":"10259798","nickname":"一路發433","totalBet":914860000,"rtp":0.8938,"recovery":97132000},{"rank":3,"userId":"12315355","nickname":"LUK315355","totalBet":723996320,"rtp":1.0124,"recovery":-9000928},{"rank":4,"userId":"12102113","nickname":"LUX102113","totalBet":685413968,"rtp":0.9964,"recovery":2494912},{"rank":5,"userId":"10299559","nickname":"JoeTan","totalBet":618462715,"rtp":1.0141,"recovery":-8732095},{"rank":6,"userId":"10134554","nickname":"lee02","totalBet":476513630,"rtp":1.0351,"recovery":-16729292},{"rank":7,"userId":"13184033","nickname":"chuan178","totalBet":335997294,"rtp":0.9429,"recovery":19183670},{"rank":8,"userId":"10442554","nickname":"mic6228","totalBet":333610870,"rtp":0.9928,"recovery":2392760},{"rank":9,"userId":"10029744","nickname":"zhai","totalBet":322794670,"rtp":0.8851,"recovery":37099916},{"rank":10,"userId":"13084020","nickname":"暴你奶奶的鱼","totalBet":310782168,"rtp":1.0474,"recovery":-14715867}]},"Slot":{"07/13~07/19":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1045488460,"rtp":0.9301,"recovery":73031968},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":534831800,"rtp":1.0552,"recovery":-29546581},{"rank":3,"userId":"12989709","nickname":"蓝","totalBet":474485600,"rtp":0.8161,"recovery":87243500},{"rank":4,"userId":"10278537","nickname":"BENG000","totalBet":344613785,"rtp":1.0518,"recovery":-17834787},{"rank":5,"userId":"10488466","nickname":"1229","totalBet":300870230,"rtp":0.9106,"recovery":26895167},{"rank":6,"userId":"12151507","nickname":"只想暴富","totalBet":278628300,"rtp":1.1177,"recovery":-32793511},{"rank":7,"userId":"13429705","nickname":"Abc88","totalBet":229775744,"rtp":0.9998,"recovery":55280},{"rank":8,"userId":"11011055","nickname":"kelly9999","totalBet":206025392,"rtp":0.9332,"recovery":13762063},{"rank":9,"userId":"10346226","nickname":"枫清杨","totalBet":201675185,"rtp":0.9447,"recovery":11153725},{"rank":10,"userId":"10129668","nickname":"悟空五二零变","totalBet":187605332,"rtp":1.1384,"recovery":-25960997}],"07/27~08/02":[{"rank":1,"userId":"12895117","nickname":"贠920717","totalBet":675615190,"rtp":1.0856,"recovery":-57835389},{"rank":2,"userId":"11444882","nickname":"Great777","totalBet":628697600,"rtp":1.0232,"recovery":-14585270},{"rank":3,"userId":"13480187","nickname":"Aiseh333","totalBet":610858800,"rtp":0.664,"recovery":205231798},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":525105000,"rtp":0.9225,"recovery":40712263},{"rank":5,"userId":"12749673","nickname":"MESSI88","totalBet":307896020,"rtp":1.0426,"recovery":-13104964},{"rank":6,"userId":"12151507","nickname":"只想暴富","totalBet":279001380,"rtp":0.9164,"recovery":23329187},{"rank":7,"userId":"10162209","nickname":"9699","totalBet":212938560,"rtp":1.0657,"recovery":-13996673},{"rank":8,"userId":"11871989","nickname":"Super8899","totalBet":200304000,"rtp":0.9226,"recovery":15496790},{"rank":9,"userId":"10703419","nickname":"JOY703419","totalBet":180622224,"rtp":1.2019,"recovery":-36468257},{"rank":10,"userId":"10029744","nickname":"zhai","totalBet":154409900,"rtp":0.9503,"recovery":7679683}],"07/06~07/12":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1128295220,"rtp":1.1255,"recovery":-141615984},{"rank":2,"userId":"10564919","nickname":"Nooby","totalBet":628822590,"rtp":1.1293,"recovery":-81316131},{"rank":3,"userId":"10488466","nickname":"1229","totalBet":536065200,"rtp":0.9692,"recovery":16494537},{"rank":4,"userId":"12989709","nickname":"蓝","totalBet":335065600,"rtp":0.9108,"recovery":29881151},{"rank":5,"userId":"13333291","nickname":"CHENGOD02","totalBet":312557280,"rtp":1.0153,"recovery":-4775739},{"rank":6,"userId":"13429705","nickname":"Abc88","totalBet":277960453,"rtp":0.8484,"recovery":42147046},{"rank":7,"userId":"10278537","nickname":"BENG000","totalBet":254392880,"rtp":1.1179,"recovery":-29981137},{"rank":8,"userId":"12743796","nickname":"FUN743796","totalBet":228364400,"rtp":0.945,"recovery":12558200},{"rank":9,"userId":"12791902","nickname":"88财神保佑99","totalBet":186874360,"rtp":1.1031,"recovery":-19259957},{"rank":10,"userId":"12151507","nickname":"只想暴富","totalBet":186333480,"rtp":1.1191,"recovery":-22195618}],"07/20~07/26":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":1786360480,"rtp":1.0166,"recovery":-29655936},{"rank":2,"userId":"12989709","nickname":"蓝","totalBet":721210000,"rtp":0.8504,"recovery":107900048},{"rank":3,"userId":"10278537","nickname":"BENG000","totalBet":462812040,"rtp":0.952,"recovery":22225551},{"rank":4,"userId":"10564919","nickname":"Nooby","totalBet":415035300,"rtp":0.831,"recovery":70131860},{"rank":5,"userId":"12151507","nickname":"只想暴富","totalBet":337564900,"rtp":0.8897,"recovery":37221540},{"rank":6,"userId":"10488466","nickname":"1229","totalBet":265394000,"rtp":0.9681,"recovery":8471259},{"rank":7,"userId":"12895117","nickname":"贠920717","totalBet":262534230,"rtp":1.0367,"recovery":-9639752},{"rank":8,"userId":"13429705","nickname":"Abc88","totalBet":220199471,"rtp":0.9261,"recovery":16281890},{"rank":9,"userId":"10129668","nickname":"悟空五二零变","totalBet":196438420,"rtp":0.9629,"recovery":7283520},{"rank":10,"userId":"11640594","nickname":"e08086","totalBet":176965123,"rtp":1.0745,"recovery":-13178477}],"06/29~07/05":[{"rank":1,"userId":"13480187","nickname":"Aiseh333","totalBet":535118680,"rtp":0.9484,"recovery":27612382},{"rank":2,"userId":"10703419","nickname":"JOY703419","totalBet":459879259,"rtp":1.0279,"recovery":-12835491},{"rank":3,"userId":"10564919","nickname":"Nooby","totalBet":429842440,"rtp":1.0355,"recovery":-15245209},{"rank":4,"userId":"12365470","nickname":"Smithi168","totalBet":304059868,"rtp":0.9997,"recovery":80146},{"rank":5,"userId":"10162209","nickname":"9699","totalBet":266092120,"rtp":0.9748,"recovery":6711322},{"rank":6,"userId":"13429705","nickname":"Abc88","totalBet":243341935,"rtp":0.977,"recovery":5594658},{"rank":7,"userId":"13529267","nickname":"FRASER61","totalBet":240963034,"rtp":0.9734,"recovery":6418028},{"rank":8,"userId":"10278537","nickname":"BENG000","totalBet":233334000,"rtp":1.005,"recovery":-1161031},{"rank":9,"userId":"13333291","nickname":"CHENGOD02","totalBet":203784335,"rtp":0.9489,"recovery":10414304},{"rank":10,"userId":"13153480","nickname":"VIP3313","totalBet":178617910,"rtp":1.2631,"recovery":-46990858}]}}}';
                 if (n8nDataStr && !n8nDataStr.startsWith('{{')) {
-                    injectedData = JSON.parse(n8nDataStr);
+                    rawInjectedData = JSON.parse(n8nDataStr);
                 }
             } catch (e) {
-                console.warn("無法解析 n8n 注入數據，將使用模擬數據", e);
+                // 非 n8n 環境或解析失敗時容錯
             }
+
+            if (!rawInjectedData && typeof window !== 'undefined') {
+                rawInjectedData = window.dashboardData || window.aggData || null;
+            }
+
+            const emptyFallback = {
+                updateTime: '-',
+                recordCount: 0,
+                periods: {},
+                kpiData: {},
+                trendData: {},
+                topPlayers: {}
+            };
 
             function normalizeData(raw) {
-                if (Array.isArray(raw)) return normalizeData(raw[0] || {});
-                if (raw && typeof raw === 'object' && Object.keys(raw).length > 0) {
-                    if (raw.json && typeof raw.json === 'object') return normalizeData(raw.json);
-                    if (!raw.updateTime && raw[0] && typeof raw[0] === 'object') return normalizeData(raw[0]);
-                    return raw;
+                if (!raw) return emptyFallback;
+                let data = raw;
+                if (Array.isArray(data)) {
+                    data = data[0] || {};
                 }
-                return defaultMockData;
-            }
-
-            const dashboardData = normalizeData(injectedData);
-
-            // ==================== 模擬數據生成器 (Fallback Mock Data) ====================
-            function generateDailyMockData() {
-                const dates = [];
-                // 產生 5/1 至 5/31
-                for (let d = 1; d <= 31; d++) {
-                    dates.push(`05/${d < 10 ? '0' + d : d}`);
+                if (data && typeof data === 'object') {
+                    if (data.json && typeof data.json === 'object') {
+                        data = data.json;
+                    }
+                    if (Array.isArray(data) && data[0]) {
+                        data = data[0];
+                    }
                 }
-                // 產生 6/1 至 6/4
-                for (let d = 1; d <= 4; d++) {
-                    dates.push(`06/0${d}`);
+                if (data && (data.kpiData || data.updateTime || data.periods)) {
+                    return data;
                 }
-                
-                const trend = { All: [], Slot: [], Fish: [] };
-                
-                dates.forEach((date, i) => {
-                    const isWeekend = i % 7 === 1 || i % 7 === 2; // 週六、週日加成
-                    const rateMultiplier = isWeekend ? 1.2 : 1.0;
-                    
-                    // 整體 (All) 日均大約 7~10 億上下
-                    const allBet = Math.round((8000000000 + Math.sin(i * 0.7) * 700000000 + Math.random() * 300000000) * rateMultiplier / 7);
-                    // 為了引入負官方回收，某些日期的 RTP 大於 100%
-                    let allRtp = 0.975 + Math.sin(i * 0.4) * 0.012 + Math.random() * 0.01;
-                    if (i === 4 || i === 11 || i === 18 || i === 25 || i === 31) {
-                        allRtp = 1.015 + Math.random() * 0.035;
-                    }
-                    const allWin = Math.round(allBet * allRtp);
-                    
-                    // 老虎機 (Slot) 佔大約 2.5~3.5 億
-                    const slotBet = Math.round((2200000000 + Math.cos(i * 0.6) * 300000000 + Math.random() * 150000000) * rateMultiplier / 7);
-                    let slotRtp = 0.962 + Math.sin(i * 0.5) * 0.018 + Math.random() * 0.015;
-                    if (i === 6 || i === 13 || i === 20 || i === 27) {
-                        slotRtp = 1.02 + Math.random() * 0.04;
-                    }
-                    const slotWin = Math.round(slotBet * slotRtp);
-                    
-                    // 魚機 (Fish) 佔大約 4.5~6 億
-                    const fishBet = Math.round((4800000000 + Math.sin(i * 0.9) * 500000000 + Math.random() * 200000000) * rateMultiplier / 7);
-                    let fishRtp = 0.981 + Math.cos(i * 0.3) * 0.01 + Math.random() * 0.008;
-                    if (i === 2 || i === 9 || i === 16 || i === 23 || i === 30) {
-                        fishRtp = 1.01 + Math.random() * 0.03;
-                    }
-                    const fishWin = Math.round(fishBet * fishRtp);
-                    
-                    trend.All.push({ date, bet: allBet, recovery: allBet - allWin });
-                    trend.Slot.push({ date, bet: slotBet, recovery: slotBet - slotWin });
-                    trend.Fish.push({ date, bet: fishBet, recovery: fishBet - fishWin });
-                });
-                return trend;
+                return emptyFallback;
             }
 
-            function generateTopPlayersMockData() {
-                const weeks = [
-                    { name: "W1 (05/01-05/07)" },
-                    { name: "W2 (05/08-05/14)" },
-                    { name: "W3 (05/15-05/21)" },
-                    { name: "W4 (05/22-05/28)" },
-                    { name: "W5 (05/29-06/04)" }
-                ];
-                
-                const top = { All: {}, Slot: {}, Fish: {} };
-                const userPool = [
-                    { id: 882941, name: "神秘大亨" },
-                    { id: 104820, name: "黃金獵人" },
-                    { id: 552948, name: "老虎霸主" },
-                    { id: 309482, name: "歡樂捕魚" },
-                    { id: 948210, name: "幸運之星" },
-                    { id: 482019, name: "風捲殘雲" },
-                    { id: 773910, name: "金幣狂熱" },
-                    { id: 620482, name: "千倍大贏家" },
-                    { id: 119482, name: "捕魚達人" },
-                    { id: 502841, name: "至尊大玩家" }
-                ];
-                
-                weeks.forEach(w => {
-                    const weekName = w.name;
-                    
-                    const makePlayers = (baseBet) => {
-                        const list = [];
-                        const shuffledUsers = [...userPool].sort(() => 0.5 - Math.random()).slice(0, 5);
-                        shuffledUsers.forEach((u, index) => {
-                            const rank = index + 1;
-                            const totalBet = Math.round(baseBet * (1 - index * 0.14) * (0.88 + Math.random() * 0.22));
-                            const rtp = rank === 1 ? (0.95 + Math.random() * 0.16) : (0.92 + Math.random() * 0.11);
-                            const totalWin = Math.round(totalBet * rtp);
-                            list.push({ rank, userId: u.id, nickname: u.name, totalBet, rtp, recovery: totalBet - totalWin });
-                        });
-                        return list;
-                    };
-                    
-                    top.All[weekName] = makePlayers(850000000);
-                    top.Slot[weekName] = makePlayers(380000000);
-                    top.Fish[weekName] = makePlayers(520000000);
-                });
-                return top;
-            }
-
-            // ==================== 讀取真實或模擬數據 ====================
-            let trendData = dashboardData.trendData;
-            if (!trendData || !trendData.All || trendData.All.length === 0) {
-                trendData = generateDailyMockData();
-            }
-
-            let topPlayers = dashboardData.topPlayers;
-            if (!topPlayers || !topPlayers.All || Object.keys(topPlayers.All).length === 0) {
-                topPlayers = generateTopPlayersMockData();
-            }
+            const dashboardData = normalizeData(rawInjectedData);
+            let trendData = dashboardData.trendData || {};
+            let topPlayers = dashboardData.topPlayers || {};
 
             const PERIOD_MAP = {
                 current: 'CurrentWeek',
@@ -563,14 +538,16 @@
 
             const DIMENSION_MAP = {
                 overall: 'All',
+                fish: 'Fish',
                 slot: 'Slot',
-                fish: 'Fish'
+                betting: 'Betting'
             };
 
             const THEME_CLASS_MAP = {
-                overall: 'text-blue-600',
+                overall: 'text-slate-600',
+                fish: 'text-sky-600',
                 slot: 'text-amber-600',
-                fish: 'text-cyan-600'
+                betting: 'text-teal-600'
             };
 
             const BASE_BADGE_CLASS = 'inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold';
@@ -615,7 +592,7 @@
             }
 
             function formatPeriod(period) {
-                if (!period) return '-';
+                if (!period || !period.startDate || !period.endDate) return '- ~ -';
                 return `${formatDate(period.startDate)} ~ ${formatDate(period.endDate)}`;
             }
 
@@ -651,14 +628,14 @@
                 if (n >= 0) {
                     const text = `▲ ${formatRate(n)}`;
                     const className = isSmallChange 
-                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500` // 微幅上升：灰階
-                        : `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600`;   // 大幅上升：紅色
+                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500`
+                        : `${BASE_BADGE_CLASS} bg-rose-50 text-rose-600`;
                     return { text, className };
                 } else {
                     const text = `▼ ${formatRate(Math.abs(n))}`;
                     const className = isSmallChange
-                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500` // 微幅下降：灰階
-                        : `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600`; // 大幅下降：綠色
+                        ? `${BASE_BADGE_CLASS} bg-slate-100 text-slate-500`
+                        : `${BASE_BADGE_CLASS} bg-emerald-50 text-emerald-600`;
                     return { text, className };
                 }
             }
@@ -669,7 +646,8 @@
                 const display = getChangeDisplay(calcChangePct(currentValue, previousValue));
                 setText(rateId, display.text);
                 setClass(rateId, display.className);
-                setText(valueId, `(${formatNumber(previousValue)})`);
+                const prevFormatted = formatNumber(previousValue);
+                setText(valueId, prevFormatted === '-' ? '(-)' : `(${prevFormatted})`);
             }
 
             function updateCard(prefix) {
@@ -693,17 +671,15 @@
                 setText(`${prefix}-rtp-current`, formatRtp(getMetric(PERIOD_MAP.current, dimension, 'RTP_Avg')));
                 setText(`${prefix}-rtp-last-week`, formatRtp(getMetric(PERIOD_MAP.previousWeek, dimension, 'RTP_Avg')));
                 setText(`${prefix}-rtp-last-month`, formatRtp(getMetric(PERIOD_MAP.previousMonth, dimension, 'RTP_Avg')));
-                // 當週 RTP 改成字體放大，並使用無顏色的 text-slate-800
                 setClass(`${prefix}-rtp-current`, `text-base font-extrabold text-slate-800`);
             }
 
             function updateHeader() {
-                setText('update-time-text', dashboardData.updateTime || '2026/07/01 14:35:00');
-                setText('record-count-text', formatNumber(dashboardData.recordCount || 45));
-                setText('current-period-text', formatPeriod(dashboardData?.periods?.CurrentWeek || { startDate: "2026-05-29", endDate: "2026-06-04" }));
+                setText('update-time-text', dashboardData.updateTime || '-');
+                setText('record-count-text', formatNumber(dashboardData.recordCount));
+                setText('current-period-text', formatPeriod(dashboardData?.periods?.CurrentWeek));
             }
 
-            // ==================== 進階版數字千分縮寫格式化 (億、萬) ====================
             function formatCompactNumber(value) {
                 const n = toNumber(value);
                 if (n === null) return '-';
@@ -722,7 +698,6 @@
                 return isNegative ? '-' + result : result;
             }
 
-            // ==================== 趨勢折線圖動態渲染與重繪 (雙圖表上下對應) ====================
             let dailyBetChartInstance = null;
             let dailyRecoveryChartInstance = null;
 
@@ -734,22 +709,19 @@
                 const rawList = trendData[gameFilter] || [];
                 const labels = rawList.map(item => item.date);
                 const betData = rawList.map(item => item.bet);
-                // 官方回收量已直接由聚合提供
                 const recoveryData = rawList.map(item => item.recovery || 0);
 
-                // 1. 每日押注量標準線定義
                 const THRESHOLD_MAP = {
                     All: 7000000000,
+                    Fish: 4000000000,
                     Slot: 2000000000,
-                    Fish: 4000000000
+                    Betting: 1000000000
                 };
                 const threshold = THRESHOLD_MAP[gameFilter] || 0;
                 
-                // 低於標準線的柱體使用醒目的黃橘色 (Amber)，高於標準線使用原本的藍色
                 const betBgColors = betData.map(val => val < threshold ? 'rgba(245, 158, 11, 0.85)' : 'rgba(59, 130, 246, 0.85)');
                 const betBorderColors = betData.map(val => val < threshold ? 'rgb(245, 158, 11)' : 'rgb(59, 130, 246)');
 
-                // 1. 每日押注量直方圖 (Bar Chart)
                 if (dailyBetChartInstance) {
                     dailyBetChartInstance.data.labels = labels;
                     dailyBetChartInstance.data.datasets[0].data = betData;
@@ -782,15 +754,14 @@
                                     const y = yAxis.getPixelForValue(thresholdVal);
                                     ctx.save();
                                     ctx.beginPath();
-                                    ctx.strokeStyle = 'rgba(71, 85, 105, 0.8)'; // 深炭灰虛線 (Slate 600)，防與柱體融為一體
+                                    ctx.strokeStyle = 'rgba(71, 85, 105, 0.8)';
                                     ctx.lineWidth = 1.5;
                                     ctx.setLineDash([5, 3]);
                                     ctx.moveTo(xAxis.left, y);
                                     ctx.lineTo(xAxis.right, y);
                                     ctx.stroke();
                                     
-                                    // 繪製標準線文字標籤
-                                    ctx.fillStyle = 'rgba(71, 85, 105, 1)'; // 深炭灰字體 (Slate 600)
+                                    ctx.fillStyle = 'rgba(71, 85, 105, 1)';
                                     ctx.font = 'bold 10px sans-serif';
                                     ctx.textAlign = 'right';
                                     const thresholdText = 'Threshold=' + Math.round(thresholdVal / 1e8) + '億';
@@ -869,7 +840,6 @@
                     });
                 }
 
-                // 2. 每日官方回收量直方圖 (Bar Chart) - 綠色代表正回收，紅色代表負回收
                 const dynamicBgColors = recoveryData.map(val => val >= 0 ? 'rgba(16, 185, 129, 0.85)' : 'rgba(239, 68, 68, 0.85)');
                 const dynamicBorderColors = recoveryData.map(val => val >= 0 ? 'rgb(16, 185, 129)' : 'rgb(239, 68, 68)');
 
@@ -965,14 +935,12 @@
             let activeFilter = 'All';
             let activeWeek = '';
 
-            // ==================== 週次切換篩選器動態生成 ====================
             function populateWeekFilter() {
                 const select = byId('filter-week');
                 if (!select) return;
                 
                 const weeksData = topPlayers[activeFilter] || {};
                 
-                // 週次排序輔助函數：提取週次名稱中的日期作為排序依據 (由新到舊)
                 function getSortValue(weekName) {
                     const match = weekName.match(/(\d{2})[/\-](\d{2})/);
                     if (match) {
@@ -981,14 +949,18 @@
                     return 0;
                 }
                 
-                // 按週次新舊排序：最新週次排最上方，最舊排最下方
                 const weekKeys = Object.keys(weeksData).sort((a, b) => getSortValue(b) - getSortValue(a));
                 
+                if (weekKeys.length === 0) {
+                    select.innerHTML = '<option value="">無週次數據</option>';
+                    activeWeek = '';
+                    return;
+                }
+
                 let html = '';
                 weekKeys.forEach((weekName, idx) => {
                     const match = weekName.match(/\(([^)]+)\)/);
                     let dateRange = match ? match[1] : weekName;
-                    // 將日期區間的 '-' 替換為 '~'，符合 '05/29~06/04'
                     dateRange = dateRange.replace('-', '~');
                     const selected = idx === 0 ? 'selected' : '';
                     html += `<option value="${weekName}" ${selected}>${dateRange}</option>`;
@@ -1000,7 +972,6 @@
                 }
             }
 
-            // ==================== 每週 Top 5 玩家字卡動態生成 (單週垂直排列) ====================
             function renderTopPlayers() {
                 const container = byId('top-players-list');
                 if (!container) return;
@@ -1029,7 +1000,6 @@
                         rankBadgeStyle = 'bg-amber-700/10 text-amber-800/80 font-bold';
                     }
 
-                    // 官方回收量已直接由聚合提供，不需以 totalWin 逆算
                     const houseRecovery = player.recovery || 0;
 
                     const formattedBet = formatCompactNumber(player.totalBet);
@@ -1040,7 +1010,6 @@
 
                     html += `
                         <div class="bg-white rounded-xl p-3 border ${cardBorderClass} shadow-sm transition-all duration-200 hover:shadow flex items-center justify-between gap-3">
-                            <!-- 左側：名次標記與 NickName, UserID (上下排列，Nickname加粗，UID在前置字樣下不加粗) -->
                             <div class="flex items-center gap-2.5 min-w-0">
                                 <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold ${rankBadgeStyle} shrink-0">
                                     ${player.rank}
@@ -1050,7 +1019,6 @@
                                     <span class="text-slate-450 truncate mt-0.5">UID: ${player.userId}</span>
                                 </div>
                             </div>
-                            <!-- 右側：Bet / RTP / Return (單行水平排列，斜線分隔，對調RTP與回收順元) -->
                             <div class="text-xs font-bold text-slate-700 shrink-0 font-mono">
                                 <span class="text-slate-850">${formattedBet}</span>
                                 <span class="text-slate-300 mx-1">/</span>
@@ -1065,53 +1033,58 @@
                 container.innerHTML = html;
             }
 
-            // ==================== 篩選切換邏輯與 CSS 樣式控制 ====================
             window.setGameFilter = function(filter) {
                 activeFilter = filter;
                 
-                // 更新按鈕狀態
                 const btnAll = byId('filter-all');
-                const btnSlot = byId('filter-slot');
                 const btnFish = byId('filter-fish');
+                const btnSlot = byId('filter-slot');
+                const btnBetting = byId('filter-betting');
                 
-                const activeStyle = 'bg-white text-blue-600 shadow-sm border border-slate-200/50';
+                const activeStyles = {
+                    All: 'bg-white text-slate-700 shadow-sm border border-slate-200/50',
+                    Fish: 'bg-white text-sky-600 shadow-sm border border-sky-200/50',
+                    Slot: 'bg-white text-amber-600 shadow-sm border border-amber-200/50',
+                    Betting: 'bg-white text-teal-600 shadow-sm border border-teal-200/50'
+                };
                 const inactiveStyle = 'text-slate-600 hover:text-slate-900 border border-transparent';
                 
                 const btns = [
                     { element: btnAll, key: 'All' },
+                    { element: btnFish, key: 'Fish' },
                     { element: btnSlot, key: 'Slot' },
-                    { element: btnFish, key: 'Fish' }
+                    { element: btnBetting, key: 'Betting' }
                 ];
                 
                 btns.forEach(item => {
                     if (item.element) {
                         if (item.key === filter) {
-                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${activeStyle}`;
+                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1 ${activeStyles[filter]}`;
                         } else {
-                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${inactiveStyle}`;
+                            item.element.className = `flex-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1 ${inactiveStyle}`;
                         }
                     }
                 });
 
-                // 更新玩家字卡區域的動態分類標籤與配色 (與 KPI 區塊呼應，文字大小為 text-xs 與篩選器一致)
                 const categoryLabel = byId('player-card-category-label');
                 if (categoryLabel) {
                     if (filter === 'All') {
                         categoryLabel.textContent = '整體';
-                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600 tracking-wider';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600 tracking-wider';
+                    } else if (filter === 'Fish') {
+                        categoryLabel.textContent = '魚機';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-600 tracking-wider';
                     } else if (filter === 'Slot') {
                         categoryLabel.textContent = '虎機';
                         categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-600 tracking-wider';
-                    } else if (filter === 'Fish') {
-                        categoryLabel.textContent = '魚機';
-                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-cyan-50 text-cyan-600 tracking-wider';
+                    } else if (filter === 'Betting') {
+                        categoryLabel.textContent = '押分機';
+                        categoryLabel.className = 'text-xs font-bold px-2 py-0.5 rounded bg-teal-50 text-teal-600 tracking-wider';
                     }
                 }
 
-                // 更新趨勢圖
                 renderTrendChart(filter);
                 
-                // 重新載入週次下拉選單，並儘量保留先前的選取狀態
                 const previousWeek = activeWeek;
                 populateWeekFilter();
                 
@@ -1124,7 +1097,6 @@
                     }
                 }
                 
-                // 重新渲染玩家列表
                 renderTopPlayers();
             };
 
@@ -1133,18 +1105,13 @@
                 renderTopPlayers();
             };
 
-            // ==================== 初始化執行 ====================
+            // 初始化執行
             updateHeader();
-            ['overall', 'slot', 'fish'].forEach(updateCard);
-
-            // 初始化週次篩選下拉選單與選取最新週
+            ['overall', 'fish', 'slot', 'betting'].forEach(updateCard);
             populateWeekFilter();
-
-            // 預設篩選「全部遊戲」，觸發圖表與玩家列表渲染
             window.setGameFilter('All');
-
         })();
-    </script>
+</script>
 </body>
 
 </html>
